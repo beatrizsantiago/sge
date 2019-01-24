@@ -1,0 +1,43 @@
+<header class="header">
+    <h1>Cadastre-se no SGE!</h1>
+    <p>Faça o seu cadastro e tenha acesso ao melhor meio de organização dos seus eventos.</p>
+</header>
+
+<main class="form-align">
+    
+    <form action="/cadastrar" method="post" class="form-register">
+    <?php if($this->view->erroCadastro) { ?>
+        <div class="msg-box msg-error">
+            <small class="text-error"><strong>Erro ao tentar realizar o cadastro!</strong> Verifique se os campos foram preenchidos corretamente. </small>
+        </div>
+    <?php } ?>
+        <div class="input-grande">
+            <span>Nome</span>
+            <input type="text" name="nome" class="input-radius"/>
+        </div>
+        <div class="input-medio">
+            <label>Instituição de Ensino</label>
+            <input type="text" name="instituicao" class="input-radius"/>
+        </div>
+        <div class="input-medio">
+            <label>Curso</label>
+            <input type="text" name="curso" class="input-radius">
+        </div>
+        <div class="input-grande">
+            <label>E-mail</label>
+            <input type="text" name="login" class="input-radius">
+        </div>
+        <div class="input-medio">
+            <label>Senha</label>
+            <input type="text" name="senha" class="input-radius">
+        </div>
+        <div class="input-medio">
+            <label>Confirmar Senha</label>
+            <input type="text" name="confirmaSenha" class="input-radius">
+        </div>
+        <div class="input-grande">
+            <button type="submit" class="btn-register btn-right">Cadastrar</button>
+            <a href="/" class="btn-link btn-confirm btn-right">Voltar</a>
+        </div>
+    </form>
+</main>

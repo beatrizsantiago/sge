@@ -1,0 +1,20 @@
+{
+    "name": "sge",
+    "require": {
+        "php": ">=7.0",
+        "phpmailer/phpmailer": "^6.0",
+        "dompdf/dompdf": "^0.8.3"
+    },
+    "authors": [
+        {
+            "name": "Beatriz Santiago",
+            "email": "beatrizsantiago1999@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "MF\\": "vendor/MF/"
+        }
+    }
+}
