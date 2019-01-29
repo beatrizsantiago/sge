@@ -7,6 +7,7 @@
 
     class IndexController extends Action {
         public function index() {
+            $this->view->login = isset($_GET['login']) ? $_GET['login'] : '';
             $this->render('index');
         }
 
@@ -23,8 +24,10 @@
         }
 
         public function cadastrar() {
+
             $usuario = Container::getModel('Usuario');
             $usuario->__set('nome', $_POST['nome']);
+            $usuario->__set('apelido', explode(" ", $_POST['nome'])[0]);
             $usuario->__set('instituicao', $_POST['instituicao']);
             $usuario->__set('curso', $_POST['curso']);
             $usuario->__set('login', $_POST['login']);
