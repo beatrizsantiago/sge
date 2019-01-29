@@ -1,5 +1,45 @@
 :root {
     --sombra-box: 0px 0px 30px rgba(0, 0, 0, 0.1);
+    --cor-sge: #41b9ff;
+}
+
+.grid-base {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas: "menu content";
+    height: 100vh;
+}
+
+aside.menu-lateral {
+    grid-area: menu;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: var(--cor-sge);
+}
+
+.menu a {
+    display: block;
+    padding: 15px 10px;
+    margin: 15px 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+}
+
+.menu a:hover {
+    background-color: teal;
+    color: #fff;
+}
+
+.content {
+    grid-area: content;
 }
 
 body {
@@ -23,7 +63,7 @@ label {
     margin-top: 40px;
 }
 
-input {
+input, select, textarea {
     width: 100%;
     margin-top: 10px;   
 }
@@ -39,6 +79,28 @@ button, .btn-link {
     text-decoration: none;
 }
 
+.form-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-register {
+    position: relative;
+    width: 700px;
+    padding: 30px;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: var(--sombra-box);
+}
+
+.space-top {
+    position: relative;
+    top: 40px;
+}
+
 .input-grande {
     width: 99%;
     display: block;
@@ -49,6 +111,11 @@ button, .btn-link {
     display: inline-block;
 }
 
+.input-pequeno {
+    width: 32%;
+    display: inline-block;
+}
+
 .input-radius {
     box-sizing: border-box;
     padding: 7px 5px;
@@ -56,11 +123,9 @@ button, .btn-link {
     border-radius: 7px;
 }
 
-.form-align {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.center-align {
+    line-height: 0px;
+    text-align: center;
 }
 
 .btn-right {
@@ -73,6 +138,11 @@ button, .btn-link {
     justify-content: center;
 }
 
+.btn-register-full {
+    background-color: #00a100;
+    color: #fff;
+}
+
 .btn-register {
     color: #00a100;
     border: solid 1px #00a100;
@@ -80,6 +150,11 @@ button, .btn-link {
 
 .btn-register:hover {
     background-color: #00a100;
+    color: #fff;
+}
+
+.btn-confirm-full {
+    background-color: #00a7bd;
     color: #fff;
 }
 
@@ -93,11 +168,41 @@ button, .btn-link {
     color: #fff;
 }
 
+.btn-warning-full {
+    background-color: #ffc400;
+    color: #fff;
+}
+
+.btn-warning {
+    color: #ffc400;
+    border: solid 1px #ffc400;
+}
+
+.btn-warning:hover {
+    background-color: #ffc400;
+    color: #fff;
+}
+
+.btn-danger-full {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.btn-danger {
+    color: #ff0000;
+    border: solid 1px #ff0000;
+}
+
+.btn-danger:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
 .msg-box {
     width: 100%;
     text-align: center;
     padding: 15px;
-    margin-bottom: 10px;
+    margin: 10px 0px;
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -116,4 +221,15 @@ button, .btn-link {
 
 .text-error {
     color: #860000;
+}
+
+.img-perfil {
+    width: 120px;
+    border-radius: 50%;
+}
+
+.apelido {
+    color: #002636;
+    font-size: 20px;
+    text-align: center;
 }

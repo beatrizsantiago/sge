@@ -1,0 +1,31 @@
+<?php
+
+    require_once '../App/ValidaLogin.php';
+
+?>
+
+<div class="form-align">
+    <form action="/cadastrar_responsavel_geral" method="post" class="form-register space-top">
+        <h1 class="center-align">Cadastrar Responsável Geral</h1>
+        <div class="input-grande">
+            <label>E-mail do Usuário</label>
+            <input type="text" name="login" class="input-radius">
+        </div>
+        <div class="input-grande btn-align-center">
+            <button type="submit" class="btn-register">Adicionar Responsável</button>
+        </div>
+    </form>
+    <div class="lista space-top">
+        <h1>Responsável Geral</h1>
+        <hr>
+        <?php foreach($this->view->responsavel_geral as $item) {?>
+            <form action="/remover_responsavel_geral" method="post" class="item-lista">
+                <div class="item-nome"><?= $item['nome'] ?></div>
+                <div class="item-email"><?= $item['login'] ?></div>
+                <div class="item-button">
+                    <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full">Remover</button>
+                </div>
+            </form>
+        <?php } ?>
+    </div>
+</div>
