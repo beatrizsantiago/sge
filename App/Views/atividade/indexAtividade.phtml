@@ -1,0 +1,74 @@
+<?php
+
+    require_once '../App/ValidaLogin.php';
+
+?>
+<section class="grid-base">
+    <aside class="menu-lateral">
+        <div class="form-align">
+            <h1>Logo SGE</h1>
+            <img src="./img/user.png" alt="user" class="img-perfil">
+            <h1 class="apelido">Beatriz Santiago</h1>
+        </div>
+        <nav class="menu">
+            <a href="/index_evento">Meus Eventos</a>
+            <a href="/index_atividade">Atividade</a>
+            <a onclick="requisitarPagina('/criar_atividade')">Criar Atividade</a>
+            <a onclick="requisitarPagina('/responsavel_atividade')">Responsável Atividade</a>
+            <a>Gerar Relatório</a>
+            <a href="/sair">Sair</a>
+        </nav>
+    </aside>
+    <main class="content" id="content">
+    <h1 class="title-atividades">Atividades de Evento</h1>
+        <hr>
+        <section class="cards-blocks">
+            <?php foreach($this->view->atividades as $atividade) { ?>
+                <form action="/acao_atividade" method="post" class="card-atividade">
+
+                    <div class="card-img-atividade">
+                        <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
+                    </div>
+
+                    <div class="body-card-atividade">
+                        <h1><?= $atividade['tipo'] ?></h1>
+                        <div class="div-grande">Tema: <strong><?= $atividade['tema'] ?></strong></div>
+                        <div class="div-grande">Palestrante <strong><?= $atividade['palestrante'] ?></strong></div>
+                        <div class="div-grande">Responsável: <strong><?= $atividade['nome'] ?></strong></div>
+
+                        <div class="div-grande">
+                            <div class="div-media">Local: <strong><?= $atividade['local'] ?></strong></div>
+                            <div class="div-pequena">Pontos Pex: <strong><?= $atividade['pontospex'] ?></strong></div>
+                        </div>
+
+                        <div class="div-grande">
+                            <div class="div-pequena">Data: <strong><?= $atividade['data'] ?></strong></div>
+                            <div class="div-pequena">Hora: <strong><?= $atividade['hora'] ?>h</strong></div>
+                            <div class="div-pequena">Duração: <strong><?= $atividade['duracao'] ?>h</strong></div>
+                        </div>
+
+                        <div class="div-grande">
+                            <div class="div-pequena">Total de Vagas: <strong><?= $atividade['vagasmaximas'] ?></strong></div>
+                            <div class="div-pequena">Vagas Mínimas: <strong><?= $atividade['vagasminimas'] ?></strong></div>
+                            <div class="div-pequena">Inscritos: <strong>00</strong></div>
+                        </div>
+
+                        <?php if($atividade['descricao'] != '') { ?>
+                            <p class="p-descricao"><?= $atividade['descricao'] ?></p>
+                        <?php } else { ?>
+                            <br/>
+                        <?php } ?>
+
+                        <div class="btn-card-atividade">
+                            <button type="submit" name="cancelar" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar</button>
+                            <button type="submit" name="alterar" value="<?= $atividade['id'] ?>" class="btn-warning-full">Alterar</button>
+                            <button type="submit" name="participantes" value="<?= $atividade['id'] ?>" class="btn-confirm-full">Participantes</button>
+                            <button type="submit" name="definirOrganizacao" value="<?= $atividade['id'] ?>" class="btn-register-full">Definir Organização</button>
+                        </div>
+                    </div>
+
+                </form>
+            <?php } ?>
+        </section>
+    </main>
+</section>

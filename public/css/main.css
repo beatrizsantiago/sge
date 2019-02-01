@@ -52,6 +52,7 @@ span, label, input {
     display: block;
     outline: none; 
     font-size: 15px; 
+    text-align: left;
 }
 
 label, span {
@@ -77,6 +78,7 @@ button, .btn-link {
     font-size: 13px;
     font-weight: 700;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .form-align {
@@ -106,17 +108,35 @@ button, .btn-link {
     display: block;
 }
 
+.input-quase-grande {
+    width: 66%;
+    display: inline-block;
+}
+
 .input-medio {
     width: 49%;
     display: inline-block;
 }
 
 .input-pequeno {
-    width: 32%;
+    width: 32.2%;
+    display: inline-block;
+}
+
+.input-extra-pequeno {
+    width: 24.2%;
     display: inline-block;
 }
 
 .input-radius {
+    box-sizing: border-box;
+    padding: 7px 5px;
+    border: solid 2px #cecece;
+    border-radius: 7px;
+    height: 40px;
+}
+
+.radius-textarea {
     box-sizing: border-box;
     padding: 7px 5px;
     border: solid 2px #cecece;

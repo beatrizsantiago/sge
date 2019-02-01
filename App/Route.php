@@ -79,6 +79,54 @@
                 'action' => 'removerResponsavelGeral'
             ];
 
+            $routes['indexAtividade'] = [
+                'route' => '/index_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'indexAtividade'
+            ];
+
+            $routes['atividadesEvento'] = [
+                'route' => '/atividades_evento',
+                'controller' => 'AtividadeController',
+                'action' => 'atividadesEvento'
+            ];
+
+            $routes['criarAtividade'] = [
+                'route' => '/criar_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'criarAtividade'
+            ];
+
+            $routes['cadastrarAtividade'] = [
+                'route' => '/cadastrar_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'cadastrarAtividade'
+            ];
+
+            $routes['acaoAtividade'] = [
+                'route' => '/acao_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'acaoAtividade'
+            ];
+
+            $routes['responsavelAtividade'] = [
+                'route' => '/responsavel_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'responsavelAtividade'
+            ];
+
+            $routes['cadastrarResponsavelAtividade'] = [
+                'route' => '/cadastrar_responsavel_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'cadastrarResponsavelAtividade'
+            ];
+
+            $routes['removerResponsavelAtividade'] = [
+                'route' => '/remover_responsavel_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'removerResponsavelAtividade'
+            ];
+
             $this->setRoutes($routes);
         }
 

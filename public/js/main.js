@@ -9,7 +9,7 @@ function requisitarPagina(url) {
         if(ajax.readyState == 4 && ajax.status == 200) {
             document.getElementById('content').innerHTML = ajax.responseText;
         }
-    } 
+    }
 
     ajax.send();    
 }
