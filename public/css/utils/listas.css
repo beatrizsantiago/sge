@@ -1,0 +1,24 @@
+.lista {
+    width: 90%;
+}
+
+.item-lista {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #e7e7e7;
+    box-sizing: border-box;
+}
+
+.item-medio {
+    width: 45%;
+    padding: 0px 10px;
+}
+
+.item-button {
+    width: 10%;
+}

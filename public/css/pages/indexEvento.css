@@ -1,0 +1,49 @@
+.card-evento {
+    width: 540px;
+    height: 270px;
+}
+
+.card-img-evento {
+    width: 38%;
+    height: inherit;
+}
+
+.card-img-evento img {
+    position: relative;
+    height: 100%;
+}
+
+.body-card-evento {
+    width: 62%;
+    height: inherit;
+}
+
+.body-card-evento h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50px;
+    margin: 0px 0px 5px 0px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.body-card-evento div {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: justify;
+}
+
+.body-card-evento p {
+    height: 60px;
+    font-size: 15px;
+    text-align: justify;
+    margin-top: 8px;
+}
+
+.btn-card-evento button {
+    padding: 8px 12px;
+}

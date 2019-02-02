@@ -1,75 +1,82 @@
 <?php
 
     require_once '../App/ValidaLogin.php';
+    require_once '../App/Views/adm/menuEvento.phtml';
 
 ?>
 
-<div class="form-align">
-    <form action="/cadastrar_evento" method="post" class="form-register space-top">
-        <div class="input-grande">
-            <span>Nome</span>
-            <input type="text" name="titulo" maxlength="50" class="input-radius">
-        </div>
-        <div class="input-medio">
-            <label>Local</label>
-            <input type="text" name="local" maxlength="50" class="input-radius">
-        </div>
-        <div class="input-medio">
-            <!--div class="input-medio"-->
-                <label>Responsável Geral</label>
-                <select class="input-radius" name="responsavelGeral">
-                    <option value="">Selecione</option>
-                    <?php foreach($this->view->responsavel_geral as $responsavel_geral) { ?>
-                        <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
-                    <?php } ?>
-                </select>
-            <!--/div>
+<section class="grid-base">
+    <main class="content">
+
+    <div class="form-align">
+        <form action="/cadastrar_evento" method="post" class="form-register space-top">
+            <div class="input-grande">
+                <span>Nome</span>
+                <input type="text" name="titulo" maxlength="50" class="input-radius">
+            </div>
             <div class="input-medio">
-                <a class="btn-link btn-warning btn-right">Responsável</a>
-            </div-->
-        </div>
-        <div class="input-medio">
-            <div class="input-pequeno">
-                <label>Dia</label>
-                <input type="text" name="diaInicio" class="input-radius">
+                <label>Local</label>
+                <input type="text" name="local" maxlength="50" class="input-radius">
             </div>
-            <div class="input-pequeno">
-                <label>Mês</label>
-                <select name="mesInicio" class="input-radius">
-                    <option value="">Selecione</option>
-                    <option value="01">Janeiro</option>
-                    <option value="02">Fevereiro</option>
-                    <option value="03">Marco</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Maio</option>
-                    <option value="06">Junho</option>
-                    <option value="07">Julho</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Setembro</option>
-                    <option value="10">Outubro</option>
-                    <option value="11">Novembro</option>
-                    <option value="12">Dezembro</option>
-                </select>
+            <div class="input-medio">
+                <!--div class="input-medio"-->
+                    <label>Responsável Geral</label>
+                    <select class="input-radius" name="responsavelGeral">
+                        <option value="">Selecione</option>
+                        <?php foreach($this->view->responsavel_geral as $responsavel_geral) { ?>
+                            <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
+                        <?php } ?>
+                    </select>
+                <!--/div>
+                <div class="input-medio">
+                    <a class="btn-link btn-warning btn-right">Responsável</a>
+                </div-->
             </div>
-            <div class="input-pequeno">
-                <label>Ano</label>
-                <input type="text" name="anoInicio" class="input-radius">
+            <div class="input-medio">
+                <div class="input-pequeno">
+                    <label>Dia</label>
+                    <input type="text" name="diaInicio" class="input-radius">
+                </div>
+                <div class="input-pequeno">
+                    <label>Mês</label>
+                    <select name="mesInicio" class="input-radius">
+                        <option value="">Selecione</option>
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Marco</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <div class="input-pequeno">
+                    <label>Ano</label>
+                    <input type="text" name="anoInicio" class="input-radius">
+                </div>
             </div>
-        </div>
-        <div class="input-medio">
-            <label>Data de Término</label>
-            <input type="text" name="dataFim" class="input-radius">
-        </div>
-        <div class="input-medio">
-            <label>Descrição</label>
-            <textarea name="descricao" class="input-radius" rows="5" maxlength="140"></textarea>
-        </div>
-        <!--div class="input-medio">
-            <label>Imagem/logo</label>
-            <input type="file" name="imgEvento">
-        </div-->
-        <div class="input-grande">
-            <button type="submit" class="btn-register btn-right">Adicionar Evento</button>
-        </div>
-    </form>
-</div>
+            <div class="input-medio">
+                <label>Data de Término</label>
+                <input type="text" name="dataFim" class="input-radius">
+            </div>
+            <div class="input-medio">
+                <label>Descrição</label>
+                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"></textarea>
+            </div>
+            <div class="input-medio">
+                <label>Imagem/logo</label>
+                <input type="file" name="imgEvento">
+            </div>
+            <div class="input-grande">
+                <button type="submit" class="btn-register btn-right btn-space-top">Adicionar Evento</button>
+            </div>
+        </form>
+    </div>
+
+    </main>
+</section>

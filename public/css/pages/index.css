@@ -44,8 +44,3 @@
     border-bottom: solid 2px #b3b3b3;
     box-sizing: border-box;
 }
-
-.btn-login {
-    display: flex;
-    justify-content: center;
-}

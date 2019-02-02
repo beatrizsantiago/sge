@@ -1,52 +1,21 @@
-.title-atividades {
-    text-align: center;
-}
-
-.content hr {
-    width: 80%;
-}
-
-.cards-blocks {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .card-atividade {
     width: 90%;
     height: 300px;
-    display: flex;
-    align-items: center;
-    margin: 10px 0px;
-    background-color: #fff;
-    box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: var(--sombra-box);
-    overflow: hidden;
 }
 
 .card-img-atividade {
     width: 30%;
     height: inherit;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
 }
 
 .card-img-atividade img {
     position: relative;
-    height: 100%;
     width: 100%;
 }
 
 .body-card-atividade {
     width: 70%;
     height: inherit;
-    padding: 20px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .body-card-atividade div {
@@ -71,32 +40,22 @@
 }
 
 .body-card-atividade h1 {
-    height: 30px;
-    margin: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 30px;
+    margin: 0px;
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.body-card-atividade .p-descricao {
+.body-card-atividade p {
     height: 40px;
+    margin-top: 8px;
     padding-top: 5px;
     font-size: 15px;
     text-align: justify;
-    margin-top: 8px;
     border-top: 1px solid #b8b8b8;
     box-sizing: border-box;
-}
-
-.btn-card-atividade {
-    display: flex;
-    justify-content: space-around;
-}
-
-.btn-card-atividade button {
-    margin: 0px;
-    border: none;
 }

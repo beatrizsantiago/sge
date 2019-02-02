@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-block {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: var(--sombra-box);
+    overflow: hidden;
+}
+
+.card-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.body-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.btn-card {
+    display: flex;
+    justify-content: space-between;
+}
