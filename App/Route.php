@@ -13,15 +13,15 @@
                 'action' => 'index'
             ];
 
-            $routes['cadastroUsuario'] = [
-                'route' => '/cadastro_usuario',
-                'controller' => 'IndexController',
-                'action' => 'cadastroUsuario'
+            $routes['cadastroParticipante'] = [
+                'route' => '/cadastro_participante',
+                'controller' => 'ParticipanteController',
+                'action' => 'cadastroParticipante'
             ];
 
             $routes['cadastrar'] = [
                 'route' => '/cadastrar',
-                'controller' => 'IndexController',
+                'controller' => 'ParticipanteController',
                 'action' => 'cadastrar'
             ];
 
@@ -39,43 +39,43 @@
 
             $routes['indexEvento'] = [
                 'route' => '/index_evento',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'indexEvento'
             ];
 
             $routes['criarEvento'] = [
                 'route' => '/criar_evento',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'criarEvento'
             ];
 
             $routes['cadastrarEvento'] = [
                 'route' => '/cadastrar_evento',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'cadastrarEvento'
             ];
 
             $routes['acaoEvento'] = [
                 'route' => '/acao_evento',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'acaoEvento'
             ];
             
             $routes['responsavelGeral'] = [
                 'route' => '/responsavel_geral',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'responsavelGeral'
             ];
 
             $routes['cadastrarResponsavelGeral'] = [
                 'route' => '/cadastrar_responsavel_geral',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'cadastrarResponsavelGeral'
             ];
 
             $routes['removerResponsavelGeral'] = [
                 'route' => '/remover_responsavel_geral',
-                'controller' => 'AdmController',
+                'controller' => 'EventoController',
                 'action' => 'removerResponsavelGeral'
             ];
 

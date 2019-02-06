@@ -5,7 +5,7 @@
     use MF\Controller\Action;
     use MF\Model\Container;
 
-    class AdmController extends Action {
+    class EventoController extends Action {
         public function indexEvento() {
             $listaEvento = Container::getModel('Evento');
             $this->view->eventos = $listaEvento->listarEventos();

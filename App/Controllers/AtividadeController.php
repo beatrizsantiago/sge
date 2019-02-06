@@ -38,9 +38,7 @@
 
             $atividade->adicionarAtividade();
 
-            print_r($_POST);
-
-            //header('location: /index_atividade');
+            header('location: /index_atividade');
         }
 
         public function acaoAtividade() {
