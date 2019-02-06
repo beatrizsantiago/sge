@@ -7,13 +7,13 @@
 }
 
 .menu a {
-    display: block;
-    padding: 15px 10px;
-    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 12px 0;
     border-radius: 5px;
     text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     color: #fff;
     box-sizing: border-box;
@@ -21,8 +21,20 @@
 }
 
 .menu a:hover {
-    background-color: #008080;
+    background-color: #005252;
     color: #fff;
+}
+
+.menu a img {
+    width: 30px;
+    margin-right: 12px;
+}
+
+.sair {
+    position: absolute;
+    background-color: #005252;
+    bottom: 0px;
+    width: 90%;
 }
 
 .img-perfil {
