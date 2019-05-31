@@ -1,0 +1,19 @@
+{
+  "name": "sge",
+  "version": "1.0.0",
+  "description": "Sistema de Gerenciamento de Eventos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beatrizsantiago/sge.git"
+  },
+  "keywords": [],
+  "author": "Beatriz Santiago",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beatrizsantiago/sge/issues"
+  }
+}
