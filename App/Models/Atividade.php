@@ -6,7 +6,7 @@
 
     class Atividade extends Model {
         private $id;
-        private $eventoID = 3;
+        private $eventoID = 1;
         private $tema;
         private $tipo;
         private $vagasMinimas;
@@ -31,8 +31,8 @@
 
         public function adicionarAtividade() {
             $query = "
-                insert into atividade(eventoID, tema, tipo, vagasminimas, vagasmaximas, respAtividadeID, data, hora, duracao, local, pontospex, palestrante, cancelada, descricao) 
-                values (:eventoID, :tema, :tipo, :vagasminimas, :vagasmaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontospex, :palestrante, :cancelada, :descricao)
+                insert into atividade(eventoID, tema, tipo, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
+                values (:eventoID, :tema, :tipo, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
             ";
 
             $stmt = $this->db->prepare($query);
@@ -40,14 +40,14 @@
             $stmt->bindValue(':eventoID', $this->__get('eventoID'));
             $stmt->bindValue(':tema', $this->__get('tema'));
             $stmt->bindValue(':tipo', $this->__get('tipo'));
-            $stmt->bindValue(':vagasminimas', $this->__get('vagasMinimas'));
-            $stmt->bindValue(':vagasmaximas', $this->__get('vagasMaximas'));
+            $stmt->bindValue(':vagasMinimas', $this->__get('vagasMinimas'));
+            $stmt->bindValue(':vagasMaximas', $this->__get('vagasMaximas'));
             $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
             $stmt->bindValue(':data', $this->__get('data'));
             $stmt->bindValue(':hora', $this->__get('hora'));
             $stmt->bindValue(':duracao', $this->__get('duracao'));
             $stmt->bindValue(':local', $this->__get('local'));
-            $stmt->bindValue(':pontospex', $this->__get('pontosPex'));
+            $stmt->bindValue(':pontosPex', $this->__get('pontosPex'));
             $stmt->bindValue(':palestrante', $this->__get('palestrante'));
             $stmt->bindValue(':cancelada', $this->__get('cancelada'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
@@ -58,7 +58,7 @@
 
         public function listarAtividades() {
             $query = "
-                select a.id, a.eventoID, a.tema, a.tipo, a.vagasminimas, a.vagasmaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontospex, a.palestrante, a.descricao, p.nome 
+                select a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.descricao, p.nome 
                 from atividade as a, participante as p, responsavelatividade as ra 
                 where p.usuarioID = ra.usuarioID and a.respAtividadeID = ra.id 
                 order by a.data;
