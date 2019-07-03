@@ -14,7 +14,7 @@
         }
 
         public function criarEvento() {
-            $responsavelGeral = Container::getModel('responsavelGeral');
+            $responsavelGeral = Container::getModel('ResponsavelGeral');
             $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
 
             $this->render('criarEvento');
@@ -25,7 +25,7 @@
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
-            $cadastrarEvento->__set('respGeralId', $_POST['responsavelGeral']);
+            $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
             $cadastrarEvento->__set('diaInicio', $_POST['diaInicio']);
             $cadastrarEvento->__set('mesInicio', $_POST['mesInicio']);
             $cadastrarEvento->__set('anoInicio', $_POST['anoInicio']);

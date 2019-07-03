@@ -6,7 +6,8 @@
 
     class Participante extends Usuario {
 
-        private $idUsuario;
+        private $id;
+        private $usuarioID;
         private $nome;
         private $apelido;
         private $instituicao;
@@ -23,8 +24,8 @@
 
         public function criarParticipante() {
             $query = "
-                insert into usuario(login, senha) values (:login, :senha);
-                insert into participante(idUsuario, nome, apelido, instituicao, curso) values (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso);
+                insert into usuario(login, senha, tipoUsuario) values (:login, :senha, :tipoUsuario);
+                insert into participante(usuarioID, nome, apelido, instituicao, curso) values (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso);
             ";
 
             $stmt = $this->db->prepare($query);
@@ -35,6 +36,7 @@
             $stmt->bindValue(':curso', $this->__get('curso'));
             $stmt->bindValue(':login', $this->__get('login'));
             $stmt->bindValue(':senha', $this->__get('senha'));
+            $stmt->bindValue(':tipoUsuario', 'Administrador');
             $stmt->execute();
 
             return $this;

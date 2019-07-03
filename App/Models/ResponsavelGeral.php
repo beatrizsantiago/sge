@@ -35,7 +35,7 @@
             $query = "
                 select rg.id, p.nome, u.login 
                 from responsavelgeral as rg, participante as p, usuario as u
-                where rg.usuarioID = p.idUsuario and u.id = p.idUsuario;
+                where rg.usuarioID = p.usuarioID and u.id = p.usuarioID;
             ";
 
             $stmt = $this->db->prepare($query);

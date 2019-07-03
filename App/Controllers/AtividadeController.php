@@ -22,12 +22,12 @@
 
         public function cadastrarAtividade() {
             $atividade = Container::getModel('Atividade');
-            //$atividade->__set('eventoId', $_GET['id']);
+            //$atividade->__set('eventoID', $_GET['id']);
             $atividade->__set('tema', $_POST['tema']);
             $atividade->__set('tipo', $_POST['tipo']);
             $atividade->__set('vagasMinimas', $_POST['vagasMinimas']);
             $atividade->__set('vagasMaximas', $_POST['vagasMaximas']);
-            $atividade->__set('respAtividadeId', $_POST['responsavelAtividade']);
+            $atividade->__set('respAtividadeID', $_POST['responsavelAtividade']);
             $atividade->__set('data', $_POST['data']);
             $atividade->__set('hora', $_POST['hora']);
             $atividade->__set('duracao', $_POST['duracao']);

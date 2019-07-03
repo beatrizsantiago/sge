@@ -6,8 +6,10 @@
 
     class Usuario extends Model {
 
+        private $id;
         private $login;
         private $senha;
+        private $tipoUsuario;
 
         public function __get($atributo) {
             return $this->$atributo;

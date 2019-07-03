@@ -6,14 +6,15 @@
 
     class Evento extends Model {
         private $id;
-        private $administradorId = 1;
+        private $administradorID = 1;
         private $nome;
         private $local;
-        private $respGeralId;
+        private $respGeralID;
         private $diaInicio;
         private $mesInicio;
         private $anoInicio;    
         private $dataFim;      
+        private $cancelado = 0;
         private $descricao;
         private $imgEvento = './img/evento.jpg';     
         
@@ -27,20 +28,21 @@
 
         public function adicionarEvento() {
             $query = "
-                insert into evento(administradorId, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, descricao, imgEvento) 
-                values (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, STR_TO_DATE(:dataFim, '%d/%m/%Y'), :descricao, :imgEvento);
+                insert into evento(administradorID, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, cancelado, descricao, imgEvento) 
+                values (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, STR_TO_DATE(:dataFim, '%d/%m/%Y'), :cancelado, :descricao, :imgEvento);
             ";
 
             $stmt = $this->db->prepare($query);
 
-            $stmt->bindValue(':administradorId', $this->__get('administradorId'));
+            $stmt->bindValue(':administradorId', $this->__get('administradorID'));
             $stmt->bindValue(':titulo', $this->__get('titulo'));
             $stmt->bindValue(':local', $this->__get('local'));
-            $stmt->bindValue(':respGeralID', $this->__get('respGeralId'));
+            $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
             $stmt->bindValue(':diaInicio', $this->__get('diaInicio'));
             $stmt->bindValue(':mesInicio', $this->__get('mesInicio'));
             $stmt->bindValue(':anoInicio', $this->__get('anoInicio'));
             $stmt->bindValue(':dataFim', $this->__get('dataFim'));
+            $stmt->bindValue(':cancelado', $this->__get('cancelado'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
             $stmt->bindValue(':imgEvento', $this->__get('imgEvento'));
             $stmt->execute();
@@ -52,7 +54,7 @@
             $query = "
                 select e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
                 from evento as e, participante as p, responsavelgeral as rg 
-                where p.idUsuario = rg.usuarioID and e.respGeralID = rg.id 
+                where p.usuarioID = rg.usuarioID and e.respGeralID = rg.id 
                 order by e.mesInicio, e.diaInicio;
             ";
 

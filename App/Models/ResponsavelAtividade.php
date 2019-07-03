@@ -17,7 +17,7 @@
             $this->$atributo = $valor;
         }
 
-        public function criarResponsavelGeral() {
+        public function criarResponsavelAtividade() {
             $query = "
                 insert into responsavelatividade(usuarioID) select id from usuario where login = :login;
             ";
@@ -34,7 +34,7 @@
             $query = "
                 select ra.id, p.nome, u.login 
                 from responsavelatividade as ra, participante as p, usuario as u
-                where ra.usuarioID = p.idUsuario and u.id = p.idUsuario;
+                where ra.usuarioID = p.usuarioID and u.id = p.usuarioID;
             ";
 
             $stmt = $this->db->prepare($query);
