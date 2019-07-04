@@ -8,6 +8,9 @@
     class AtividadeController extends Action {
         public function indexAtividade() {
             $listaAtividade = Container::getModel('Atividade');
+            $eventoID = base64_decode($_GET['id']);
+            echo $eventoID . "<br>";
+            $listaAtividade->__set('eventoID', $eventoID);
             $this->view->atividades = $listaAtividade->listarAtividades();
 
             $this->render('indexAtividade');

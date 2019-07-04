@@ -50,8 +50,8 @@
                 print_r($_POST['alterar']);
             }
             if(isset($_POST['atividades'])) {
-                //print_r($_POST['atividades']);
-                header('Location: /index_atividade');
+                $id = $_POST['atividades'];
+                header('Location: /index_atividade?id=' . base64_encode($id));
             }
                        
         }
