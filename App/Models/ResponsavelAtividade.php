@@ -19,7 +19,7 @@
 
         public function criarResponsavelAtividade() {
             $query = "
-                insert into responsavelatividade(usuarioID) select id from usuario where login = :login;
+                INSERT INTO responsavelatividade(usuarioID) SELECT id FROM usuario WHERE login = :login;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -32,9 +32,9 @@
 
         public function listarResponsavelAtividade() {
             $query = "
-                select ra.id, p.nome, u.login 
-                from responsavelatividade as ra, participante as p, usuario as u
-                where ra.usuarioID = p.usuarioID and u.id = p.usuarioID;
+                SELECT ra.id, p.nome, u.login 
+                FROM responsavelatividade as ra, participante as p, usuario as u
+                WHERE ra.usuarioID = p.usuarioID AND u.id = p.usuarioID;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -45,7 +45,7 @@
 
         public function deletarResponsavelAtividade() {
             $query = "
-                delete from responsavelatividade where id = :id;
+                DELETE FROM responsavelatividade WHERE id = :id;
             ";
 
             $stmt = $this->db->prepare($query);

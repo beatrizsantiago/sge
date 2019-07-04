@@ -20,7 +20,7 @@
 
         public function criarResponsavelGeral() {
             $query = "  
-                insert into responsavelgeral(usuarioID) select id from usuario where login = :login;
+                INSERT INTO responsavelgeral(usuarioID) SELECT id FROM usuario WHERE login = :login;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -33,9 +33,9 @@
 
         public function listarResponsavelGeral() {
             $query = "
-                select rg.id, p.nome, u.login 
-                from responsavelgeral as rg, participante as p, usuario as u
-                where rg.usuarioID = p.usuarioID and u.id = p.usuarioID;
+                SELECT rg.id, p.nome, u.login 
+                FROM responsavelgeral as rg, participante as p, usuario as u
+                WHERE rg.usuarioID = p.usuarioID AND u.id = p.usuarioID;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -46,7 +46,7 @@
 
         public function deletarResponsavelGeral() {
             $query = "
-                delete from responsavelgeral where id = :id;
+                DELETE FROM responsavelgeral WHERE id = :id;
             ";
 
             $stmt = $this->db->prepare($query);

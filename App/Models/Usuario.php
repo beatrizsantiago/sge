@@ -20,7 +20,11 @@
         }
 
         public function autenticar() {
-            $query = "select id, login from usuario where login = :login and senha = :senha";
+            $query = "
+                SELECT id, login 
+                FROM usuario 
+                WHERE login = :login AND senha = :senha
+            ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':login', $this->__get('login'));
             $stmt->bindValue(':senha', $this->__get('senha'));
@@ -37,7 +41,10 @@
         }
 
         public function getUsuarioLogin() {
-            $query = "select login from usuario where login = :login";
+            $query = "
+                SELECT login 
+                FROM usuario 
+                WHERE login = :login";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':login', $this->__get('login'));
             $stmt->execute();

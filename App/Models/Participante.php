@@ -24,8 +24,8 @@
 
         public function criarParticipante() {
             $query = "
-                insert into usuario(login, senha, tipoUsuario) values (:login, :senha, :tipoUsuario);
-                insert into participante(usuarioID, nome, apelido, instituicao, curso) values (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso);
+                INSERT INTO usuario(login, senha, tipoUsuario) VALUES (:login, :senha, :tipoUsuario);
+                INSERT INTO participante(usuarioID, nome, apelido, instituicao, curso) VALUES (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso);
             ";
 
             $stmt = $this->db->prepare($query);

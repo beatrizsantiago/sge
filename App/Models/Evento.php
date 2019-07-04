@@ -28,8 +28,8 @@
 
         public function adicionarEvento() {
             $query = "
-                insert into evento(administradorID, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, cancelado, descricao, imgEvento) 
-                values (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, STR_TO_DATE(:dataFim, '%d/%m/%Y'), :cancelado, :descricao, :imgEvento);
+                INSERT INTO evento(administradorID, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, cancelado, descricao, imgEvento) 
+                VALUES (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, STR_TO_DATE(:dataFim, '%d/%m/%Y'), :cancelado, :descricao, :imgEvento);
             ";
 
             $stmt = $this->db->prepare($query);
@@ -52,10 +52,10 @@
 
         public function listarEventos() {
             $query = "
-                select e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
-                from evento as e, participante as p, responsavelgeral as rg 
-                where p.usuarioID = rg.usuarioID and e.respGeralID = rg.id 
-                order by e.mesInicio, e.diaInicio;
+                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                FROM evento as e, participante as p, responsavelgeral as rg 
+                WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id 
+                ORDER BY e.mesInicio, e.diaInicio;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -66,7 +66,7 @@
 
         public function deletarEvento() {
             $query = "
-                delete from evento where id = :id;
+                DELETE FROM evento WHERE id = :id;
             ";
 
             $stmt = $this->db->prepare($query);

@@ -46,6 +46,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `sge`.`usuario` VALUES (1,'beatriz@email.com','a8f5f167f44f4964e6c998dee827110c','Administrador'),(2,'annie@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelGeral'),(3,'mione@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelAtividade'),(4,'percy@email.com','a8f5f167f44f4964e6c998dee827110c','Participante'),(5,'potter@email.com','a8f5f167f44f4964e6c998dee827110c','Participante');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,33 +78,8 @@ CREATE TABLE `participante` (
 
 LOCK TABLES `participante` WRITE;
 /*!40000 ALTER TABLE `participante` DISABLE KEYS */;
+INSERT INTO `sge`.`participante` VALUES (1,'Annabeth Chase','Acampamento Meio Sangue','Arquitetura','','Annabeth',2),(2,'Hermione Granger','Hogwarts','Transfiguração','','Hermione',3),(3,'Percy Jackson','Acampamento Meio Sangue','Oceanografia','','Percy',4),(4,'Harry Potter','Hogwarts','Quadribol','','Harry',5);
 /*!40000 ALTER TABLE `participante` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `responsavelgeral`
---
-
-DROP TABLE IF EXISTS `sge`.`responsavelgeral`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `responsavelgeral` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuarioID` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `usuarioIdRespGeral` (`usuarioID`),
-  CONSTRAINT `usuarioIdRespGeral` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `responsavelgeral`
---
-
-LOCK TABLES `responsavelgeral` WRITE;
-/*!40000 ALTER TABLE `responsavelgeral` DISABLE KEYS */;
-/*!40000 ALTER TABLE `responsavelgeral` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -129,7 +105,35 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `sge`.`administrador` VALUES (1,1);
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `responsavelgeral`
+--
+
+DROP TABLE IF EXISTS `sge`.`responsavelgeral`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `responsavelgeral` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuarioID` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `usuarioIdRespGeral` (`usuarioID`),
+  CONSTRAINT `usuarioIdRespGeral` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `responsavelgeral`
+--
+
+LOCK TABLES `responsavelgeral` WRITE;
+/*!40000 ALTER TABLE `responsavelgeral` DISABLE KEYS */;
+INSERT INTO `sge`.`responsavelgeral` VALUES (1,2);
+/*!40000 ALTER TABLE `responsavelgeral` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -167,6 +171,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
+INSERT INTO `sge`.`evento` VALUES (1,'Semana Acadêmica da TI',14,10,2019,'2019-10-17','Unifanor|Wyden',0,'Semana cheia de palestras relacionado ao mundo da TI',1,1,'./img/evento.jpg');
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,6 +198,7 @@ CREATE TABLE `responsavelatividade` (
 
 LOCK TABLES `responsavelatividade` WRITE;
 /*!40000 ALTER TABLE `responsavelatividade` DISABLE KEYS */;
+INSERT INTO `sge`.`responsavelatividade` VALUES (1,3);
 /*!40000 ALTER TABLE `responsavelatividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,6 +240,7 @@ CREATE TABLE `atividade` (
 
 LOCK TABLES `atividade` WRITE;
 /*!40000 ALTER TABLE `atividade` DISABLE KEYS */;
+INSERT INTO `sge`.`atividade` VALUES (1,'Palestra','Fazer a Neve Cair com Let It Go','2019-10-15','19:00:00','02:00:00','Auditório 02',20,30,100,0,'',1,1,'Rainha Elsa - Atriz Principal de Frozen');
 /*!40000 ALTER TABLE `atividade` ENABLE KEYS */;
 UNLOCK TABLES;
 

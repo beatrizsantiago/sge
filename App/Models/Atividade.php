@@ -31,8 +31,8 @@
 
         public function adicionarAtividade() {
             $query = "
-                insert into atividade(eventoID, tema, tipo, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
-                values (:eventoID, :tema, :tipo, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
+                INSERT INTO atividade(eventoID, tema, tipo, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
+                VALUES (:eventoID, :tema, :tipo, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
             ";
 
             $stmt = $this->db->prepare($query);
@@ -58,10 +58,10 @@
 
         public function listarAtividades() {
             $query = "
-                select a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.descricao, p.nome 
-                from atividade as a, participante as p, responsavelatividade as ra 
-                where p.usuarioID = ra.usuarioID and a.respAtividadeID = ra.id 
-                order by a.data;
+                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.descricao, p.nome 
+                FROM atividade as a, participante as p, responsavelatividade as ra 
+                WHERE p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id 
+                ORDER BY a.data;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -72,7 +72,7 @@
 
         public function deletarAtividade() {
             $query = "
-                delete from atividade where id = :id;
+                DELETE FROM atividade WHERE id = :id;
             ";
 
             $stmt = $this->db->prepare($query);
