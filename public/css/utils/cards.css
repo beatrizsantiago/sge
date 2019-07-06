@@ -26,11 +26,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 15px;
     overflow: hidden;
 }
 
 .btn-card {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }

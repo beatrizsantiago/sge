@@ -39,21 +39,36 @@
 
         public function acaoEvento() {
 
-            if(isset($_POST['cancelar'])) {
-                $cancelar = Container::getModel('Evento');
-                $cancelar->__set('id', $_POST['cancelar']);
+            if(isset($_POST['excluir'])) {
+                $excluir = Container::getModel('Evento');
+                $excluir->__set('id', $_POST['excluir']);
 
-                $cancelar->deletarEvento();
+                $excluir->deletarEvento();
                 header('Location: /index_evento');
             }
+            
+            if(isset($_POST['cancelar'])) {
+                print_r($_POST['cancelar']);
+            }
+
             if(isset($_POST['alterar'])) {
                 print_r($_POST['alterar']);
+                $id = $_POST['alterar'];
+                header('Location: /alterar_evento?id=' . base64_encode($id));
             }
+
             if(isset($_POST['atividades'])) {
                 $id = $_POST['atividades'];
                 header('Location: /index_atividade?id=' . base64_encode($id));
             }
                        
+        }
+
+        public function alterarEvento() {
+            // $listaEvento = Container::getModel('Evento');
+            // $this->view->eventos = $listaEvento->listarEventos();
+
+            $this->render('alterarEvento');
         }
 
         public function responsavelGeral() {

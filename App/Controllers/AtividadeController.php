@@ -46,15 +46,22 @@
 
         public function acaoAtividade() {
 
-            if(isset($_POST['cancelar'])) {
-                $cancelar = Container::getModel('Atividade');
-                $cancelar->__set('id', $_POST['cancelar']);
+            if(isset($_POST['excluir'])) {
+                $excluir = Container::getModel('Atividade');
+                $excluir->__set('id', $_POST['excluir']);
 
-                $cancelar->deletarAtividade();
+                $excluir->deletarAtividade();
                 header('Location: /index_atividade');
             }
+
+            if(isset($_POST['cancelar'])) {
+                print_r($_POST['cancelar']);
+            }
+
             if(isset($_POST['alterar'])) {
                 print_r($_POST['alterar']);
+                $id = $_POST['alterar'];
+                header('Location: /alterar_atividade?id=' . base64_encode($id));
             }
 
             if(isset($_POST['participantes'])) {
@@ -65,6 +72,13 @@
                 print_r($_POST['definirOrganizacao']);
             }
                        
+        }
+
+        public function alterarAtividade() {
+            // $listaAtividade = Container::getModel('Atividade');
+            // $eventoID = base64_decode($_GET['id']);
+
+            $this->render('alterarAtividade');
         }
 
         public function responsavelAtividade() {

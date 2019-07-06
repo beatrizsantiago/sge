@@ -1,0 +1,93 @@
+<?php
+
+    require_once '../App/ValidaLogin.php';
+
+?>
+
+<section class="grid-base">
+    <aside class="menu-topo">
+        <div class="form-menu">
+            <img src="./img/user.png" alt="user" class="img-perfil">
+            <h1 class="apelido">Beatriz Santiago</h1>
+        </div>
+        <nav class="menu">
+            <div class="div-sair">
+                <a href="/sair" class="sair">Sair</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+    <div class="form-align">
+        <form action="/cadastrar_atividade" method="post" class="form-register space-top">
+            <div class="input-grande">
+                <span>Tema</span>
+                <input type="text" name="tema" maxlength="80" class="input-radius">
+            </div>
+            <div class="input-medio">
+                <label>Tipo</label>
+                <select name="tipo" class="input-radius">
+                    <option value="">Selecione</option>
+                    <option value="Palestra">Palestra</option>
+                    <option value="Minicurso">Minicurso</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Mesa Redonda">Mesa Redonda</option>
+                    <option value="Painel">Painel</option>
+                    <option value="Exposição">Exposição</option>
+                </select>
+            </div>
+            <div class="input-extra-pequeno">
+                <label>Vagas Mínimas</label>
+                <input type="number" name="vagasMinimas" class="input-radius">
+            </div>
+            <div class="input-extra-pequeno">
+                <label>Vagas Máximas</label>
+                <input type="number" name="vagasMaximas" class="input-radius">
+            </div>
+            <div class="input-grande">
+                <label>Responsável Pela Atividade</label>
+                <select class="input-radius" name="responsavelAtividade">
+                    <option value="">Selecione</option>
+                    <?php foreach($this->view->responsavel_atividade as $responsavel_atividade) { ?>
+                        <option value="<?= $responsavel_atividade['id'] ?>"><?= $responsavel_atividade['nome'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="input-pequeno">
+                <label>Data</label>
+                <input type="date" name="data" class="input-radius">
+            </div>
+            <div class="input-pequeno">
+                <label>Hora</label>
+                <input type="time" name="hora" class="input-radius">
+            </div>
+            <div class="input-pequeno">
+                <label>Duração</label>
+                <input type="time" name="duracao" class="input-radius">
+            </div>
+            <div class="input-quase-grande">
+                <label>Local</label>
+                <input type="text" name="local" maxlength="40" class="input-radius">
+            </div>
+            <div class="input-pequeno">
+                <label>Pontos Pex</label>
+                <input type="number" name="pontosPex" class="input-radius">
+            </div>
+            <div class="input-grande">
+                <label>Palestrante</label>
+                <input type="text" name="palestrante" maxlength="65" class="input-radius">
+            </div>
+            <div class="input-grande">
+                <label>Descrição</label>
+                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="180"></textarea>
+            </div>
+            <div class="input-grande">
+                <button type="submit" class="btn-register btn-right btn-space-top">Alterar Atividade</button>
+                <a href="/index_atividade" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+    </main>
+</section>

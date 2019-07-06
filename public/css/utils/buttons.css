@@ -11,6 +11,11 @@ button, .btn-link {
     cursor: pointer;
 }
 
+.btn-block {
+    margin-top: 10px;
+    width: 100%;
+}
+
 .btn-space-top {
     margin-top: 25px;
 }
@@ -86,5 +91,21 @@ button, .btn-link {
 
 .btn-danger:hover {
     background-color: #ff0000;
+    color: #fff;
+}
+
+.btn-evil-full {
+    background-color: #1b1b1b;
+    color: #fff;
+    border: none;
+}
+
+.btn-evil {
+    color: #1b1b1b;
+    border: solid 1px #1b1b1b;
+}
+
+.btn-evil:hover {
+    background-color: #1b1b1b;
     color: #fff;
 }

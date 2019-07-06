@@ -60,6 +60,12 @@
                 'controller' => 'EventoController',
                 'action' => 'acaoEvento'
             ];
+
+            $routes['alterarEvento'] = [
+                'route' => '/alterar_evento',
+                'controller' => 'EventoController',
+                'action' => 'alterarEvento'
+            ];
             
             $routes['responsavelGeral'] = [
                 'route' => '/responsavel_geral',
@@ -107,6 +113,12 @@
                 'route' => '/acao_atividade',
                 'controller' => 'AtividadeController',
                 'action' => 'acaoAtividade'
+            ];
+
+            $routes['alterarAtividade'] = [
+                'route' => '/alterar_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'alterarAtividade'
             ];
 
             $routes['responsavelAtividade'] = [
