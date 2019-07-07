@@ -65,10 +65,31 @@
         }
 
         public function alterarEvento() {
-            // $listaEvento = Container::getModel('Evento');
-            // $this->view->eventos = $listaEvento->listarEventos();
+            $listaDadosEvento = Container::getModel('Evento');
+            $eventoID = base64_decode($_GET['id']);
+            echo $eventoID . "<br>";
+            $listaDadosEvento->__set('id', $eventoID);
+            $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
 
             $this->render('alterarEvento');
+        }
+
+        public function atualizarEvento() {
+            $atualizarEvento = Container::getModel('Evento');
+            $atualizarEvento->__set('id', $_POST['id']);
+            $atualizarEvento->__set('titulo', $_POST['titulo']);
+            $atualizarEvento->__set('local', $_POST['local']);
+            // $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            $atualizarEvento->__set('diaInicio', $_POST['diaInicio']);
+            $atualizarEvento->__set('mesInicio', $_POST['mesInicio']);
+            $atualizarEvento->__set('anoInicio', $_POST['anoInicio']);
+            $atualizarEvento->__set('dataFim', $_POST['dataFim']);
+            $atualizarEvento->__set('descricao', $_POST['descricao']);
+
+            $atualizarEvento->alterarEvento();
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
         }
 
         public function responsavelGeral() {

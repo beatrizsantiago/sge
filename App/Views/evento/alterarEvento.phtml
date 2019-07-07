@@ -1,6 +1,11 @@
 <?php
 
     require_once '../App/ValidaLogin.php';
+    foreach($this->view->dadosEventos as $dadosEventos) {
+        echo "<pre>";
+        print_r($dadosEventos);
+        echo "</pre>";
+    }
 
 ?>
 
@@ -20,66 +25,68 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/cadastrar_evento" method="post" class="form-register space-top">
-            <div class="input-grande">
-                <span>Nome</span>
-                <input type="text" name="titulo" maxlength="50" class="input-radius">
-            </div>
-            <div class="input-medio">
-                <label>Local</label>
-                <input type="text" name="local" maxlength="50" class="input-radius">
-            </div>
-            <div class="input-medio">
-                <label>Responsável Geral</label>
-                <select class="input-radius" name="responsavelGeral">
-                    <option value="">Selecione</option>
-                </select>
-            </div>
-            <div class="input-medio">
-                <div class="input-pequeno">
-                    <label>Dia</label>
-                    <input type="text" name="diaInicio" class="input-radius">
+        <?php foreach($this->view->dadosEventos as $dadosEventos) { ?>
+            <form action="/atualizar_evento" method="post" class="form-register space-top">
+                <div class="input-grande">
+                    <span>Nome</span>
+                    <input type="text" value="<?= $dadosEventos['titulo'] ?>" name="titulo" maxlength="50" class="input-radius">
                 </div>
-                <div class="input-pequeno">
-                    <label>Mês</label>
-                    <select name="mesInicio" class="input-radius">
+                <div class="input-medio">
+                    <label>Local</label>
+                    <input type="text" value="<?= $dadosEventos['local'] ?>" name="local" maxlength="50" class="input-radius">
+                </div>
+                <div class="input-medio">
+                    <label>Responsável Geral</label>
+                    <select class="input-radius" name="responsavelGeral">
                         <option value="">Selecione</option>
-                        <option value="01">Janeiro</option>
-                        <option value="02">Fevereiro</option>
-                        <option value="03">Marco</option>
-                        <option value="04">Abril</option>
-                        <option value="05">Maio</option>
-                        <option value="06">Junho</option>
-                        <option value="07">Julho</option>
-                        <option value="08">Agosto</option>
-                        <option value="09">Setembro</option>
-                        <option value="10">Outubro</option>
-                        <option value="11">Novembro</option>
-                        <option value="12">Dezembro</option>
                     </select>
                 </div>
-                <div class="input-pequeno">
-                    <label>Ano</label>
-                    <input type="text" name="anoInicio" class="input-radius">
+                <div class="input-medio">
+                    <div class="input-pequeno">
+                        <label>Dia</label>
+                        <input type="text" value="<?= $dadosEventos['diaInicio'] ?>" name="diaInicio" class="input-radius">
+                    </div>
+                    <div class="input-pequeno">
+                        <label>Mês</label>
+                        <select name="mesInicio" class="input-radius">
+                            <option value="">Selecione</option>
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Marco</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                    <div class="input-pequeno">
+                        <label>Ano</label>
+                        <input type="text" value="<?= $dadosEventos['anoInicio'] ?>" name="anoInicio" class="input-radius">
+                    </div>
                 </div>
-            </div>
-            <div class="input-medio">
-                <label>Data de Término</label>
-                <input type="date" name="dataFim" class="input-radius">
-            </div>
-            <div class="input-medio">
-                <label>Descrição</label>
-                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"></textarea>
-            </div>
-            <!-- <div class="input-medio">
-                <label>Imagem/logo</label>
-                <input type="file" name="imgEvento">
-            </div> -->
-            <div class="input-grande">
-                <button type="submit" class="btn-register btn-right btn-space-top">Alterar Evento</button>
-                <a href="/index_evento" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
-            </div>
-        </form>
+                <div class="input-medio">
+                    <label>Data de Término</label>
+                    <input type="date" value="<?= $dadosEventos['dataFim'] ?>" name="dataFim" class="input-radius">
+                </div>
+                <div class="input-medio">
+                    <label>Descrição</label>
+                    <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"><?= $dadosEventos['descricao'] ?></textarea>
+                </div>
+                <!-- <div class="input-medio">
+                    <label>Imagem/logo</label>
+                    <input type="file" name="imgEvento">
+                </div> -->
+                <div class="input-grande">
+                    <button type="submit" value="<?= $dadosEventos['id'] ?>" name="id" class="btn-register btn-right btn-space-top">Alterar Evento</button>
+                    <a href="/index_evento" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                </div>
+            </form>
+        <?php } ?>
     </div>
 
     </main>

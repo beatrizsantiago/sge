@@ -66,6 +66,12 @@
                 'controller' => 'EventoController',
                 'action' => 'alterarEvento'
             ];
+
+            $routes['atualizarEvento'] = [
+                'route' => '/atualizar_evento',
+                'controller' => 'EventoController',
+                'action' => 'atualizarEvento'
+            ];
             
             $routes['responsavelGeral'] = [
                 'route' => '/responsavel_geral',

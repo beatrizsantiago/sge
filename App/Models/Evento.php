@@ -7,7 +7,7 @@
     class Evento extends Model {
         private $id;
         private $administradorID = 1;
-        private $nome;
+        private $titulo;
         private $local;
         private $respGeralID;
         private $diaInicio;
@@ -29,7 +29,7 @@
         public function adicionarEvento() {
             $query = "
                 INSERT INTO evento(administradorID, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, cancelado, descricao, imgEvento) 
-                VALUES (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, STR_TO_DATE(:dataFim, '%d/%m/%Y'), :cancelado, :descricao, :imgEvento);
+                VALUES (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, :dataFim, :cancelado, :descricao, :imgEvento);
             ";
 
             $stmt = $this->db->prepare($query);
@@ -62,6 +62,49 @@
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function listarDadosEvento() {
+            $query = "
+                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                FROM evento as e, participante as p, responsavelgeral as rg 
+                WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function alterarEvento() {
+            $query = "
+                UPDATE evento 
+                SET titulo = :titulo, 
+                    local = :local, 
+                    diaInicio = :diaInicio, 
+                    mesInicio = :mesInicio, 
+                    anoInicio = :anoInicio, 
+                    dataFim = :dataFim, 
+                    descricao = :descricao
+                    WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->bindValue(':titulo', $this->__get('titulo'));
+            $stmt->bindValue(':local', $this->__get('local'));
+            // $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
+            $stmt->bindValue(':diaInicio', $this->__get('diaInicio'));
+            $stmt->bindValue(':mesInicio', $this->__get('mesInicio'));
+            $stmt->bindValue(':anoInicio', $this->__get('anoInicio'));
+            $stmt->bindValue(':dataFim', $this->__get('dataFim'));
+            $stmt->bindValue(':descricao', $this->__get('descricao'));
+            $stmt->execute();
+
+            return $this;
         }
 
         public function deletarEvento() {
