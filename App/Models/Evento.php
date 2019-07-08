@@ -66,7 +66,7 @@
 
         public function listarDadosEvento() {
             $query = "
-                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e, participante as p, responsavelgeral as rg 
                 WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
             ";

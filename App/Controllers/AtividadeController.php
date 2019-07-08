@@ -8,7 +8,7 @@
     class AtividadeController extends Action {
         public function indexAtividade() {
             $listaAtividade = Container::getModel('Atividade');
-            $eventoID = base64_decode($_GET['id']);
+            $eventoID = base64_decode($_GET['idEvt']);
             echo $eventoID . "<br>";
             $listaAtividade->__set('eventoID', $eventoID);
             $this->view->atividades = $listaAtividade->listarAtividades();
@@ -25,7 +25,7 @@
 
         public function cadastrarAtividade() {
             $atividade = Container::getModel('Atividade');
-            //$atividade->__set('eventoID', $_GET['id']);
+            $atividade->__set('eventoID', base64_decode($_GET['idEvt']));
             $atividade->__set('tema', $_POST['tema']);
             $atividade->__set('tipo', $_POST['tipo']);
             $atividade->__set('vagasMinimas', $_POST['vagasMinimas']);
@@ -41,7 +41,7 @@
 
             $atividade->adicionarAtividade();
 
-            header('location: /index_atividade');
+            header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
         }
 
         public function acaoAtividade() {
@@ -51,7 +51,7 @@
                 $excluir->__set('id', $_POST['excluir']);
 
                 $excluir->deletarAtividade();
-                header('Location: /index_atividade');
+                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
             }
 
             if(isset($_POST['cancelar'])) {
@@ -59,9 +59,12 @@
             }
 
             if(isset($_POST['alterar'])) {
-                print_r($_POST['alterar']);
-                $id = $_POST['alterar'];
-                header('Location: /alterar_atividade?id=' . base64_encode($id));
+                print_r("Id Atividade: " . $_POST['alterar']);
+                echo "<br>";
+                print_r("Id Evento: " . base64_decode($_GET['idEvt']));
+                $eventoID = $_GET['idEvt'];
+                $atividadeID = $_POST['alterar'];
+                header('Location: /alterar_atividade?idEvt='. $eventoID .'&idAtv=' . base64_encode($atividadeID));
             }
 
             if(isset($_POST['participantes'])) {
@@ -75,8 +78,11 @@
         }
 
         public function alterarAtividade() {
-            // $listaAtividade = Container::getModel('Atividade');
-            // $eventoID = base64_decode($_GET['id']);
+            // $listaDadosAtividade = Container::getModel('Atividade');
+            $atividadeID = base64_decode($_GET['idAtv']);
+            echo $atividadeID . "<br>";
+            // $listaDadosAtividade->__set('id', $atividadeID);
+            // $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
 
             $this->render('alterarAtividade');
         }

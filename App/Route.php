@@ -127,6 +127,12 @@
                 'action' => 'alterarAtividade'
             ];
 
+            $routes['atualizarAtividade'] = [
+                'route' => '/atualizar_atividade',
+                'controller' => 'AtividadeController',
+                'action' => 'atualizarAtividade'
+            ];
+
             $routes['responsavelAtividade'] = [
                 'route' => '/responsavel_atividade',
                 'controller' => 'AtividadeController',

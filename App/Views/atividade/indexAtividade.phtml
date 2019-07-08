@@ -1,6 +1,7 @@
 <?php
 
     require_once '../App/ValidaLogin.php';
+    $eventoID = $_GET['idEvt'];
 
 ?>
 
@@ -12,8 +13,8 @@
         </div>
         <nav class="menu">
             <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
-            <a href="/index_atividade"><img src="./img/icons/atividade.png">Atividade</a>
-            <a href="/criar_atividade"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
+            <!-- <a href="#section-atv"><img src="./img/icons/atividade.png">Atividade</a> -->
+            <a href="/criar_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
             <a href="/responsavel_atividade"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
             <div class="div-sair">
@@ -27,7 +28,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
-                <form action="/acao_atividade" method="post" class="card-atividade card-block">
+                <form action="/acao_atividade?idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
 
                     <div class="card-img card-img-atividade">
                         <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">

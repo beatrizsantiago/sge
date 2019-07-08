@@ -1,6 +1,11 @@
 <?php
 
     require_once '../App/ValidaLogin.php';
+    $eventoID = $_GET['idEvt'];
+    print_r("id Evento: " . base64_decode($_GET['idEvt']));
+    echo "</br>";
+    $atividadeID = $_GET['idAtv'];
+    print_r("id Atividade: " . base64_decode($_GET['idAtv']));
 
 ?>
 
@@ -20,7 +25,7 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/cadastrar_atividade" method="post" class="form-register space-top">
+        <form action="/atualizar_atividade?idAtv=<?= $atividadeID ?>" method="post" class="form-register space-top">
             <div class="input-grande">
                 <span>Tema</span>
                 <input type="text" name="tema" maxlength="80" class="input-radius">
@@ -28,7 +33,6 @@
             <div class="input-medio">
                 <label>Tipo</label>
                 <select name="tipo" class="input-radius">
-                    <option value="">Selecione</option>
                     <option value="Palestra">Palestra</option>
                     <option value="Minicurso">Minicurso</option>
                     <option value="Workshop">Workshop</option>
@@ -84,7 +88,7 @@
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Alterar Atividade</button>
-                <a href="/index_atividade" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                <a href="/index_atividade?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
             </div>
         </form>
     </div>

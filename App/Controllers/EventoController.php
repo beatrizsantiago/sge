@@ -54,19 +54,19 @@
             if(isset($_POST['alterar'])) {
                 print_r($_POST['alterar']);
                 $id = $_POST['alterar'];
-                header('Location: /alterar_evento?id=' . base64_encode($id));
+                header('Location: /alterar_evento?idEvt=' . base64_encode($id));
             }
 
             if(isset($_POST['atividades'])) {
                 $id = $_POST['atividades'];
-                header('Location: /index_atividade?id=' . base64_encode($id));
+                header('Location: /index_atividade?idEvt=' . base64_encode($id));
             }
                        
         }
 
         public function alterarEvento() {
             $listaDadosEvento = Container::getModel('Evento');
-            $eventoID = base64_decode($_GET['id']);
+            $eventoID = base64_decode($_GET['idEvt']);
             echo $eventoID . "<br>";
             $listaDadosEvento->__set('id', $eventoID);
             $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
