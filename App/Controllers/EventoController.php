@@ -87,9 +87,11 @@
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
             $atualizarEvento->alterarEvento();
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
+            // echo "<pre>";
+            // print_r($_POST);
+            // echo "</pre>";
+
+            header('Location: /index_evento');
         }
 
         public function responsavelGeral() {

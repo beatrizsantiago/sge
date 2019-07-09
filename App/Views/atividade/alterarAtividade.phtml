@@ -7,6 +7,12 @@
     $atividadeID = $_GET['idAtv'];
     print_r("id Atividade: " . base64_decode($_GET['idAtv']));
 
+    foreach($this->view->dadosAtividades as $atividade) {
+        echo "<pre>";
+        print_r($atividade);
+        echo "</pre>";
+    }
+
 ?>
 
 <section class="grid-base">
@@ -25,10 +31,11 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/atualizar_atividade?idAtv=<?= $atividadeID ?>" method="post" class="form-register space-top">
+        <?php foreach($this->view->dadosAtividades as $atividade) { ?>
+        <form action="/atualizar_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register space-top">
             <div class="input-grande">
                 <span>Tema</span>
-                <input type="text" name="tema" maxlength="80" class="input-radius">
+                <input type="text" value="<?= $atividade['tema'] ?>" name="tema" maxlength="80" class="input-radius">
             </div>
             <div class="input-medio">
                 <label>Tipo</label>
@@ -43,11 +50,11 @@
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Mínimas</label>
-                <input type="number" name="vagasMinimas" class="input-radius">
+                <input type="number" value="<?= $atividade['vagasMinimas'] ?>" name="vagasMinimas" class="input-radius">
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Máximas</label>
-                <input type="number" name="vagasMaximas" class="input-radius">
+                <input type="number" value="<?= $atividade['vagasMaximas'] ?>" name="vagasMaximas" class="input-radius">
             </div>
             <div class="input-grande">
                 <label>Responsável Pela Atividade</label>
@@ -60,37 +67,38 @@
             </div>
             <div class="input-pequeno">
                 <label>Data</label>
-                <input type="date" name="data" class="input-radius">
+                <input type="date" value="<?= $atividade['data'] ?>" name="data" class="input-radius">
             </div>
             <div class="input-pequeno">
                 <label>Hora</label>
-                <input type="time" name="hora" class="input-radius">
+                <input type="time" value="<?= $atividade['hora'] ?>" name="hora" class="input-radius">
             </div>
             <div class="input-pequeno">
                 <label>Duração</label>
-                <input type="time" name="duracao" class="input-radius">
+                <input type="time" value="<?= $atividade['duracao'] ?>" name="duracao" class="input-radius">
             </div>
             <div class="input-quase-grande">
                 <label>Local</label>
-                <input type="text" name="local" maxlength="40" class="input-radius">
+                <input type="text" value="<?= $atividade['local'] ?>" name="local" maxlength="40" class="input-radius">
             </div>
             <div class="input-pequeno">
                 <label>Pontos Pex</label>
-                <input type="number" name="pontosPex" class="input-radius">
+                <input type="number" value="<?= $atividade['pontosPex'] ?>" name="pontosPex" class="input-radius">
             </div>
             <div class="input-grande">
                 <label>Palestrante</label>
-                <input type="text" name="palestrante" maxlength="65" class="input-radius">
+                <input type="text" value="<?= $atividade['palestrante'] ?>" name="palestrante" maxlength="65" class="input-radius">
             </div>
             <div class="input-grande">
                 <label>Descrição</label>
-                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="180"></textarea>
+                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="180"><?= $atividade['descricao'] ?></textarea>
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Alterar Atividade</button>
                 <a href="/index_atividade?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
             </div>
         </form>
+        <?php } ?>
     </div>
 
     </main>

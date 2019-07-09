@@ -75,6 +75,64 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function listarDadosAtividade() {
+            $query = "
+                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.descricao, p.nome 
+                FROM atividade as a, participante as p, responsavelatividade as ra 
+                WHERE a.id = :id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            // echo "<pre>";
+            // print_r($stmt->fetchAll(\PDO::FETCH_ASSOC));
+            // echo "</pre>";
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function alterarAtividade() {
+            $query = "
+                UPDATE atividade 
+                SET tema = :tema,
+                    vagasMinimas = :vagasMinimas, 
+                    vagasMaximas = :vagasMaximas, 
+                    data = :data, 
+                    hora = :hora, 
+                    duracao = :duracao, 
+                    local = :local, 
+                    pontosPex = :pontosPex, 
+                    palestrante = :palestrante, 
+                    descricao = :descricao
+                    WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->bindValue(':tema', $this->__get('tema'));
+            // $stmt->bindValue(':tipo', $this->__get('tipo'));
+            $stmt->bindValue(':vagasMinimas', $this->__get('vagasMinimas'));
+            $stmt->bindValue(':vagasMaximas', $this->__get('vagasMaximas'));
+            // $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
+            $stmt->bindValue(':data', $this->__get('data'));
+            $stmt->bindValue(':hora', $this->__get('hora'));
+            $stmt->bindValue(':duracao', $this->__get('duracao'));
+            $stmt->bindValue(':local', $this->__get('local'));
+            $stmt->bindValue(':pontosPex', $this->__get('pontosPex'));
+            $stmt->bindValue(':palestrante', $this->__get('palestrante'));
+            $stmt->bindValue(':descricao', $this->__get('descricao'));
+            $stmt->execute();
+
+            // echo "<pre>";
+            // print_r($this);
+            // echo "</pre>";
+            
+            return $this;
+        }
+
         public function deletarAtividade() {
             $query = "
                 DELETE FROM atividade WHERE id = :id;

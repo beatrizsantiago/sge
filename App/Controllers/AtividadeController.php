@@ -78,13 +78,41 @@
         }
 
         public function alterarAtividade() {
-            // $listaDadosAtividade = Container::getModel('Atividade');
+            $listaDadosAtividade = Container::getModel('Atividade');
             $atividadeID = base64_decode($_GET['idAtv']);
             echo $atividadeID . "<br>";
-            // $listaDadosAtividade->__set('id', $atividadeID);
-            // $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
+            $listaDadosAtividade->__set('id', $atividadeID);
+            $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
 
             $this->render('alterarAtividade');
+        }
+
+        public function atualizarAtividade() {
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+            $atualizarAtividade = Container::getModel('Atividade');
+            $atualizarAtividade->__set('id', base64_decode($_GET['idAtv']));
+            $atualizarAtividade->__set('tema', $_POST['tema']);
+            // $atualizarAtividade->__set('tipo', $_POST['tipo']);
+            $atualizarAtividade->__set('vagasMinimas', $_POST['vagasMinimas']);
+            $atualizarAtividade->__set('vagasMaximas', $_POST['vagasMaximas']);
+            // $atualizarAtividade->__set('respAtividadeID', $_POST['responsavelAtividade']);
+            $atualizarAtividade->__set('data', $_POST['data']);
+            $atualizarAtividade->__set('hora', $_POST['hora']);
+            $atualizarAtividade->__set('duracao', $_POST['duracao']);
+            $atualizarAtividade->__set('local', $_POST['local']);
+            $atualizarAtividade->__set('pontosPex', $_POST['pontosPex']);
+            $atualizarAtividade->__set('palestrante', $_POST['palestrante']);
+            $atualizarAtividade->__set('descricao', $_POST['descricao']);
+            
+            $atualizarAtividade->alterarAtividade();
+
+            // echo "<pre>";
+            // print_r($atualizarAtividade);
+            // echo "</pre>";
+
+            header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
         }
 
         public function responsavelAtividade() {
