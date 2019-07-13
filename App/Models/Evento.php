@@ -10,9 +10,7 @@
         private $titulo;
         private $local;
         private $respGeralID;
-        private $diaInicio;
-        private $mesInicio;
-        private $anoInicio;    
+        private $dataInicio;   
         private $dataFim;      
         private $cancelado = 0;
         private $descricao;
@@ -28,8 +26,8 @@
 
         public function adicionarEvento() {
             $query = "
-                INSERT INTO evento(administradorID, titulo, local, respGeralID, diaInicio, mesInicio, anoInicio, dataFim, cancelado, descricao, imgEvento) 
-                VALUES (:administradorId, :titulo, :local, :respGeralID, :diaInicio, :mesInicio, :anoInicio, :dataFim, :cancelado, :descricao, :imgEvento);
+                INSERT INTO evento(administradorID, titulo, local, respGeralID, dataInicio, dataFim, cancelado, descricao, imgEvento) 
+                VALUES (:administradorId, :titulo, :local, :respGeralID, :dataInicio, :dataFim, :cancelado, :descricao, :imgEvento);
             ";
 
             $stmt = $this->db->prepare($query);
@@ -38,9 +36,7 @@
             $stmt->bindValue(':titulo', $this->__get('titulo'));
             $stmt->bindValue(':local', $this->__get('local'));
             $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
-            $stmt->bindValue(':diaInicio', $this->__get('diaInicio'));
-            $stmt->bindValue(':mesInicio', $this->__get('mesInicio'));
-            $stmt->bindValue(':anoInicio', $this->__get('anoInicio'));
+            $stmt->bindValue(':dataInicio', $this->__get('dataInicio'));
             $stmt->bindValue(':dataFim', $this->__get('dataFim'));
             $stmt->bindValue(':cancelado', $this->__get('cancelado'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
@@ -52,21 +48,26 @@
 
         public function listarEventos() {
             $query = "
-                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e, participante as p, responsavelgeral as rg 
                 WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id 
-                ORDER BY e.mesInicio, e.diaInicio;
+                ORDER BY e.dataInicio;
             ";
 
             $stmt = $this->db->prepare($query);
             $stmt->execute();
+
+            // echo "<pre>";
+            // echo "Model <br>";
+            // print_r($stmt->fetchAll(\PDO::FETCH_ASSOC));
+            // echo "</pre>";
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
         public function listarDadosEvento() {
             $query = "
-                SELECT e.id, e.titulo, e.local, e.diaInicio, e.mesInicio, e.anoInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
+                SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e, participante as p, responsavelgeral as rg 
                 WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
             ";
@@ -83,9 +84,7 @@
                 UPDATE evento 
                 SET titulo = :titulo, 
                     local = :local, 
-                    diaInicio = :diaInicio, 
-                    mesInicio = :mesInicio, 
-                    anoInicio = :anoInicio, 
+                    dataInicio = :dataInicio, 
                     dataFim = :dataFim, 
                     descricao = :descricao
                     WHERE id = :id
@@ -97,9 +96,7 @@
             $stmt->bindValue(':titulo', $this->__get('titulo'));
             $stmt->bindValue(':local', $this->__get('local'));
             // $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
-            $stmt->bindValue(':diaInicio', $this->__get('diaInicio'));
-            $stmt->bindValue(':mesInicio', $this->__get('mesInicio'));
-            $stmt->bindValue(':anoInicio', $this->__get('anoInicio'));
+            $stmt->bindValue(':dataInicio', $this->__get('dataInicio'));
             $stmt->bindValue(':dataFim', $this->__get('dataFim'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
             $stmt->execute();

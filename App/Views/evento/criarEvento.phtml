@@ -32,46 +32,17 @@
                 <input type="text" name="local" maxlength="50" class="input-radius">
             </div>
             <div class="input-medio">
-                <!--div class="input-medio"-->
-                    <label>Responsável Geral</label>
-                    <select class="input-radius" name="responsavelGeral">
-                        <option value="">Selecione</option>
-                        <?php foreach($this->view->responsavel_geral as $responsavel_geral) { ?>
-                            <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
-                        <?php } ?>
-                    </select>
-                <!--/div>
-                <div class="input-medio">
-                    <a class="btn-link btn-warning btn-right">Responsável</a>
-                </div-->
+                <label>Responsável Geral</label>
+                <select class="input-radius" name="responsavelGeral">
+                    <option value="">Selecione</option>
+                    <?php foreach($this->view->responsavel_geral as $responsavel_geral) { ?>
+                        <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="input-medio">
-                <div class="input-pequeno">
-                    <label>Dia</label>
-                    <input type="text" name="diaInicio" class="input-radius">
-                </div>
-                <div class="input-pequeno">
-                    <label>Mês</label>
-                    <select name="mesInicio" class="input-radius">
-                        <option value="">Selecione</option>
-                        <option value="01">Janeiro</option>
-                        <option value="02">Fevereiro</option>
-                        <option value="03">Marco</option>
-                        <option value="04">Abril</option>
-                        <option value="05">Maio</option>
-                        <option value="06">Junho</option>
-                        <option value="07">Julho</option>
-                        <option value="08">Agosto</option>
-                        <option value="09">Setembro</option>
-                        <option value="10">Outubro</option>
-                        <option value="11">Novembro</option>
-                        <option value="12">Dezembro</option>
-                    </select>
-                </div>
-                <div class="input-pequeno">
-                    <label>Ano</label>
-                    <input type="text" name="anoInicio" class="input-radius">
-                </div>
+                <label>Data de Início</label>
+                <input type="date" name="dataInicio" class="input-radius">
             </div>
             <div class="input-medio">
                 <label>Data de Término</label>

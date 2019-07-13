@@ -26,9 +26,7 @@
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
             $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
-            $cadastrarEvento->__set('diaInicio', $_POST['diaInicio']);
-            $cadastrarEvento->__set('mesInicio', $_POST['mesInicio']);
-            $cadastrarEvento->__set('anoInicio', $_POST['anoInicio']);
+            $cadastrarEvento->__set('dataInicio', $_POST['dataInicio']);
             $cadastrarEvento->__set('dataFim', $_POST['dataFim']);
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
 
@@ -80,18 +78,16 @@
             $atualizarEvento->__set('titulo', $_POST['titulo']);
             $atualizarEvento->__set('local', $_POST['local']);
             // $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
-            $atualizarEvento->__set('diaInicio', $_POST['diaInicio']);
-            $atualizarEvento->__set('mesInicio', $_POST['mesInicio']);
-            $atualizarEvento->__set('anoInicio', $_POST['anoInicio']);
+            $atualizarEvento->__set('dataInicio', $_POST['dataInicio']);
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
             $atualizarEvento->alterarEvento();
-            // echo "<pre>";
-            // print_r($_POST);
-            // echo "</pre>";
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
 
-            header('Location: /index_evento');
+            // header('Location: /index_evento');
         }
 
         public function responsavelGeral() {

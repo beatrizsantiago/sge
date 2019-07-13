@@ -146,9 +146,7 @@ DROP TABLE IF EXISTS `sge`.`evento`;
 CREATE TABLE `evento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) NOT NULL,
-  `diaInicio` int(11) NOT NULL,
-  `mesInicio` int(11) NOT NULL,
-  `anoInicio` int(11) NOT NULL,
+  `dataInicio` date NOT NULL,
   `dataFim` date NOT NULL,
   `local` varchar(255) NOT NULL,
   `cancelado` tinyint(4) NOT NULL,
