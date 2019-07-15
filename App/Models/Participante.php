@@ -36,7 +36,7 @@
             $stmt->bindValue(':curso', $this->__get('curso'));
             $stmt->bindValue(':login', $this->__get('login'));
             $stmt->bindValue(':senha', $this->__get('senha'));
-            $stmt->bindValue(':tipoUsuario', 'Administrador');
+            $stmt->bindValue(':tipoUsuario', 'Participante');
             $stmt->execute();
 
             return $this;

@@ -131,7 +131,7 @@
             $responsavelAtividade->__set('login', $_POST['login']);
 
             $responsavelAtividade->criarResponsavelAtividade();
-            header('Location: /index_atividade');
+            header('Location: /responsavel_atividade');
         }
 
         public function removerResponsavelAtividade() {
@@ -139,8 +139,8 @@
             $responsavelAtividade->__set('id', $_POST['remover']);
             
             $responsavelAtividade->deletarResponsavelAtividade();
-            print_r($_POST);
-            //header('Location: /index_atividade');
+            // print_r($_POST);
+            header('Location: /responsavel_atividade');
         }
     }
 

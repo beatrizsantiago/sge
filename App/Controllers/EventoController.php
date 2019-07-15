@@ -106,7 +106,7 @@
             $responsavelGeral->__set('login', $_POST['login']);
 
             $responsavelGeral->criarResponsavelGeral();
-            header('Location: /index_evento');
+            header('Location: /responsavel_geral');
         }
 
         public function removerResponsavelGeral() {
@@ -114,8 +114,8 @@
             $responsavelGeral->__set('id', $_POST['remover']);
             
             $responsavelGeral->deletarResponsavelGeral();
-            print_r($_POST['remover']);
-            //header('Location: /index_evento');
+            // print_r($_POST['remover']);
+            header('Location: /responsavel_geral');
         }
     }
 

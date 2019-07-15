@@ -21,6 +21,7 @@
         public function criarResponsavelGeral() {
             $query = "  
                 INSERT INTO responsavelgeral(usuarioID) SELECT id FROM usuario WHERE login = :login;
+                UPDATE usuario as u SET u.tipoUsuario = 'ResponsavelGeral' WHERE u.login = :login;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -46,6 +47,12 @@
 
         public function deletarResponsavelGeral() {
             $query = "
+                UPDATE usuario as u SET u.tipoUsuario = 'Participante' 
+                WHERE u.id = (
+                    SELECT rg.usuarioID 
+                    FROM responsavelgeral as rg 
+                    WHERE rg.id = :id
+                );
                 DELETE FROM responsavelgeral WHERE id = :id;
             ";
 

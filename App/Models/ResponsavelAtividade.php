@@ -20,6 +20,7 @@
         public function criarResponsavelAtividade() {
             $query = "
                 INSERT INTO responsavelatividade(usuarioID) SELECT id FROM usuario WHERE login = :login;
+                UPDATE usuario as u SET u.tipoUsuario = 'ResponsavelAtividade' WHERE u.login = :login;
             ";
 
             $stmt = $this->db->prepare($query);
@@ -45,6 +46,12 @@
 
         public function deletarResponsavelAtividade() {
             $query = "
+                UPDATE usuario as u SET u.tipoUsuario = 'Participante' 
+                WHERE u.id = (
+                    SELECT ra.usuarioID 
+                    FROM responsavelatividade as ra 
+                    WHERE ra.id = :id
+                );
                 DELETE FROM responsavelatividade WHERE id = :id;
             ";
 
