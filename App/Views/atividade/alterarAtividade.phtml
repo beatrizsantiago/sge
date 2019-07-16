@@ -96,7 +96,14 @@
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Alterar Atividade</button>
-                <a href="/index_atividade?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+
+                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                    <a href="/index_atividade?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                <?php } ?>
+                
+                <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                    <a href="/atividades_evento?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                <?php } ?>
             </div>
         </form>
         <?php } ?>

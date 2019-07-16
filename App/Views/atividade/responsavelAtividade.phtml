@@ -11,10 +11,17 @@
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">
-            <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
-            <a href="/index_atividade"><img src="./img/icons/atividade.png">Atividade</a>
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
+                <a href="/index_atividade"><img src="./img/icons/atividade.png">Atividade</a>
+            <?php } ?>
+
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
+                <a href="/atividades_evento"><img src="./img/icons/atividade.png">Atividade</a>
+            <?php } ?>
+
             <a href="/criar_atividade"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-            <a href="/responsavel_atividade"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>

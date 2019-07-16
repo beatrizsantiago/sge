@@ -51,6 +51,24 @@
 
             $this->render('indexParticipante');
         }
+
+        public function acaoParticipanteEvento() {
+
+            if(isset($_POST['visualizarAtividades'])) {
+                $id = $_POST['visualizarAtividades'];
+                header('Location: /atividades_evento?idEvt=' . base64_encode($id));
+            }
+        }
+
+        public function atividadesEvento() {
+            $listaAtividade = Container::getModel('Atividade');
+            $eventoID = base64_decode($_GET['idEvt']);
+            echo $eventoID . "<br>";
+            $listaAtividade->__set('eventoID', $eventoID);
+            $this->view->atividades = $listaAtividade->listarAtividades();
+
+            $this->render('atividadesEvento');
+        }
     }
 
 ?>

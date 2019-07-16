@@ -50,6 +50,11 @@
     text-transform: uppercase;
 }
 
+.btn-card-atividade-p {
+    display: flex;
+    justify-content: center;
+}
+
 .body-card-atividade p {
     height: 40px;
     margin-top: 8px;

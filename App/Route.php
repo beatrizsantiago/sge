@@ -157,6 +157,18 @@
                 'action' => 'indexParticipante'
             ];
 
+            $routes['acaoParticipanteEvento'] = [
+                'route' => '/acao_participante_evento',
+                'controller' => 'ParticipanteController',
+                'action' => 'acaoParticipanteEvento'
+            ];
+
+            $routes['atividadesEvento'] = [
+                'route' => '/atividades_evento',
+                'controller' => 'ParticipanteController',
+                'action' => 'atividadesEvento'
+            ];
+
             $this->setRoutes($routes);
         }
 
