@@ -44,6 +44,11 @@
     margin-top: 8px;
 }
 
+.btn-card-evento-p {
+    display: flex;
+    justify-content: space-around;
+}
+
 .btn-card-evento button {
     padding: 8px 12px;
 }

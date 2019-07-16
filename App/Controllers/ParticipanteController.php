@@ -44,6 +44,13 @@
             }
 
         }
+
+        public function indexParticipante() {
+            $listaEvento = Container::getModel('Evento');
+            $this->view->eventos = $listaEvento->listarEventos();
+
+            $this->render('indexParticipante');
+        }
     }
 
 ?>

@@ -17,8 +17,16 @@
                 session_start();
                 $_SESSION['id'] = $usuario->__get('id');
                 $_SESSION['login'] = $usuario->__get('login');
+                $_SESSION['tipoUsuario'] = $usuario->__get('tipoUsuario');
 
-                header('Location: /index_evento');
+                switch ($_SESSION['tipoUsuario']) {
+                    case 'Administrador': header('Location: /index_evento');
+                    break;
+
+                    default: header('Location: /index_participante');
+                    break;
+                }
+                
             } else {
                 header('location: /?login=erro');
             }

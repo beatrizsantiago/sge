@@ -21,7 +21,7 @@
 
         public function autenticar() {
             $query = "
-                SELECT id, login 
+                SELECT id, login, tipoUsuario 
                 FROM usuario 
                 WHERE login = :login AND senha = :senha
             ";
@@ -32,9 +32,10 @@
 
             $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            if($usuario['id'] != '' && $usuario['login'] != '') {
+            if($usuario['id'] != '' && $usuario['login'] != '' && $usuario['tipoUsuario'] != '') {
                 $this->__set('id', $usuario['id']);
                 $this->__set('login', $usuario['login']);
+                $this->__set('tipoUsuario', $usuario['tipoUsuario']);
             }
 
             return $this;

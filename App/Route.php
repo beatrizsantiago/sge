@@ -151,6 +151,12 @@
                 'action' => 'removerResponsavelAtividade'
             ];
 
+            $routes['indexParticipante'] = [
+                'route' => '/index_participante',
+                'controller' => 'ParticipanteController',
+                'action' => 'indexParticipante'
+            ];
+
             $this->setRoutes($routes);
         }
 
