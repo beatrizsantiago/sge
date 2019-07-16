@@ -48,6 +48,7 @@
         public function indexParticipante() {
             $listaEvento = Container::getModel('Evento');
             $this->view->eventos = $listaEvento->listarEventos();
+            $this->view->inscrito = $listaEvento->inscritoEvento();
 
             $this->render('indexParticipante');
         }
@@ -57,6 +58,30 @@
             if(isset($_POST['visualizarAtividades'])) {
                 $id = $_POST['visualizarAtividades'];
                 header('Location: /atividades_evento?idEvt=' . base64_encode($id));
+            }
+
+            if(isset($_POST['inscreverEvento'])) {
+                $eventoID = $_POST['inscreverEvento'];
+                $usuarioID = base64_decode($_GET['user']);
+
+                $inscricaoEvento = Container::getModel('InscricaoEvento');
+                $inscricaoEvento->__set('eventoID', $eventoID);
+                $inscricaoEvento->__set('usuarioID', $usuarioID);
+                $inscricaoEvento->inscreverEvento();
+
+                header('Location: /index_participante');
+            }
+
+            if(isset($_POST['cancelarInscricaoEvento'])) {
+                $eventoID = $_POST['cancelarInscricaoEvento'];
+                $usuarioID = base64_decode($_GET['user']);
+
+                $inscricaoEvento = Container::getModel('InscricaoEvento');
+                $inscricaoEvento->__set('eventoID', $eventoID);
+                $inscricaoEvento->__set('usuarioID', $usuarioID);
+                $inscricaoEvento->cancelarInscricaoEvento();
+
+                header('Location: /index_participante');
             }
         }
 

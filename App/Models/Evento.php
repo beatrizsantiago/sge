@@ -57,11 +57,6 @@
             $stmt = $this->db->prepare($query);
             $stmt->execute();
 
-            // echo "<pre>";
-            // echo "Model <br>";
-            // print_r($stmt->fetchAll(\PDO::FETCH_ASSOC));
-            // echo "</pre>";
-
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
@@ -114,6 +109,18 @@
             $stmt->execute();
 
             return true;
+        }
+
+        public function inscritoEvento() {
+            $query = "
+                SELECT usuarioID, eventoID
+                FROM inscricaoevento
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
     }
