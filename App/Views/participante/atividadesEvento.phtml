@@ -17,7 +17,7 @@
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                 <a href="/criar_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-                <a href="/responsavel_atividade"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
+                <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
                 <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
             <?php } ?>
             

@@ -2,6 +2,8 @@
 
     require_once '../App/ValidaLoginResponsavelGeral.php';
 
+    $eventoID = $_GET['idEvt'];
+
 ?>
 
 <section class="grid-base">
@@ -13,16 +15,15 @@
         <nav class="menu">
             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                 <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
-                <a href="/index_atividade"><img src="./img/icons/atividade.png">Atividade</a>
+                <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividade</a>
             <?php } ?>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                 <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/atividades_evento"><img src="./img/icons/atividade.png">Atividade</a>
+                <a href="/atividades_evento?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividade</a>
             <?php } ?>
 
-            <a href="/criar_atividade"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-            <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
+            <a href="/criar_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
