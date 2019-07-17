@@ -94,6 +94,32 @@
 
             $this->render('atividadesEvento');
         }
+
+        public function acaoParticipanteAtividade() {
+            if(isset($_POST['inscreverAtividade'])) {
+                $atividadeID = $_POST['inscreverAtividade'];
+                $usuarioID = base64_decode($_GET['user']);
+
+                $inscricaoAtividade = Container::getModel('InscricaoAtividade');
+                $inscricaoAtividade->__set('atividadeID', $atividadeID);
+                $inscricaoAtividade->__set('usuarioID', $usuarioID);
+                $inscricaoAtividade->inscreverAtividade();
+
+                header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
+            }
+
+            if(isset($_POST['cancelarInscricaoAtividade'])) {
+                $atividadeID = $_POST['cancelarInscricaoAtividade'];
+                $usuarioID = base64_decode($_GET['user']);
+
+                $inscricaoAtividade = Container::getModel('InscricaoAtividade');
+                $inscricaoAtividade->__set('atividadeID', $atividadeID);
+                $inscricaoAtividade->__set('usuarioID', $usuarioID);
+                $inscricaoAtividade->cancelarInscricaoAtividade();
+
+                header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
+            }
+        }
     }
 
 ?>
