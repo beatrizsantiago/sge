@@ -2,6 +2,19 @@
     width: 90%;
 }
 
+.lista-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lista-header {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 25px 0px;
+}
+
 .item-lista {
     display: flex;
     flex-direction: row;
@@ -16,6 +29,11 @@
 
 .item-medio {
     width: 45%;
+    padding: 0px 10px;
+}
+
+.item-pequeno {
+    width: 30%;
     padding: 0px 10px;
 }
 

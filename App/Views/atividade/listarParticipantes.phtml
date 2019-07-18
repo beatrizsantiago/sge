@@ -1,0 +1,50 @@
+<?php
+
+    require_once '../App/ValidaLoginAdministrador.php';
+
+    $eventoID = $_GET['idEvt'];
+
+?>
+
+<section class="grid-base">
+    <aside class="menu-topo">
+        <div class="form-menu">
+            <img src="./img/user.png" alt="user" class="img-perfil">
+            <h1 class="apelido">Beatriz Santiago</h1>
+        </div>
+        <nav class="menu">
+            <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
+            <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
+            <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
+            <a><img src="./img/icons/relatorio.png">Lista de Presença</a>
+            <div class="div-sair">
+                <a href="/sair" class="sair">Sair</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <h1 class="title-center-align">Participantes de Nome Atividade</h1>
+        <hr>
+        <section class="lista-container">
+            <div class="lista-header">
+                <div class="item-pequeno">Nome</div>
+                <div class="item-pequeno">E-mail</div>
+                <div class="item-pequeno">Curso</div>
+                <div class="item-button"></div>
+            </div>
+            <div class="lista">
+                <?php foreach($this->view->inscritos as $inscritos) {?>
+                    <form action="/remover_responsavel_atividade" method="post" class="item-lista">
+                        <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
+                        <div class="item-pequeno"><?= $inscritos['login'] ?></div>
+                        <div class="item-pequeno"><?= $inscritos['curso'] ?></div>
+                        <div class="item-button">
+                            <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full">Remover</button>
+                        </div>
+                    </form>
+                <?php } ?>
+            </div>
+        </section>
+    </main>
+</section>

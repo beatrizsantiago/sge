@@ -45,6 +45,21 @@
 
             return true;
         }
+
+        public function listarInscritos() {
+            $query = "
+                SELECT p.nome, u.login, p.curso, ia.usuarioID, ia.atividadeID 
+                FROM participante as p, usuario as u, inscricaoatividade as ia, atividade as a
+                WHERE p.usuarioID = u.id AND ia.usuarioID = u.id AND ia.atividadeID = a.id AND ia.atividadeID = :id;
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
     }
 
 ?>

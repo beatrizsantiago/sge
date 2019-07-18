@@ -69,6 +69,13 @@
 
             if(isset($_POST['participantes'])) {
                 print_r($_POST['participantes']);
+
+                $listarInscritos = Container::getModel('InscricaoAtividade');
+                $listarInscritos->__set('id', $_POST['participantes']);
+
+                $this->view->inscritos = $listarInscritos->listarInscritos();
+
+                $this->render('listarParticipantes');
             }
             
             if(isset($_POST['definirOrganizacao'])) {
