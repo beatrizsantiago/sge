@@ -7,19 +7,19 @@
 
     class AtividadeController extends Action {
         public function indexAtividade() {
-            $listaAtividade = Container::getModel('Atividade');
             $eventoID = base64_decode($_GET['idEvt']);
-            echo $eventoID . "<br>";
-            $listaAtividade->__set('eventoID', $eventoID);
-            $this->view->atividades = $listaAtividade->listarAtividades();
 
+            $listaAtividade = Container::getModel('Atividade');
+            $listaAtividade->__set('eventoID', $eventoID);
+
+            $this->view->atividades = $listaAtividade->listarAtividades();
             $this->render('indexAtividade');
         }
 
         public function criarAtividade() {
             $responsavelAtividade = Container::getModel('responsavelAtividade');
-            $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
 
+            $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
             $this->render('criarAtividade');
         }
 
@@ -49,8 +49,8 @@
             if(isset($_POST['excluir'])) {
                 $excluir = Container::getModel('Atividade');
                 $excluir->__set('id', $_POST['excluir']);
-
                 $excluir->deletarAtividade();
+
                 header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
             }
 
@@ -59,12 +59,12 @@
             }
 
             if(isset($_POST['alterar'])) {
-                print_r("Id Atividade: " . $_POST['alterar']);
-                echo "<br>";
-                print_r("Id Evento: " . base64_decode($_GET['idEvt']));
-                $eventoID = $_GET['idEvt'];
-                $atividadeID = $_POST['alterar'];
-                header('Location: /alterar_atividade?idEvt='. $eventoID .'&idAtv=' . base64_encode($atividadeID));
+                $listaDadosAtividade = Container::getModel('Atividade');
+                $listaDadosAtividade->__set('id', $_POST['alterar']);
+
+                $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
+                $this->view->dadosResponsavel = $listaDadosAtividade->listarDadosResponsavelAtividade();
+                $this->render('alterarAtividade');
             }
 
             if(isset($_POST['participantes'])) {
@@ -74,7 +74,6 @@
                 $listarInscritos->__set('id', $_POST['participantes']);
 
                 $this->view->inscritos = $listarInscritos->listarInscritos();
-
                 $this->render('listarParticipantes');
             }
             
@@ -84,27 +83,14 @@
                        
         }
 
-        public function alterarAtividade() {
-            $listaDadosAtividade = Container::getModel('Atividade');
-            $atividadeID = base64_decode($_GET['idAtv']);
-            echo $atividadeID . "<br>";
-            $listaDadosAtividade->__set('id', $atividadeID);
-            $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
-
-            $this->render('alterarAtividade');
-        }
-
         public function atualizarAtividade() {
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
             $atualizarAtividade = Container::getModel('Atividade');
             $atualizarAtividade->__set('id', base64_decode($_GET['idAtv']));
             $atualizarAtividade->__set('tema', $_POST['tema']);
             // $atualizarAtividade->__set('tipo', $_POST['tipo']);
             $atualizarAtividade->__set('vagasMinimas', $_POST['vagasMinimas']);
             $atualizarAtividade->__set('vagasMaximas', $_POST['vagasMaximas']);
-            // $atualizarAtividade->__set('respAtividadeID', $_POST['responsavelAtividade']);
+            $atualizarAtividade->__set('respAtividadeID', $_POST['responsavelAtividade']);
             $atualizarAtividade->__set('data', $_POST['data']);
             $atualizarAtividade->__set('hora', $_POST['hora']);
             $atualizarAtividade->__set('duracao', $_POST['duracao']);
@@ -115,10 +101,6 @@
             
             $atualizarAtividade->alterarAtividade();
 
-            // echo "<pre>";
-            // print_r($atualizarAtividade);
-            // echo "</pre>";
-
             header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
         }
 
@@ -128,25 +110,24 @@
             ];
 
             $responsavelAtividade = Container::getModel('responsavelAtividade');
-            $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
 
+            $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
             $this->render('responsavelAtividade');
         }
 
         public function cadastrarResponsavelAtividade() {
             $responsavelAtividade = Container::getModel('ResponsavelAtividade');
             $responsavelAtividade->__set('login', $_POST['login']);
-
             $responsavelAtividade->criarResponsavelAtividade();
+
             header('Location: /responsavel_atividade');
         }
 
         public function removerResponsavelAtividade() {
             $responsavelAtividade = Container::getModel('ResponsavelAtividade');
             $responsavelAtividade->__set('id', $_POST['remover']);
-            
             $responsavelAtividade->deletarResponsavelAtividade();
-            // print_r($_POST);
+
             header('Location: /responsavel_atividade');
         }
     }

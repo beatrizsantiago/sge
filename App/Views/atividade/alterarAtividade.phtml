@@ -3,16 +3,6 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
     
     $eventoID = $_GET['idEvt'];
-    print_r("id Evento: " . base64_decode($_GET['idEvt']));
-    echo "</br>";
-    $atividadeID = $_GET['idAtv'];
-    print_r("id Atividade: " . base64_decode($_GET['idAtv']));
-
-    foreach($this->view->dadosAtividades as $atividade) {
-        echo "<pre>";
-        print_r($atividade);
-        echo "</pre>";
-    }
 
 ?>
 
@@ -33,7 +23,7 @@
 
     <div class="form-align">
         <?php foreach($this->view->dadosAtividades as $atividade) { ?>
-        <form action="/atualizar_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register space-top">
+        <form action="/atualizar_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="form-register space-top">
             <div class="input-grande">
                 <span>Tema</span>
                 <input type="text" value="<?= $atividade['tema'] ?>" name="tema" maxlength="80" class="input-radius">
@@ -60,10 +50,14 @@
             <div class="input-grande">
                 <label>Responsável Pela Atividade</label>
                 <select class="input-radius" name="responsavelAtividade">
-                    <option value="">Selecione</option>
-                    <?php foreach($this->view->responsavel_atividade as $responsavel_atividade) { ?>
-                        <option value="<?= $responsavel_atividade['id'] ?>"><?= $responsavel_atividade['nome'] ?></option>
-                    <?php } ?>
+                    <?php 
+                        foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
+                            if($atividade['respAtividadeID'] == $dadosResponsavel['id']) {
+                    ?>
+                        <option value="<?= $dadosResponsavel['id'] ?>" selected><?= $dadosResponsavel['nome'] ?></option>
+                    <?php } else { ?>
+                        <option value="<?= $dadosResponsavel['id'] ?>"><?= $dadosResponsavel['nome'] ?></option>
+                    <?php } } ?>
                 </select>
             </div>
             <div class="input-pequeno">
