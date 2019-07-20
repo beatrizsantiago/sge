@@ -74,11 +74,25 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function listarDadosResponsavelGeral() {
+            $query = "
+                SELECT rg.id, p.nome 
+                FROM responsavelgeral as rg, participante as p
+                WHERE rg.usuarioID = p.usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function alterarEvento() {
             $query = "
                 UPDATE evento 
                 SET titulo = :titulo, 
-                    local = :local, 
+                    local = :local,
+                    respGeralID = :respGeralID,
                     dataInicio = :dataInicio, 
                     dataFim = :dataFim, 
                     descricao = :descricao
@@ -90,7 +104,7 @@
             $stmt->bindValue(':id', $this->__get('id'));
             $stmt->bindValue(':titulo', $this->__get('titulo'));
             $stmt->bindValue(':local', $this->__get('local'));
-            // $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
+            $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
             $stmt->bindValue(':dataInicio', $this->__get('dataInicio'));
             $stmt->bindValue(':dataFim', $this->__get('dataFim'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));

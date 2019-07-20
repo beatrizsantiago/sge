@@ -40,8 +40,8 @@
             if(isset($_POST['excluir'])) {
                 $excluir = Container::getModel('Evento');
                 $excluir->__set('id', $_POST['excluir']);
-
                 $excluir->deletarEvento();
+                
                 header('Location: /index_evento');
             }
             
@@ -50,9 +50,12 @@
             }
 
             if(isset($_POST['alterar'])) {
-                print_r($_POST['alterar']);
-                $id = $_POST['alterar'];
-                header('Location: /alterar_evento?idEvt=' . base64_encode($id));
+                $listaDadosEvento = Container::getModel('Evento');
+                $listaDadosEvento->__set('id', $_POST['alterar']);
+
+                $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
+                $this->view->dadosResponsavel = $listaDadosEvento->listarDadosResponsavelGeral();
+                $this->render('alterarEvento');
             }
 
             if(isset($_POST['atividades'])) {
@@ -62,32 +65,19 @@
                        
         }
 
-        public function alterarEvento() {
-            $listaDadosEvento = Container::getModel('Evento');
-            $eventoID = base64_decode($_GET['idEvt']);
-            echo $eventoID . "<br>";
-            $listaDadosEvento->__set('id', $eventoID);
-            $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
-
-            $this->render('alterarEvento');
-        }
-
         public function atualizarEvento() {
             $atualizarEvento = Container::getModel('Evento');
             $atualizarEvento->__set('id', $_POST['id']);
             $atualizarEvento->__set('titulo', $_POST['titulo']);
             $atualizarEvento->__set('local', $_POST['local']);
-            // $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
             $atualizarEvento->__set('dataInicio', $_POST['dataInicio']);
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
             $atualizarEvento->alterarEvento();
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
 
-            // header('Location: /index_evento');
+            header('Location: /index_evento');
         }
 
         public function responsavelGeral() {

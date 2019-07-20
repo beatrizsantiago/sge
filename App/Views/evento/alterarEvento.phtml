@@ -1,12 +1,6 @@
 <?php
 
     require_once '../App/ValidaLoginAdministrador.php';
-    
-    foreach($this->view->dadosEventos as $dadosEventos) {
-        echo "<pre>";
-        print_r($dadosEventos);
-        echo "</pre>";
-    }
 
 ?>
 
@@ -39,7 +33,14 @@
                 <div class="input-medio">
                     <label>Responsável Geral</label>
                     <select class="input-radius" name="responsavelGeral">
-                        <option value="">Selecione</option>
+                        <?php 
+                            foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
+                                if($dadosResponsavel['nome'] == $dadosEventos['nome']) {
+                        ?>
+                            <option value="<?= $dadosResponsavel['id'] ?>" selected><?= $dadosResponsavel['nome'] ?></option>
+                        <?php } else { ?>
+                            <option value="<?= $dadosResponsavel['id'] ?>"><?= $dadosResponsavel['nome'] ?></option>
+                        <?php } } ?>
                     </select>
                 </div>
                 <div class="input-medio">

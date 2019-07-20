@@ -61,12 +61,6 @@
                 'action' => 'acaoEvento'
             ];
 
-            $routes['alterarEvento'] = [
-                'route' => '/alterar_evento',
-                'controller' => 'EventoController',
-                'action' => 'alterarEvento'
-            ];
-
             $routes['atualizarEvento'] = [
                 'route' => '/atualizar_evento',
                 'controller' => 'EventoController',
