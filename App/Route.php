@@ -162,6 +162,12 @@
                 'controller' => 'ParticipanteController',
                 'action' => 'acaoParticipanteAtividade'
             ];
+            
+            $routes['relatorioEvento'] = [
+                'route' => '/relatorio_evento',
+                'controller' => 'RelatoriosController',
+                'action' => 'relatorioEvento'
+            ];
 
             $this->setRoutes($routes);
         }
