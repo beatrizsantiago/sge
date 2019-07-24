@@ -3,6 +3,7 @@
     require_once '../App/ValidaLoginAdministrador.php';
 
     $eventoID = $_GET['idEvt'];
+    $atividadeID = $_GET['idAtv'];
 
 ?>
 
@@ -16,7 +17,7 @@
             <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
             <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
-            <a><img src="./img/icons/relatorio.png">Lista de Presença</a>
+            <a href="/lista_presenca?idAtv=<?= $atividadeID ?>" target="_blank"><img src="./img/icons/relatorio.png">Lista de Presença</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -35,7 +36,7 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <form action="/remover_responsavel_atividade" method="post" class="item-lista">
+                    <form action="" method="post" class="item-lista">
                         <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['login'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['curso'] ?></div>

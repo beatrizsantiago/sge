@@ -169,6 +169,12 @@
                 'action' => 'relatorioEvento'
             ];
 
+            $routes['listaPresenca'] = [
+                'route' => '/lista_presenca',
+                'controller' => 'RelatoriosController',
+                'action' => 'listaPresenca'
+            ];
+
             $this->setRoutes($routes);
         }
 

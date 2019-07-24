@@ -28,7 +28,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
-                <form action="/acao_atividade?idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
+                <form action="/acao_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
 
                     <div class="card-img card-img-atividade">
                         <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
