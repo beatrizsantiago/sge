@@ -27,11 +27,13 @@ input, select, textarea {
 }
 
 .form-register {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     width: 700px;
     padding: 30px;
+    margin: 20px 0px;
     overflow: hidden;
     background-color: #fff;
     border-radius: 15px;

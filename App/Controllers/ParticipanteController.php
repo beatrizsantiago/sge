@@ -120,6 +120,22 @@
                 header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
             }
         }
+
+        public function adicionarParticipante() {
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+        }
+
+        public function removerParticipante() {
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+            
+            $remover = Container::getModel('InscricaoAtividade');
+            $remover->__set('login', $_POST['remover']);
+            $remover->removerInscricao();
+        }
     }
 
 ?>

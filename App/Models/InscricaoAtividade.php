@@ -48,7 +48,7 @@
 
         public function listarInscritos() {
             $query = "
-                SELECT p.nome, u.login, p.curso, ia.usuarioID, ia.atividadeID 
+                SELECT DISTINCT p.nome, u.login, p.curso, ia.usuarioID, ia.atividadeID 
                 FROM participante as p, usuario as u, inscricaoatividade as ia, atividade as a
                 WHERE p.usuarioID = u.id AND ia.usuarioID = u.id AND ia.atividadeID = a.id AND ia.atividadeID = :id;
             ";
@@ -60,6 +60,37 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
+
+        public function adicionarInscricao() {
+            $query = "
+                INSERT INTO inscricaoatividade(usuarioID, atividadeID) 
+                VALUES (:usuarioID, :atividadeID);
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return $this;
+        }
+
+        public function removerInscricao() {
+            $query = "
+                DELETE FROM inscricaoatividade 
+                WHERE usuarioID = (
+                    SELECT id FROM usuario WHERE login = :login
+                );
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return true;
+        }
+
     }
 
 ?>

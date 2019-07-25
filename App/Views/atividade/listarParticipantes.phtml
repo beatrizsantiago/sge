@@ -25,8 +25,23 @@
     </aside>
 
     <main class="content">
+
+        <section class="form-align">
+            <form action="/adicionar_participante" method="post" class="form-register">
+                <h1 class="title-center-align">Adicionar Participante</h1>
+                <div class="input-grande">
+                    <label>E-mail do Usuário</label>
+                    <input type="text" name="login" class="input-radius">
+                </div>
+                <div class="input-grande btn-align-center btn-space-top">
+                    <button type="submit" class="btn-register">Adicionar</button>
+                </div>
+            </form>
+        </section>
+
         <h1 class="title-center-align">Participantes de Nome Atividade</h1>
         <hr>
+
         <section class="lista-container">
             <div class="lista-header">
                 <div class="item-pequeno">Nome</div>
@@ -36,12 +51,12 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <form action="" method="post" class="item-lista">
+                    <form action="/remover_participante" method="post" class="item-lista">
                         <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['login'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['curso'] ?></div>
                         <div class="item-button">
-                            <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full">Remover</button>
+                            <button type="submit" value="<?= $inscritos['login'] ?>" name="remover" class="btn-danger-full">Remover</button>
                         </div>
                     </form>
                 <?php } ?>

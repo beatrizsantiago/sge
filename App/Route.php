@@ -162,6 +162,18 @@
                 'controller' => 'ParticipanteController',
                 'action' => 'acaoParticipanteAtividade'
             ];
+
+            $routes['adicionarParticipante'] = [
+                'route' => '/adicionar_participante',
+                'controller' => 'ParticipanteController',
+                'action' => 'adicionarParticipante'
+            ];
+
+            $routes['removerParticipante'] = [
+                'route' => '/remover_participante',
+                'controller' => 'ParticipanteController',
+                'action' => 'removerParticipante'
+            ];
             
             $routes['relatorioEvento'] = [
                 'route' => '/relatorio_evento',

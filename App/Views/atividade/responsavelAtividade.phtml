@@ -33,7 +33,7 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/cadastrar_responsavel_atividade" method="post" class="form-register space-top">
+        <form action="/cadastrar_responsavel_atividade" method="post" class="form-register">
             <h1 class="title-center-align">Cadastrar Responsável de Atividade</h1>
             <div class="input-grande">
                 <label>E-mail do Usuário</label>
@@ -43,7 +43,7 @@
                 <button type="submit" class="btn-register">Adicionar Responsável</button>
             </div>
         </form>
-        <div class="lista space-top">
+        <div class="lista">
             <h1 class="title-center">Responsável Atividade</h1>
             <hr>
             <?php foreach($this->view->responsavel_atividade as $item) {?>

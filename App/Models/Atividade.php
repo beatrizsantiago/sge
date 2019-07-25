@@ -146,6 +146,20 @@
 
             return true;
         }
+
+        
+        public function getNomeAtividade() {
+            $query = '
+                SELECT tipo, tema FROM atividade WHERE id = :id;
+            ';
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>
