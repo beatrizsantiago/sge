@@ -46,7 +46,19 @@
             }
             
             if(isset($_POST['cancelar'])) {
-                print_r($_POST['cancelar']);
+                $listaDadosEvento = Container::getModel('Evento');
+                $listaDadosEvento->__set('id', $_POST['cancelar']);
+                $listaDadosEvento->cancelarEvento();
+
+                header('Location: /index_evento');
+            }
+
+            if(isset($_POST['ativar'])) {
+                $listaDadosEvento = Container::getModel('Evento');
+                $listaDadosEvento->__set('id', $_POST['ativar']);
+                $listaDadosEvento->ativarEvento();
+
+                header('Location: /index_evento');
             }
 
             if(isset($_POST['alterar'])) {
@@ -104,7 +116,6 @@
             $responsavelGeral->__set('id', $_POST['remover']);
             
             $responsavelGeral->deletarResponsavelGeral();
-            // print_r($_POST['remover']);
             header('Location: /responsavel_geral');
         }
     }

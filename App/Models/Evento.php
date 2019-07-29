@@ -12,7 +12,7 @@
         private $respGeralID;
         private $dataInicio;   
         private $dataFim;      
-        private $cancelado = 0;
+        private $cancelado;
         private $descricao;
         private $imgEvento = './img/evento.jpg';     
         
@@ -108,6 +108,36 @@
             $stmt->bindValue(':dataInicio', $this->__get('dataInicio'));
             $stmt->bindValue(':dataFim', $this->__get('dataFim'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
+            $stmt->execute();
+
+            return $this;
+        }
+
+        public function cancelarEvento() {
+            $query = "
+                UPDATE evento 
+                SET cancelado = true
+                WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $this;
+        }
+
+        public function ativarEvento() {
+            $query = "
+                UPDATE evento 
+                SET cancelado = false
+                WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
             $stmt->execute();
 
             return $this;
