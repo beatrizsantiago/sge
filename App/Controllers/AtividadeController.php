@@ -55,7 +55,19 @@
             }
 
             if(isset($_POST['cancelar'])) {
-                print_r($_POST['cancelar']);
+                $cancelarAtividade = Container::getModel('Atividade');
+                $cancelarAtividade->__set('id', $_POST['cancelar']);
+                $cancelarAtividade->cancelarAtividade();
+
+                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
+            }
+
+            if(isset($_POST['ativar'])) {
+                $ativarAtividade = Container::getModel('Atividade');
+                $ativarAtividade->__set('id', $_POST['ativar']);
+                $ativarAtividade->ativarAtividade();
+
+                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
             }
 
             if(isset($_POST['alterar'])) {

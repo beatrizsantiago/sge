@@ -18,7 +18,7 @@
         private $local;
         private $pontosPex;
         private $palestrante;
-        private $cancelada = 0;
+        private $cancelada = false;
         private $descricao;
 
         public function __get($atributo) {
@@ -130,6 +130,36 @@
             $stmt->bindValue(':pontosPex', $this->__get('pontosPex'));
             $stmt->bindValue(':palestrante', $this->__get('palestrante'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
+            $stmt->execute();
+            
+            return $this;
+        }
+
+        public function cancelarAtividade() {
+            $query = "
+                UPDATE atividade 
+                SET cancelada = true
+                WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+            
+            return $this;
+        }
+
+        public function ativarAtividade() {
+            $query = "
+                UPDATE atividade 
+                SET cancelada = false
+                WHERE id = :id
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':id', $this->__get('id'));
             $stmt->execute();
             
             return $this;
