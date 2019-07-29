@@ -46,17 +46,17 @@
             }
             
             if(isset($_POST['cancelar'])) {
-                $listaDadosEvento = Container::getModel('Evento');
-                $listaDadosEvento->__set('id', $_POST['cancelar']);
-                $listaDadosEvento->cancelarEvento();
+                $cancelarEvento = Container::getModel('Evento');
+                $cancelarEvento->__set('id', $_POST['cancelar']);
+                $cancelarEvento->cancelarEvento();
 
                 header('Location: /index_evento');
             }
 
             if(isset($_POST['ativar'])) {
-                $listaDadosEvento = Container::getModel('Evento');
-                $listaDadosEvento->__set('id', $_POST['ativar']);
-                $listaDadosEvento->ativarEvento();
+                $ativarEvento = Container::getModel('Evento');
+                $ativarEvento->__set('id', $_POST['ativar']);
+                $ativarEvento->ativarEvento();
 
                 header('Location: /index_evento');
             }
