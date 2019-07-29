@@ -13,6 +13,7 @@
             $listaAtividade->__set('eventoID', $eventoID);
 
             $this->view->atividades = $listaAtividade->listarAtividades();
+            $this->view->titulo = $listaAtividade->getTituloEvento();
             $this->render('indexAtividade');
         }
 

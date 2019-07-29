@@ -56,6 +56,20 @@
             return $this;
         }
 
+        public function getTituloEvento() {
+            $query = "
+                SELECT DISTINCT e.titulo 
+                FROM evento as e 
+                WHERE e.id = :eventoID;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':eventoID', $this->__get('eventoID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function listarAtividades() {
             $query = "
                 SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.descricao, p.nome 
