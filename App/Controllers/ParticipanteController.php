@@ -119,6 +119,11 @@
 
                 header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
             }
+
+            if(isset($_POST['participantes'])) {
+                print_r($_POST['participantes']);
+                header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_encode($_POST['participantes']));
+            }
         }
 
         public function adicionarParticipante() {

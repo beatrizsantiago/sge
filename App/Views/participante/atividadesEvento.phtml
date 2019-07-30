@@ -34,7 +34,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
-                <form action="/acao_participante_atividade?user=<?= base64_encode($_SESSION['id']) ?>&&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
+                <form action="/acao_participante_atividade?user=<?= base64_encode($_SESSION['id']) ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
 
                     <div class="card-img card-img-atividade">
                         <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
@@ -73,7 +73,7 @@
                                 <button type="submit" name="definirOrganizacao" value="<?= $atividade['id'] ?>" class="btn-register-full">Definir Organização</button>
                             </div>
                         <?php } ?>
-                        <?php if($_SESSION['tipoUsuario'] == 'Participante') { ?>
+                        <?php if($_SESSION['tipoUsuario'] == 'Participante' || $_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
                             <div class="btn-card btn-card-atividade-p">
                                 <button type="submit" name="cancelarInscricaoAtividade" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar Inscrição</button>
                                 <button type="submit" name="inscreverAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Inscrever - me</button>
