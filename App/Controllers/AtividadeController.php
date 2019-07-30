@@ -85,6 +85,7 @@
                 $listarInscritos->__set('id', $_POST['participantes']);
 
                 $this->view->inscritos = $listarInscritos->listarInscritos();
+                $this->view->tituloAtividade = $listarInscritos->getTituloAtividade();
                 $this->render('listarParticipantes');
             }
             

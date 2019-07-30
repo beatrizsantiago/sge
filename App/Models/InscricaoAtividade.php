@@ -91,6 +91,20 @@
             return true;
         }
 
+        public function getTituloAtividade() {
+            $query = "
+                SELECT DISTINCT a.tema 
+                FROM atividade as a
+                WHERE a.id = :id;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>
