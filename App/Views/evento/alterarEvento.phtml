@@ -61,7 +61,7 @@
                 </div> -->
                 <div class="input-grande">
                     <button type="submit" value="<?= $dadosEventos['id'] ?>" name="id" class="btn-register btn-right btn-space-top">Alterar Evento</button>
-                    <a href="/index_evento" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <a href="/index_evento?dXNlcklE=<?= base64_encode($_SESSION['id']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
                 </div>
             </form>
         <?php } ?>

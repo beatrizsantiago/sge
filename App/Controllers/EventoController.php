@@ -8,6 +8,7 @@
     class EventoController extends Action {
         public function indexEvento() {
             $listaEvento = Container::getModel('Evento');
+            $listaEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
             $this->view->eventos = $listaEvento->listarEventos();
 
             $this->render('indexEvento');
@@ -23,6 +24,11 @@
         public function cadastrarEvento() {
 
             $cadastrarEvento = Container::getModel('Evento');
+            echo "<pre>";
+            print_r($_POST);
+            print_r(base64_decode($_GET['dXNlcklE']));
+            echo "</pre>";
+            $cadastrarEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
             $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
@@ -32,7 +38,7 @@
 
             $cadastrarEvento->adicionarEvento();
 
-            header('Location: /index_evento');
+            header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
         }
 
         public function acaoEvento() {
@@ -42,7 +48,7 @@
                 $excluir->__set('id', $_POST['excluir']);
                 $excluir->deletarEvento();
                 
-                header('Location: /index_evento');
+                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
             }
             
             if(isset($_POST['cancelar'])) {
@@ -50,7 +56,7 @@
                 $cancelarEvento->__set('id', $_POST['cancelar']);
                 $cancelarEvento->cancelarEvento();
 
-                header('Location: /index_evento');
+                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
             }
 
             if(isset($_POST['ativar'])) {
@@ -58,7 +64,7 @@
                 $ativarEvento->__set('id', $_POST['ativar']);
                 $ativarEvento->ativarEvento();
 
-                header('Location: /index_evento');
+                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
             }
 
             if(isset($_POST['alterar'])) {
@@ -89,7 +95,7 @@
 
             $atualizarEvento->alterarEvento();
 
-            header('Location: /index_evento');
+            header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
         }
 
         public function responsavelGeral() {

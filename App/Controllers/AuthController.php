@@ -20,7 +20,7 @@
                 $_SESSION['tipoUsuario'] = $usuario->__get('tipoUsuario');
 
                 switch ($_SESSION['tipoUsuario']) {
-                    case 'Administrador': header('Location: /index_evento');
+                    case 'Administrador': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['id']));
                     break;
 
                     default: header('Location: /index_participante');
