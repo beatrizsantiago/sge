@@ -27,7 +27,7 @@
     <main class="content">
 
         <section class="form-align">
-            <form action="/adicionar_participante" method="post" class="form-register">
+            <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
                 <h1 class="title-center-align">Adicionar Participante</h1>
                 <div class="input-grande">
                     <label>E-mail do Usuário</label>
@@ -51,7 +51,7 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <form action="/remover_participante" method="post" class="item-lista">
+                    <form action="/remover_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
                         <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['login'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['curso'] ?></div>

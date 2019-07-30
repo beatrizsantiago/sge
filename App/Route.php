@@ -115,6 +115,12 @@
                 'action' => 'acaoAtividade'
             ];
 
+            $routes['listarParticipante'] = [
+                'route' => '/listar_participante',
+                'controller' => 'AtividadeController',
+                'action' => 'listarParticipante'
+            ];
+
             $routes['atualizarAtividade'] = [
                 'route' => '/atualizar_atividade',
                 'controller' => 'AtividadeController',

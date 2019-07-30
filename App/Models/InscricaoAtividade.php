@@ -64,12 +64,15 @@
         public function adicionarInscricao() {
             $query = "
                 INSERT INTO inscricaoatividade(usuarioID, atividadeID) 
-                VALUES (:usuarioID, :atividadeID);
+                SELECT u.id, a.id
+                FROM usuario as u, atividade as a
+                WHERE u.login = :login AND a.id = :atividadeID;
             ";
 
             $stmt = $this->db->prepare($query);
 
             $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->bindValue(':atividadeID', $this->__get('atividadeID'));
             $stmt->execute();
 
             return $this;

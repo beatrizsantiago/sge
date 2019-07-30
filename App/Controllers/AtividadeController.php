@@ -81,18 +81,22 @@
             }
 
             if(isset($_POST['participantes'])) {
-                $listarInscritos = Container::getModel('InscricaoAtividade');
-                $listarInscritos->__set('id', $_POST['participantes']);
-
-                $this->view->inscritos = $listarInscritos->listarInscritos();
-                $this->view->tituloAtividade = $listarInscritos->getTituloAtividade();
-                $this->render('listarParticipantes');
+                header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_Encode($_POST['participantes']));
             }
             
             if(isset($_POST['definirOrganizacao'])) {
                 print_r($_POST['definirOrganizacao']);
             }
                        
+        }
+
+        public function listarParticipante() {
+            $listarInscritos = Container::getModel('InscricaoAtividade');
+            $listarInscritos->__set('id', base64_decode($_GET['idAtv']));
+
+            $this->view->inscritos = $listarInscritos->listarInscritos();
+            $this->view->tituloAtividade = $listarInscritos->getTituloAtividade();
+            $this->render('listarParticipantes');
         }
 
         public function atualizarAtividade() {

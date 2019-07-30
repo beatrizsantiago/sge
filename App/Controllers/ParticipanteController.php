@@ -122,19 +122,20 @@
         }
 
         public function adicionarParticipante() {
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
+            $adicionar = Container::getModel('InscricaoAtividade');
+            $adicionar->__set('login', $_POST['login']);
+            $adicionar->__set('atividadeID', base64_decode($_GET['idAtv']));
+            $adicionar->adicionarInscricao();
+
+            header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
         }
 
         public function removerParticipante() {
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
-            
             $remover = Container::getModel('InscricaoAtividade');
             $remover->__set('login', $_POST['remover']);
             $remover->removerInscricao();
+
+            header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
         }
     }
 
