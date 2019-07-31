@@ -61,6 +61,21 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function listarEventosRespGeral() {
+            $query = "
+                SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                FROM evento as e, participante as p, responsavelgeral as rg 
+                WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id AND e.respGeralID = :respGeralID 
+                ORDER BY e.dataInicio;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function listarEventos() {
             $query = "
                 SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
