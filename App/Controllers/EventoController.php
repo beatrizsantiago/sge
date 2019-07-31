@@ -78,7 +78,7 @@
 
             if(isset($_POST['atividades'])) {
                 $id = $_POST['atividades'];
-                header('Location: /index_atividade?idEvt=' . base64_encode($id));
+                header('Location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . base64_encode($id));
             }
                        
         }
