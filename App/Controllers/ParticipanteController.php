@@ -142,6 +142,10 @@
 
             header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
         }
+
+        public function gerarCertificado() {
+            $this->render('gerarCertificado');
+        }
     }
 
 ?>

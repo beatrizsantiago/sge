@@ -180,6 +180,12 @@
                 'controller' => 'ParticipanteController',
                 'action' => 'removerParticipante'
             ];
+
+            $routes['gerarCertificado'] = [
+                'route' => '/gerar_certificado',
+                'controller' => 'ParticipanteController',
+                'action' => 'gerarCertificado'
+            ];
             
             $routes['relatorioEvento'] = [
                 'route' => '/relatorio_evento',
