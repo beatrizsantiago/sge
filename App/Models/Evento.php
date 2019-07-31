@@ -46,7 +46,7 @@
             return $this;
         }
 
-        public function listarEventos() {
+        public function listarEventosAdm() {
             $query = "
                 SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e, participante as p, responsavelgeral as rg 
@@ -56,6 +56,20 @@
 
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':administradorID', $this->__get('administradorID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function listarEventos() {
+            $query = "
+                SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                FROM evento as e, participante as p, responsavelgeral as rg 
+                WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id 
+                ORDER BY e.dataInicio;
+            ";
+
+            $stmt = $this->db->prepare($query);
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);

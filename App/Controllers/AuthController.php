@@ -11,16 +11,21 @@
             $usuario->__set('login', $_POST['login']);
             $usuario->__set('senha', md5($_POST['senha']));
 
-            $retorno = $usuario->autenticar();
+            $usuario->autenticar();
+            $administradorID = $usuario->getAdministradorId();
 
             if($usuario->__get('id') != '' && $usuario->__get('login')) {
                 session_start();
                 $_SESSION['id'] = $usuario->__get('id');
                 $_SESSION['login'] = $usuario->__get('login');
                 $_SESSION['tipoUsuario'] = $usuario->__get('tipoUsuario');
+                
+                if($administradorID != '') {
+                    $_SESSION['administradorID'] = $administradorID[0]['id'];
+                }
 
                 switch ($_SESSION['tipoUsuario']) {
-                    case 'Administrador': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['id']));
+                    case 'Administrador': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['administradorID']));
                     break;
 
                     default: header('Location: /index_participante');

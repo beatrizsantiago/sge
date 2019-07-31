@@ -9,7 +9,7 @@
         public function indexEvento() {
             $listaEvento = Container::getModel('Evento');
             $listaEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
-            $this->view->eventos = $listaEvento->listarEventos();
+            $this->view->eventos = $listaEvento->listarEventosAdm();
 
             $this->render('indexEvento');
         }
