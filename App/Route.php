@@ -199,6 +199,18 @@
                 'action' => 'listaPresenca'
             ];
 
+            $routes['imprimirCertificado'] = [
+                'route' => '/imprimir_certificado',
+                'controller' => 'RelatoriosController',
+                'action' => 'imprimirCertificado'
+            ];
+
+            $routes['imprimirRelatorio'] = [
+                'route' => '/imprimir_relatorio',
+                'controller' => 'RelatoriosController',
+                'action' => 'imprimirRelatorio'
+            ];
+
             $this->setRoutes($routes);
         }
 

@@ -147,4 +147,58 @@
             );
 
         }
+
+        public function imprimirCertificado() {
+            $dompdf = new Dompdf();
+
+            $html = '
+                <!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Certificado</title>
+                </head>
+                <body>
+                    <h1>Certificado</h1>
+                </body>
+                </html>
+            ';
+
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $dompdf->stream(
+                "certificado_participacao.pdf",
+                array(
+                    "Attachment" => false
+                )
+            );
+        }
+
+        public function imprimirRelatorio() {
+            $dompdf = new Dompdf();
+
+            $html = '
+                <!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Relatório</title>
+                </head>
+                <body>
+                    <h1>Relatório</h1>
+                </body>
+                </html>
+            ';
+
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            $dompdf->stream(
+                "relatorio_participacao.pdf",
+                array(
+                    "Attachment" => false
+                )
+            );
+        }
     }

@@ -88,8 +88,8 @@
         public function atividadesEvento() {
             $listaAtividade = Container::getModel('Atividade');
             $eventoID = base64_decode($_GET['idEvt']);
-            echo $eventoID . "<br>";
             $listaAtividade->__set('eventoID', $eventoID);
+            $this->view->titulo = $listaAtividade->getTituloEvento();
             $this->view->atividades = $listaAtividade->listarAtividades();
 
             $this->render('atividadesEvento');
@@ -144,6 +144,12 @@
         }
 
         public function gerarCertificado() {
+            $gerarCertificado = Container::getModel('Participante');
+            $gerarCertificado->__set('eventoID', base64_decode($_GET['idEvt']));
+            $gerarCertificado->__set('usuarioID', base64_decode($_GET['ui']));
+            $this->view->somatorio = $gerarCertificado->somatorioPex();
+            $this->view->relatorio = $gerarCertificado->relatorioParticipacao();
+
             $this->render('gerarCertificado');
         }
     }

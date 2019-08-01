@@ -42,6 +42,38 @@
             return $this;
         }
 
+        public function relatorioParticipacao() {
+            $query = "
+                SELECT DISTINCT a.tema, a.pontosPex
+                FROM sge.atividade as a, sge.inscricaoatividade as ia
+                WHERE a.id = ia.atividadeID AND a.eventoID = :eventoID AND ia.usuarioID = :usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':eventoID', $this->__get('eventoID'));
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function somatorioPex() {
+            $query = "
+                SELECT DISTINCT SUM(a.pontosPex) as soma 
+                FROM sge.atividade as a, sge.inscricaoatividade as ia
+                WHERE a.id = ia.atividadeID AND a.eventoID = :eventoID AND ia.usuarioID = :usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':eventoID', $this->__get('eventoID'));
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>

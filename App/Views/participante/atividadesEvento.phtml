@@ -22,7 +22,7 @@
             <?php } ?>
                 
             <a href="#"><img src="./img/icons/criar-evento.png">Cronograma</a>
-            <a href="/gerar_certificado"><img src="./img/icons/relatorio.png">Gerar Certificado</a>
+            <a href="/gerar_certificado?idEvt=<?= $eventoID ?>&ui=<?= base64_encode($_SESSION['id']) ?>"><img src="./img/icons/relatorio.png">Gerar Certificado</a>
             
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
@@ -31,7 +31,7 @@
     </aside>
 
     <main class="content">
-        <h1 class="title-center-align">Atividades de Evento</h1>
+        <h1 class="title-center-align">Atividades de <?= $this->view->titulo[0]['titulo'] ?></h1>
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>

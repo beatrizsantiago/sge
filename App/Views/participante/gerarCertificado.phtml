@@ -1,6 +1,7 @@
 <?php
 
     require_once '../App/ValidaLoginParticipante.php';
+    $eventoID = $_GET['idEvt'];
 
 ?>
 
@@ -11,6 +12,7 @@
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">
+            <a href="/atividades_evento?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -19,7 +21,37 @@
 
     <main class="content">
         <h1 class="title-center-align">Relatório de Participação</h1>
-        <hr>
-        
+        <br>
+        <section class="section-table">
+            <table class="table" cellspacing="0px">
+                <thead class="table-head">
+                    <th class="big-field">Atividade</th>
+                    <th class="small-field">Pontos PEX</th>
+                    <th class="small-field">Presente</th>
+                </thead>
+                <tbody class="table-body">
+                    <?php foreach($this->view->relatorio as $item) { ?>
+                        <tr>
+                            <td class="big-field"><?= $item['tema'] ?></td>
+                            <td class="small-field"><?= $item['pontosPex'] ?></td>
+                            <td class="small-field"></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+                <tfoot class="table-foot">
+                    <tr>
+                        <td class="big-field">Total de Pontos PEX</td>
+                        <?php foreach($this->view->somatorio as $somatorio) { ?>
+                            <td class="small-field"><?= $somatorio['soma'] ?></td>
+                        <?php } ?>
+                        <td class="small-field"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="relatorio-buttons">
+                <a href="/imprimir_relatorio?idEvt=<?= $_GET['idEvt'] ?>&ui=<?= base64_encode($_SESSION['id']) ?>" class="btn-link btn-confirm" target="_blank">Imprimir Relatório</a>
+                <a href="/imprimir_certificado?idEvt=<?= $_GET['idEvt'] ?>&ui=<?= base64_encode($_SESSION['id']) ?>" class="btn-link btn-register" target="_blank">Imprimir Certificado</a>
+            </div>
+        </section>
     </main>
 </section>
