@@ -9,7 +9,7 @@
         public function indexEvento() {
             $listaEvento = Container::getModel('Evento');
             $listaEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
-            $this->view->eventos = $listaEvento->listarEventosAdm();
+            $this->view->eventos = $listaEvento->listarEventos();
 
             $this->render('indexEvento');
         }
@@ -24,10 +24,6 @@
         public function cadastrarEvento() {
 
             $cadastrarEvento = Container::getModel('Evento');
-            echo "<pre>";
-            print_r($_POST);
-            print_r(base64_decode($_GET['dXNlcklE']));
-            echo "</pre>";
             $cadastrarEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);

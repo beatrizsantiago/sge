@@ -47,6 +47,7 @@
 
         public function indexParticipante() {
             $listaEvento = Container::getModel('Evento');
+            $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
             $this->view->eventos = $listaEvento->listarEventos();
             $this->view->inscrito = $listaEvento->inscritoEvento();
 
