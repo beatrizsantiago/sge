@@ -94,6 +94,7 @@ CREATE TABLE `administrador` (
   `usuarioID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioID_idx` (`usuarioID`),
   CONSTRAINT `usuarioIdAdm` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
