@@ -119,10 +119,12 @@ DROP TABLE IF EXISTS `sge`.`responsavelgeral`;
 CREATE TABLE `responsavelgeral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuarioID` int(11) NOT NULL,
+  `administradorID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespGeral` (`usuarioID`),
+  CONSTRAINT `administradorIdRespGeral` FOREIGN KEY (`administradorID`) REFERENCES `administrador` (`id`) ON DELETE CASCADE,
   CONSTRAINT `usuarioIdRespGeral` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -133,7 +135,7 @@ CREATE TABLE `responsavelgeral` (
 
 LOCK TABLES `responsavelgeral` WRITE;
 /*!40000 ALTER TABLE `responsavelgeral` DISABLE KEYS */;
-INSERT INTO `sge`.`responsavelgeral` VALUES (1,2);
+INSERT INTO `sge`.`responsavelgeral` VALUES (1,2,1);
 /*!40000 ALTER TABLE `responsavelgeral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,10 +186,12 @@ DROP TABLE IF EXISTS `sge`.`responsavelatividade`;
 CREATE TABLE `responsavelatividade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuarioID` int(11) NOT NULL,
+  `administradorID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespAtv` (`usuarioID`),
+  CONSTRAINT `administradorIdRespAtv` FOREIGN KEY (`administradorID`) REFERENCES `administrador` (`id`) ON DELETE CASCADE,
   CONSTRAINT `usuarioIdRespAtv` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -198,7 +202,7 @@ CREATE TABLE `responsavelatividade` (
 
 LOCK TABLES `responsavelatividade` WRITE;
 /*!40000 ALTER TABLE `responsavelatividade` DISABLE KEYS */;
-INSERT INTO `sge`.`responsavelatividade` VALUES (1,3);
+INSERT INTO `sge`.`responsavelatividade` VALUES (1,3,1);
 /*!40000 ALTER TABLE `responsavelatividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
