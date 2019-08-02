@@ -121,6 +121,7 @@ CREATE TABLE `responsavelgeral` (
   `usuarioID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespGeral` (`usuarioID`),
   CONSTRAINT `usuarioIdRespGeral` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -185,6 +186,7 @@ CREATE TABLE `responsavelatividade` (
   `usuarioID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespAtv` (`usuarioID`),
   CONSTRAINT `usuarioIdRespAtv` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
