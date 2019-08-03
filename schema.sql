@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
 --
--- Host: localhost    Database: sge
+-- Host: localhost    Database: db_sge
 -- ------------------------------------------------------
 -- Server version	8.0.16
 
@@ -8,8 +8,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-CREATE SCHEMA IF NOT EXISTS `sge` DEFAULT CHARACTER SET utf8 ;
-USE `sge` ;
+CREATE SCHEMA IF NOT EXISTS `db_sge` DEFAULT CHARACTER SET utf8 ;
+USE `db_sge` ;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ USE `sge` ;
 -- Table structure for table `usuario`
 --
 
-DROP TABLE IF EXISTS `sge`.`usuario`;
+DROP TABLE IF EXISTS `db_sge`.`usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `usuario` (
@@ -46,7 +46,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `sge`.`usuario` VALUES (1,'beatriz@email.com','a8f5f167f44f4964e6c998dee827110c','Administrador'),(2,'annie@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelGeral'),(3,'mione@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelAtividade'),(4,'percy@email.com','a8f5f167f44f4964e6c998dee827110c','Participante'),(5,'potter@email.com','a8f5f167f44f4964e6c998dee827110c','Participante');
+INSERT INTO `db_sge`.`usuario` VALUES (1,'beatriz@email.com','a8f5f167f44f4964e6c998dee827110c','Administrador'),(2,'annie@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelGeral'),(3,'mione@email.com','a8f5f167f44f4964e6c998dee827110c','ResponsavelAtividade'),(4,'percy@email.com','a8f5f167f44f4964e6c998dee827110c','Participante'),(5,'potter@email.com','a8f5f167f44f4964e6c998dee827110c','Participante');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ UNLOCK TABLES;
 -- Table structure for table `participante`
 --
 
-DROP TABLE IF EXISTS `sge`.`participante`;
+DROP TABLE IF EXISTS `db_sge`.`participante`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `participante` (
@@ -78,7 +78,7 @@ CREATE TABLE `participante` (
 
 LOCK TABLES `participante` WRITE;
 /*!40000 ALTER TABLE `participante` DISABLE KEYS */;
-INSERT INTO `sge`.`participante` VALUES (1,'Annabeth Chase','Acampamento Meio Sangue','Arquitetura','','Annabeth',2),(2,'Hermione Granger','Hogwarts','Transfiguração','','Hermione',3),(3,'Percy Jackson','Acampamento Meio Sangue','Oceanografia','','Percy',4),(4,'Harry Potter','Hogwarts','Quadribol','','Harry',5);
+INSERT INTO `db_sge`.`participante` VALUES (1,'Annabeth Chase','Acampamento Meio Sangue','Arquitetura','','Annabeth',2),(2,'Hermione Granger','Hogwarts','Transfiguração','','Hermione',3),(3,'Percy Jackson','Acampamento Meio Sangue','Oceanografia','','Percy',4),(4,'Harry Potter','Hogwarts','Quadribol','','Harry',5);
 /*!40000 ALTER TABLE `participante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ UNLOCK TABLES;
 -- Table structure for table `administrador`
 --
 
-DROP TABLE IF EXISTS `sge`.`administrador`;
+DROP TABLE IF EXISTS `db_sge`.`administrador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `administrador` (
@@ -106,7 +106,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `sge`.`administrador` VALUES (1,1);
+INSERT INTO `db_sge`.`administrador` VALUES (1,1);
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ UNLOCK TABLES;
 -- Table structure for table `responsavelgeral`
 --
 
-DROP TABLE IF EXISTS `sge`.`responsavelgeral`;
+DROP TABLE IF EXISTS `db_sge`.`responsavelgeral`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `responsavelgeral` (
@@ -136,7 +136,7 @@ CREATE TABLE `responsavelgeral` (
 
 LOCK TABLES `responsavelgeral` WRITE;
 /*!40000 ALTER TABLE `responsavelgeral` DISABLE KEYS */;
-INSERT INTO `sge`.`responsavelgeral` VALUES (1,2,1);
+INSERT INTO `db_sge`.`responsavelgeral` VALUES (1,2,1);
 /*!40000 ALTER TABLE `responsavelgeral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +144,7 @@ UNLOCK TABLES;
 -- Table structure for table `evento`
 --
 
-DROP TABLE IF EXISTS `sge`.`evento`;
+DROP TABLE IF EXISTS `db_sge`.`evento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `evento` (
@@ -173,7 +173,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
-INSERT INTO `sge`.`evento` VALUES (1,'Semana Acadêmica da TI',14,10,2019,'2019-10-17','Unifanor|Wyden',0,'Semana cheia de palestras relacionado ao mundo da TI',1,1,'./img/evento.jpg');
+INSERT INTO `db_sge`.`evento` VALUES (1, 'Semana Acadêmica da TI','2019-10-14','2019-10-17','Unifanor|Wyden',0,'Semana cheia de palestras relacionado ao mundo da TI',1,1,'./img/evento.jpg');
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +181,7 @@ UNLOCK TABLES;
 -- Table structure for table `responsavelatividade`
 --
 
-DROP TABLE IF EXISTS `sge`.`responsavelatividade`;
+DROP TABLE IF EXISTS `db_sge`.`responsavelatividade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `responsavelatividade` (
@@ -203,7 +203,7 @@ CREATE TABLE `responsavelatividade` (
 
 LOCK TABLES `responsavelatividade` WRITE;
 /*!40000 ALTER TABLE `responsavelatividade` DISABLE KEYS */;
-INSERT INTO `sge`.`responsavelatividade` VALUES (1,3,1);
+INSERT INTO `db_sge`.`responsavelatividade` VALUES (1,3,1);
 /*!40000 ALTER TABLE `responsavelatividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +211,7 @@ UNLOCK TABLES;
 -- Table structure for table `atividade`
 --
 
-DROP TABLE IF EXISTS `sge`.`atividade`;
+DROP TABLE IF EXISTS `db_sge`.`atividade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `atividade` (
@@ -245,7 +245,7 @@ CREATE TABLE `atividade` (
 
 LOCK TABLES `atividade` WRITE;
 /*!40000 ALTER TABLE `atividade` DISABLE KEYS */;
-INSERT INTO `sge`.`atividade` VALUES (1,'Palestra','Fazer a Neve Cair com Let It Go','2019-10-15','19:00:00','02:00:00','Auditório 02',20,30,100,0,'',1,1,'Rainha Elsa - Atriz Principal de Frozen');
+INSERT INTO `db_sge`.`atividade` VALUES (1,'Palestra','Fazer a Neve Cair com Let It Go','2019-10-15','19:00:00','02:00:00','Auditório 02',20,30,100,0,'',1,1,'Rainha Elsa - Atriz Principal de Frozen');
 /*!40000 ALTER TABLE `atividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ UNLOCK TABLES;
 -- Table structure for table `inscricaoevento`
 --
 
-DROP TABLE IF EXISTS `sge`.`inscricaoevento`;
+DROP TABLE IF EXISTS `db_sge`.`inscricaoevento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `inscricaoevento` (
@@ -279,7 +279,7 @@ UNLOCK TABLES;
 -- Table structure for table `organizador`
 --
 
-DROP TABLE IF EXISTS `sge`.`organizador`;
+DROP TABLE IF EXISTS `db_sge`.`organizador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `organizador` (
@@ -308,7 +308,7 @@ UNLOCK TABLES;
 -- Table structure for table `inscricaoatividade`
 --
 
-DROP TABLE IF EXISTS `sge`.`inscricaoatividade`;
+DROP TABLE IF EXISTS `db_sge`.`inscricaoatividade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `inscricaoatividade` (
