@@ -50,18 +50,24 @@
 
             $administrador = "";
             if($this->__get('administradorID')) {
-                $administrador = "AND e.administradorID = :administradorID";
+                $administrador = "e.administradorID = :administradorID";
             }
 
             $responsavelGeral = "";
             if($this->__get('respGeralID')) {
-                $responsavelGeral = "AND e.respGeralID = :respGeralID";
+                $responsavelGeral = "e.respGeralID = :respGeralID";
             }
 
+            // SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+            // FROM evento as e, participante as p, responsavelgeral as rg 
+            // WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id ". $administrador ." ". $responsavelGeral ." 
+            // ORDER BY e.dataInicio;
             $query = "
-                SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
-                FROM evento as e, participante as p, responsavelgeral as rg 
-                WHERE p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id ". $administrador ." ". $responsavelGeral ." 
+                SELECT DISTINCT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
+                FROM sge.evento as e 
+                    LEFT JOIN sge.responsavelgeral as rg ON e.respGeralID = rg.id 
+                    LEFT JOIN sge.participante as p ON p.usuarioID = rg.usuarioID 
+                WHERE ". $administrador ." ". $responsavelGeral ."
                 ORDER BY e.dataInicio;
             ";
 
@@ -76,12 +82,17 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
-
+        
+        // SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
+        // FROM evento as e, participante as p, responsavelgeral as rg 
+        // WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
         public function listarDadosEvento() {
             $query = "
                 SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
-                FROM evento as e, participante as p, responsavelgeral as rg 
-                WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
+                FROM evento as e 
+                    LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id
+                    LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID
+                WHERE e.id = :id 
             ";
 
             $stmt = $this->db->prepare($query);

@@ -21,7 +21,7 @@
 
     <div class="form-align">
         <?php foreach($this->view->dadosEventos as $dadosEventos) { ?>
-            <form action="/atualizar_evento" method="post" class="form-register space-top">
+            <form action="/atualizar_evento?dXNlcklE=<?= base64_encode($_SESSION['administradorID']) ?>" method="post" class="form-register space-top">
                 <div class="input-grande">
                     <span>Nome</span>
                     <input type="text" value="<?= $dadosEventos['titulo'] ?>" name="titulo" maxlength="50" class="input-radius">
@@ -33,6 +33,7 @@
                 <div class="input-medio">
                     <label>Responsável Geral</label>
                     <select class="input-radius" name="responsavelGeral">
+                        <option value="">Selecione</option>
                         <?php 
                             foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
                                 if($dadosResponsavel['nome'] == $dadosEventos['nome']) {
