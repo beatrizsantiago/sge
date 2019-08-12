@@ -22,7 +22,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
-                <form action="/acao_participante_evento?user=<?= base64_encode($_SESSION['id']) ?>" method="post" class="card-evento card-block">
+                <form action="/acao_participante_evento?user=<?= base64_encode($_SESSION['id']) ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" method="post" class="card-evento card-block">
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
                             <img src="<?= $evento['imgEvento'] ?>" alt="evento">

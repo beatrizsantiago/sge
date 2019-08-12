@@ -13,11 +13,11 @@
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">
-            <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
+            <a href="/index_participante?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/eventos.png">Eventos</a>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/criar_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-                <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
+                <a href="/criar_atividade?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
+                <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
                 <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
             <?php } ?>
                 

@@ -19,8 +19,8 @@
             <?php } ?>
                 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/atividades_evento?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
+                <a href="/index_participante?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/eventos.png">Eventos</a>
+                <a href="/atividades_evento?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <?php } ?>
             
             <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
@@ -103,7 +103,7 @@
                 <?php } ?>
                 
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <a href="/atividades_evento?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <a href="/atividades_evento?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
                 <?php } ?>
             </div>
         </form>

@@ -58,31 +58,34 @@
 
             if(isset($_POST['visualizarAtividades'])) {
                 $id = $_POST['visualizarAtividades'];
-                header('Location: /atividades_evento?idEvt=' . base64_encode($id));
+                $responsavelGeralID = $_GET['dXNlcklE'];
+                header('Location: /atividades_evento?idEvt=' . base64_encode($id) . '&dXNlcklE=' . $responsavelGeralID);
             }
 
             if(isset($_POST['inscreverEvento'])) {
                 $eventoID = $_POST['inscreverEvento'];
                 $usuarioID = base64_decode($_GET['user']);
+                $responsavelGeralID = $_GET['dXNlcklE'];
 
                 $inscricaoEvento = Container::getModel('InscricaoEvento');
                 $inscricaoEvento->__set('eventoID', $eventoID);
                 $inscricaoEvento->__set('usuarioID', $usuarioID);
                 $inscricaoEvento->inscreverEvento();
 
-                header('Location: /index_participante');
+                header('Location: /index_participante?dXNlcklE=' . $responsavelGeralID);
             }
 
             if(isset($_POST['cancelarInscricaoEvento'])) {
                 $eventoID = $_POST['cancelarInscricaoEvento'];
                 $usuarioID = base64_decode($_GET['user']);
+                $responsavelGeralID = $_GET['dXNlcklE'];
 
                 $inscricaoEvento = Container::getModel('InscricaoEvento');
                 $inscricaoEvento->__set('eventoID', $eventoID);
                 $inscricaoEvento->__set('usuarioID', $usuarioID);
                 $inscricaoEvento->cancelarInscricaoEvento();
 
-                header('Location: /index_participante');
+                header('Location: /index_participante?dXNlcklE=' . $responsavelGeralID);
             }
         }
 
