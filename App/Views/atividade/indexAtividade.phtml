@@ -26,6 +26,13 @@
     <main class="content">
         <h1 class="title-center-align">Atividades de <?= $this->view->titulo[0]['titulo'] ?></h1>
         <hr>
+        <?php if($this->view->atividades == []) { ?>
+            <div class="mensagem-aviso">
+                <div class="msg-box-medium msg-info">
+                    <small class="text-info">Ainda <strong>não existem atividades</strong> para este evento!</small>
+                </div>
+            </div>
+        <?php } ?>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
                 <form action="/acao_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
@@ -65,8 +72,11 @@
 
                         <div class="btn-card btn-card-atividade">
                             <button type="submit" name="excluir" value="<?= $atividade['id'] ?>" class="btn-evil-full">Excluir</button>
-                            <button type="submit" name="cancelar" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar</button>
-                            <button type="submit" name="ativar" value="<?= $atividade['id'] ?>" class="btn-register-full">Ativar</button>
+                            <?php if($atividade['cancelada'] == false) { ?>
+                                <button type="submit" name="cancelar" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar</button>
+                            <?php } else { ?>
+                                <button type="submit" name="ativar" value="<?= $atividade['id'] ?>" class="btn-register-full">Ativar</button>
+                            <?php } ?>
                             <button type="submit" name="alterar" value="<?= $atividade['id'] ?>" class="btn-warning-full">Alterar</button>
                             <button type="submit" name="participantes" value="<?= $atividade['id'] ?>" class="btn-confirm-full">Participantes</button>
                             <button type="submit" name="definirOrganizacao" value="<?= $atividade['id'] ?>" class="btn-register-full">Definir Organização</button>

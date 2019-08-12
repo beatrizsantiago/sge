@@ -52,3 +52,9 @@
 .btn-card-evento button {
     padding: 8px 12px;
 }
+
+.mensagem-aviso {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

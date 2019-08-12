@@ -41,8 +41,11 @@
                         <p><?= $evento['descricao'] ?></p>
                         <div class="btn-card btn-card-evento">
                             <button type="submit" value="<?= $evento['id'] ?>" name="excluir" class="btn-evil-full">Excluir</button>
-                            <button type="submit" value="<?= $evento['id'] ?>" name="cancelar" class="btn-danger-full">Cancelar</button>
-                            <button type="submit" value="<?= $evento['id'] ?>" name="ativar" class="btn-register-full">Ativar</button>
+                            <?php if($evento['cancelado'] == false) { ?>
+                                <button type="submit" value="<?= $evento['id'] ?>" name="cancelar" class="btn-danger-full">Cancelar</button>
+                            <?php } else { ?>
+                                <button type="submit" value="<?= $evento['id'] ?>" name="ativar" class="btn-register-full">Ativar</button>
+                            <?php } ?>
                             <button type="submit" value="<?= $evento['id'] ?>" name="alterar" class="btn-warning-full">Alterar</button>
                         </div>
                         <div class="btn-card">

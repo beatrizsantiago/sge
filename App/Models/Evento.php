@@ -59,7 +59,7 @@
             }
 
             $query = "
-                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.descricao, e.imgEvento, p.nome 
+                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e 
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
                     LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 

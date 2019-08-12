@@ -7,12 +7,29 @@
     box-sizing: border-box;
 }
 
+.msg-box-medium {
+    width: 90%;
+    text-align: center;
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
 .msg-success {
     background-color: #b7ffb0;
 }
 
 .text-success {
     color: #054100;
+}
+
+.msg-info {
+    background-color: #c9f9ff;
+}
+
+.text-info {
+    color: #11565f;
 }
 
 .msg-warning {
