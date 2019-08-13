@@ -276,35 +276,6 @@ LOCK TABLES `inscricaoevento` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `organizador`
---
-
-DROP TABLE IF EXISTS `db_sge`.`organizador`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `organizador` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuarioID` int(11) NOT NULL,
-  `atividadeID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `usuarioID_idx` (`usuarioID`),
-  KEY `atividadeID_idx` (`atividadeID`),
-  CONSTRAINT `atividadeIdOrg` FOREIGN KEY (`atividadeID`) REFERENCES `atividade` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `usuarioIdOrg` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `organizador`
---
-
-LOCK TABLES `organizador` WRITE;
-/*!40000 ALTER TABLE `organizador` DISABLE KEYS */;
-/*!40000 ALTER TABLE `organizador` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `inscricaoatividade`
 --
 

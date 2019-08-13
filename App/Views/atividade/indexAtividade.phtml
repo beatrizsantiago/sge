@@ -18,7 +18,6 @@
             <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <a href="#"><img src="./img/icons/criar-evento.png">Cronograma</a>
             <a href="/relatorio_evento?idEvt=<?= $eventoID ?>" target="_blank"><img src="./img/icons/relatorio.png">Gerar Relatório</a>
-            <a href="/gerar_certificado?idEvt=<?= $eventoID ?>&ui=<?= base64_encode($_SESSION['id']) ?>"><img src="./img/icons/relatorio.png">Gerar Certificado</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -81,7 +80,6 @@
                             <?php } ?>
                             <button type="submit" name="alterar" value="<?= $atividade['id'] ?>" class="btn-warning-full">Alterar</button>
                             <button type="submit" name="participantes" value="<?= $atividade['id'] ?>" class="btn-confirm-full">Participantes</button>
-                            <button type="submit" name="definirOrganizacao" value="<?= $atividade['id'] ?>" class="btn-register-full">Definir Organização</button>
                         </div>
                     </div>
 

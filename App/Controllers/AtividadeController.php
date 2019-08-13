@@ -83,10 +83,6 @@
             if(isset($_POST['participantes'])) {
                 header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_Encode($_POST['participantes']));
             }
-            
-            if(isset($_POST['definirOrganizacao'])) {
-                print_r($_POST['definirOrganizacao']);
-            }
                        
         }
 
