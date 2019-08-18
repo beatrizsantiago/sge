@@ -1,6 +1,8 @@
 <?php
 
     require_once '../App/ValidaLoginResponsavelGeral.php';
+    
+    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
 
 ?>
 
@@ -18,8 +20,8 @@
             <?php } ?>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/criar_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/criar-evento.png">Criar Evento</a>
+                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
+                <a href="/criar_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/criar-evento.png">Criar Evento</a>
             <?php } ?>
 
             <div class="div-sair">
@@ -29,7 +31,7 @@
     </aside>
 
     <main class="content">
-        <h1 class="title-center-align">Meus Eventos</h1>
+        <h1 class="title-center-align">Eventos</h1>
         <hr>
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
@@ -37,7 +39,7 @@
                     <form action="/acao_evento" method="post" class="card-evento card-block">
                 <?php } ?>
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <form action="/acao_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" method="post" class="card-evento card-block">
+                    <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block">
                 <?php } ?>
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
@@ -56,11 +58,13 @@
                             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                                 <button type="submit" value="<?= $evento['id'] ?>" name="excluir" class="btn-evil-full">Excluir</button>
                             <?php } ?>
+
                             <?php if($evento['cancelado'] == false) { ?>
                                 <button type="submit" value="<?= $evento['id'] ?>" name="cancelar" class="btn-danger-full">Cancelar</button>
                             <?php } else { ?>
                                 <button type="submit" value="<?= $evento['id'] ?>" name="ativar" class="btn-register-full">Ativar</button>
                             <?php } ?>
+                            
                             <button type="submit" value="<?= $evento['id'] ?>" name="alterar" class="btn-warning-full">Alterar</button>
                         </div>
                         <div class="btn-card">

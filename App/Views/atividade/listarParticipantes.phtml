@@ -4,6 +4,7 @@
 
     $eventoID = $_GET['idEvt'];
     $atividadeID = $_GET['idAtv'];
+    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
 
 ?>
 
@@ -16,13 +17,13 @@
         <nav class="menu">
 
             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
+                <a href="/index_evento"><img src="./img/icons/eventos.png">Eventos</a>
                 <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <?php } ?>
                 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/atividades_evento?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
+                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
+                <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <?php } ?>
 
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
@@ -36,7 +37,13 @@
     <main class="content">
 
         <section class="form-align">
-            <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
+            <?php } ?>
+
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                <form action="/adicionar_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
+            <?php } ?>
                 <h1 class="title-center-align">Adicionar Participante</h1>
                 <div class="input-grande">
                     <label>E-mail do Usuário</label>
@@ -60,7 +67,13 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <form action="/remover_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                        <form action="/remover_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                    <?php } ?>
+
+                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                        <form action="/remover_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                    <?php } ?>
                         <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['login'] ?></div>
                         <div class="item-pequeno"><?= $inscritos['curso'] ?></div>

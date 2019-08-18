@@ -2,6 +2,8 @@
 
     require_once '../App/ValidaLoginResponsavelGeral.php';
 
+    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+
 ?>
 
 <section class="grid-base">
@@ -26,7 +28,7 @@
             <?php } ?>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <form action="/atualizar_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" method="post" class="form-register space-top">
+                <form action="/atualizar_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="form-register space-top">
             <?php } ?>
                 <div class="input-grande">
                     <span>Nome</span>
@@ -75,7 +77,7 @@
                     <?php } ?>
 
                     <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                        <a href="/index_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                        <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
                     <?php } ?>
                 </div>
             </form>

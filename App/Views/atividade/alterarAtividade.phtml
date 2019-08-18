@@ -3,6 +3,7 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
     
     $eventoID = $_GET['idEvt'];
+    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
 
 ?>
 
@@ -23,7 +24,13 @@
 
     <div class="form-align">
         <?php foreach($this->view->dadosAtividades as $atividade) { ?>
-        <form action="/atualizar_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="form-register space-top">
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                <form action="/atualizar_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="form-register space-top">
+            <?php } ?>
+
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                <form action="/atualizar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="form-register space-top">
+            <?php } ?>
             <div class="input-grande">
                 <span>Tema</span>
                 <input type="text" value="<?= $atividade['tema'] ?>" name="tema" maxlength="80" class="input-radius">
@@ -96,7 +103,7 @@
                 <?php } ?>
                 
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <a href="/atividades_evento?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
                 <?php } ?>
             </div>
         </form>

@@ -3,6 +3,7 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
     
     $eventoID = $_GET['idEvt'];
+    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
 
 ?>
 
@@ -14,16 +15,17 @@
         </div>
         <nav class="menu">
             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/index_evento"><img src="./img/icons/eventos.png">Meus Eventos</a>
+                <a href="/index_evento"><img src="./img/icons/eventos.png">Eventos</a>
                 <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
+                <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <?php } ?>
                 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_participante?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/atividades_evento?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>"><img src="./img/icons/atividade.png">Atividades</a>
+                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
+                <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
+                <a href="/responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <?php } ?>
             
-            <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -33,7 +35,13 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/cadastrar_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
+        <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+            <form action="/cadastrar_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
+        <?php } ?>
+
+        <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+            <form action="/cadastrar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
+        <?php } ?>
             <div class="input-grande">
                 <span>Tema</span>
                 <input type="text" name="tema" maxlength="80" class="input-radius">
@@ -103,7 +111,7 @@
                 <?php } ?>
                 
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <a href="/atividades_evento?idEvt=<?= $eventoID ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
                 <?php } ?>
             </div>
         </form>
