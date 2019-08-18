@@ -1,8 +1,10 @@
 <?php
 
     require_once '../App/ValidaLoginResponsavelGeral.php';
-    
-    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+
+    if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
+        $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+    }
 
 ?>
 

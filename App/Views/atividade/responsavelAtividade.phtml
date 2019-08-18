@@ -3,7 +3,9 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
 
     $eventoID = $_GET['idEvt'];
-    $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+    if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
+        $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+    }
 
 ?>
 
