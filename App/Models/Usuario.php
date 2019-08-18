@@ -53,24 +53,6 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
-        public function getAdministradorId() {
-            $query = "
-                SELECT a.id
-                FROM administrador as a
-                WHERE a.usuarioID = (
-                    SELECT u.id 
-                    FROM usuario as u 
-                    WHERE u.login = :login
-                );
-            ";
-            
-            $stmt = $this->db->prepare($query);
-            $stmt->bindValue(':login', $this->__get('login'));
-            $stmt->execute();
-
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        }
-
         public function getResponsavelGeralId() {
             $query = "
                 SELECT rg.id

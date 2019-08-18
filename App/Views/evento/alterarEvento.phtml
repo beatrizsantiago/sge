@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../App/ValidaLoginAdministrador.php';
+    require_once '../App/ValidaLoginResponsavelGeral.php';
 
 ?>
 
@@ -21,29 +21,37 @@
 
     <div class="form-align">
         <?php foreach($this->view->dadosEventos as $dadosEventos) { ?>
-            <form action="/atualizar_evento?dXNlcklE=<?= base64_encode($_SESSION['administradorID']) ?>" method="post" class="form-register space-top">
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                <form action="/atualizar_evento" method="post" class="form-register space-top">
+            <?php } ?>
+
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                <form action="/atualizar_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" method="post" class="form-register space-top">
+            <?php } ?>
                 <div class="input-grande">
                     <span>Nome</span>
                     <input type="text" value="<?= $dadosEventos['titulo'] ?>" name="titulo" maxlength="50" class="input-radius">
                 </div>
-                <div class="input-medio">
+                <div class="input-grande">
                     <label>Local</label>
                     <input type="text" value="<?= $dadosEventos['local'] ?>" name="local" maxlength="50" class="input-radius">
                 </div>
-                <div class="input-medio">
-                    <label>Responsável Geral</label>
-                    <select class="input-radius" name="responsavelGeral">
-                        <option value="">Selecione</option>
-                        <?php 
-                            foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
-                                if($dadosResponsavel['nome'] == $dadosEventos['nome']) {
-                        ?>
-                            <option value="<?= $dadosResponsavel['id'] ?>" selected><?= $dadosResponsavel['nome'] ?></option>
-                        <?php } else { ?>
-                            <option value="<?= $dadosResponsavel['id'] ?>"><?= $dadosResponsavel['nome'] ?></option>
-                        <?php } } ?>
-                    </select>
-                </div>
+                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                    <div class="input-grande">
+                        <label>Responsável Geral</label>
+                        <select class="input-radius" name="responsavelGeral">
+                            <option value="">Selecione</option>
+                            <?php 
+                                foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
+                                    if($dadosResponsavel['nome'] == $dadosEventos['nome']) {
+                            ?>
+                                <option value="<?= $dadosResponsavel['id'] ?>" selected><?= $dadosResponsavel['nome'] ?></option>
+                            <?php } else { ?>
+                                <option value="<?= $dadosResponsavel['id'] ?>"><?= $dadosResponsavel['nome'] ?></option>
+                            <?php } } ?>
+                        </select>
+                    </div>
+                <?php } ?>
                 <div class="input-medio">
                     <label>Data de Início</label>
                     <input type="date" value="<?= $dadosEventos['dataInicio'] ?>" name="dataInicio" class="input-radius">
@@ -62,7 +70,13 @@
                 </div> -->
                 <div class="input-grande">
                     <button type="submit" value="<?= $dadosEventos['id'] ?>" name="id" class="btn-register btn-right btn-space-top">Alterar Evento</button>
-                    <a href="/index_evento?dXNlcklE=<?= base64_encode($_SESSION['administradorID']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                        <a href="/index_evento" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <?php } ?>
+
+                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                        <a href="/index_evento?dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
+                    <?php } ?>
                 </div>
             </form>
         <?php } ?>

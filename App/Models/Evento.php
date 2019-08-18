@@ -26,13 +26,12 @@
 
         public function adicionarEvento() {
             $query = "
-                INSERT INTO evento(administradorID, titulo, local, respGeralID, dataInicio, dataFim, cancelado, descricao, imgEvento) 
-                VALUES (:administradorID, :titulo, :local, :respGeralID, :dataInicio, :dataFim, :cancelado, :descricao, :imgEvento);
+                INSERT INTO evento(titulo, local, respGeralID, dataInicio, dataFim, cancelado, descricao, imgEvento) 
+                VALUES (:titulo, :local, :respGeralID, :dataInicio, :dataFim, :cancelado, :descricao, :imgEvento);
             ";
 
             $stmt = $this->db->prepare($query);
 
-            $stmt->bindValue(':administradorID', $this->__get('administradorID'));
             $stmt->bindValue(':titulo', $this->__get('titulo'));
             $stmt->bindValue(':local', $this->__get('local'));
             $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
@@ -48,14 +47,9 @@
 
         public function listarEventos() {
 
-            $administrador = "";
-            if($this->__get('administradorID')) {
-                $administrador = "e.administradorID = :administradorID";
-            }
-
             $responsavelGeral = "";
             if($this->__get('respGeralID')) {
-                $responsavelGeral = "e.respGeralID = :respGeralID";
+                $responsavelGeral = "WHERE e.respGeralID = :respGeralID";
             }
 
             $query = "
@@ -63,14 +57,11 @@
                 FROM evento as e 
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
                     LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 
-                    WHERE ". $administrador ." ". $responsavelGeral ."
+                    ". $responsavelGeral ."
                 ORDER BY e.dataInicio;
             ";
 
             $stmt = $this->db->prepare($query);
-            if($this->__get('administradorID')) {
-                $stmt->bindValue(':administradorID', $this->__get('administradorID'));
-            }
             if($this->__get('respGeralID')) {
                 $stmt->bindValue(':respGeralID', $this->__get('respGeralID'));
             }
@@ -79,9 +70,6 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         
-        // SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
-        // FROM evento as e, participante as p, responsavelgeral as rg 
-        // WHERE e.id = :id AND p.usuarioID = rg.usuarioID AND e.respGeralID = rg.id
         public function listarDadosEvento() {
             $query = "
                 SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 

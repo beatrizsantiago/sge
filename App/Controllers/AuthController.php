@@ -12,7 +12,6 @@
             $usuario->__set('senha', md5($_POST['senha']));
 
             $usuario->autenticar();
-            $administradorID = $usuario->getAdministradorId();
             $ResponsavelGeralID = $usuario->getResponsavelGeralId();
 
             if($usuario->__get('id') != '' && $usuario->__get('login')) {
@@ -21,19 +20,15 @@
                 $_SESSION['login'] = $usuario->__get('login');
                 $_SESSION['tipoUsuario'] = $usuario->__get('tipoUsuario');
                 
-                if($administradorID) {
-                    $_SESSION['administradorID'] = $administradorID[0]['id'];
-                }
-
                 if($ResponsavelGeralID) {
                     $_SESSION['ResponsavelGeralID'] = $ResponsavelGeralID[0]['id'];
                 }
 
                 switch ($_SESSION['tipoUsuario']) {
-                    case 'Administrador': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['administradorID']));
+                    case 'Administrador': header('Location: /index_evento');
                     break;
 
-                    case 'ResponsavelGeral': header('Location: /index_participante?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelGeralID']));
+                    case 'ResponsavelGeral': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelGeralID']));
                     break;
 
                     default: header('Location: /index_participante');

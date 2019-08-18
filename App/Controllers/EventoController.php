@@ -8,7 +8,9 @@
     class EventoController extends Action {
         public function indexEvento() {
             $listaEvento = Container::getModel('Evento');
-            $listaEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
+            if(isset($_GET['dXNlcklE'])) {
+                $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
+            }
             $this->view->eventos = $listaEvento->listarEventos();
 
             $this->render('indexEvento');
@@ -24,17 +26,25 @@
         public function cadastrarEvento() {
 
             $cadastrarEvento = Container::getModel('Evento');
-            $cadastrarEvento->__set('administradorID', base64_decode($_GET['dXNlcklE']));
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
-            $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            if(isset($_GET['dXNlcklE'])) {
+                $cadastrarEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
+            } else {
+                $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            }
             $cadastrarEvento->__set('dataInicio', $_POST['dataInicio']);
             $cadastrarEvento->__set('dataFim', $_POST['dataFim']);
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
 
             $cadastrarEvento->adicionarEvento();
 
-            header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+            if(isset($_GET['dXNlcklE'])) {
+                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+            } else {
+                header('Location: /index_evento');
+            }
+
         }
 
         public function acaoEvento() {
@@ -44,7 +54,11 @@
                 $excluir->__set('id', $_POST['excluir']);
                 $excluir->deletarEvento();
                 
-                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                } else {
+                    header('Location: /index_evento');
+                }
             }
             
             if(isset($_POST['cancelar'])) {
@@ -52,7 +66,11 @@
                 $cancelarEvento->__set('id', $_POST['cancelar']);
                 $cancelarEvento->cancelarEvento();
 
-                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                } else {
+                    header('Location: /index_evento');
+                }
             }
 
             if(isset($_POST['ativar'])) {
@@ -60,7 +78,11 @@
                 $ativarEvento->__set('id', $_POST['ativar']);
                 $ativarEvento->ativarEvento();
 
-                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                } else {
+                    header('Location: /index_evento');
+                }
             }
 
             if(isset($_POST['alterar'])) {
@@ -74,7 +96,12 @@
 
             if(isset($_POST['atividades'])) {
                 $id = $_POST['atividades'];
-                header('Location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . base64_encode($id));
+                
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . base64_encode($id));
+                } else {
+                    header('Location: /index_atividade?idEvt=' . base64_encode($id));
+                }
             }
                        
         }
@@ -84,14 +111,22 @@
             $atualizarEvento->__set('id', $_POST['id']);
             $atualizarEvento->__set('titulo', $_POST['titulo']);
             $atualizarEvento->__set('local', $_POST['local']);
-            $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            if(isset($_GET['dXNlcklE'])) {
+                $atualizarEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
+            } else {
+                $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
+            }
             $atualizarEvento->__set('dataInicio', $_POST['dataInicio']);
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
             $atualizarEvento->alterarEvento();
 
-            header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+            if(isset($_GET['dXNlcklE'])) {
+                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+            } else {
+                header('Location: /index_evento');
+            }
         }
 
         public function responsavelGeral() {
