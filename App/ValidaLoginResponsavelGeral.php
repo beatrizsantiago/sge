@@ -9,7 +9,6 @@ session_start();
   if(
     $_SESSION['tipoUsuario'] == 'Participante' || 
     $_SESSION['tipoUsuario'] == 'ResponsavelAtividade' || 
-    $_SESSION['tipoUsuario'] == 'Organizador' || 
     $_SESSION['tipoUsuario'] == '' || 
     !$_SESSION['tipoUsuario']
   ) {

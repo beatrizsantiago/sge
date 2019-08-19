@@ -13,6 +13,7 @@
 
             $usuario->autenticar();
             $ResponsavelGeralID = $usuario->getResponsavelGeralId();
+            $ResponsavelAtividadeID = $usuario->getResponsavelAtividadeId();
 
             if($usuario->__get('id') != '' && $usuario->__get('login')) {
                 session_start();
@@ -24,11 +25,18 @@
                     $_SESSION['ResponsavelGeralID'] = $ResponsavelGeralID[0]['id'];
                 }
 
+                if($ResponsavelAtividadeID) {
+                    $_SESSION['ResponsavelAtividadeID'] = $ResponsavelAtividadeID[0]['id'];
+                }
+
                 switch ($_SESSION['tipoUsuario']) {
                     case 'Administrador': header('Location: /index_evento');
                     break;
 
                     case 'ResponsavelGeral': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelGeralID']));
+                    break;
+
+                    case 'ResponsavelAtividade': header('Location: /index_participante?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelAtividadeID']));
                     break;
 
                     default: header('Location: /index_participante');

@@ -6,7 +6,7 @@ session_start();
     header('Location: /?login=erro');
   }
 
-  if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == '' || !$_SESSION['tipoUsuario']) {
+  if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelGeral' || $_SESSION['tipoUsuario'] == '' || !$_SESSION['tipoUsuario']) {
     session_start();
     session_destroy();
     header('Location: /?auth=usuarioinvalido');

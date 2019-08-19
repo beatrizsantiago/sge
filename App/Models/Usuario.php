@@ -71,4 +71,22 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function getResponsavelAtividadeId() {
+            $query = "
+                SELECT ra.id
+                FROM responsavelatividade as ra
+                WHERE ra.usuarioID = (
+                    SELECT u.id 
+                    FROM usuario as u 
+                    WHERE u.login = :login
+                );
+            ";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
     }
