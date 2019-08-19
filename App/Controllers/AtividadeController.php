@@ -42,7 +42,12 @@
 
             $atividade->adicionarAtividade();
 
-            header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+            if(isset($_GET['dXNlcklE'])) {
+                header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            } else {
+                header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+            }
+
         }
 
         public function acaoAtividade() {
@@ -52,7 +57,11 @@
                 $excluir->__set('id', $_POST['excluir']);
                 $excluir->deletarAtividade();
 
-                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+                } else {
+                    header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                }
             }
 
             if(isset($_POST['cancelar'])) {
@@ -60,7 +69,11 @@
                 $cancelarAtividade->__set('id', $_POST['cancelar']);
                 $cancelarAtividade->cancelarAtividade();
 
-                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+                } else {
+                    header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                }
             }
 
             if(isset($_POST['ativar'])) {
@@ -68,7 +81,11 @@
                 $ativarAtividade->__set('id', $_POST['ativar']);
                 $ativarAtividade->ativarAtividade();
 
-                header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                if(isset($_GET['dXNlcklE'])) {
+                    header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+                } else {
+                    header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                }
             }
 
             if(isset($_POST['alterar'])) {
@@ -81,7 +98,11 @@
             }
 
             if(isset($_POST['participantes'])) {
-                header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_Encode($_POST['participantes']));
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /listar_participante?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_Encode($_POST['participantes']));
+                } else {
+                    header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_Encode($_POST['participantes']));
+                }
             }
                        
         }
@@ -113,7 +134,11 @@
             
             $atualizarAtividade->alterarAtividade();
 
-            header('Location: /index_atividade?idEvt=' . $_GET['idEvt']);
+            if(isset($_GET['dXNlcklE'])) {
+                header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            } else {
+                header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+            }
         }
 
         public function responsavelAtividade() {
@@ -132,7 +157,11 @@
             $responsavelAtividade->__set('login', $_POST['login']);
             $responsavelAtividade->criarResponsavelAtividade();
 
-            header('Location: /responsavel_atividade');
+            if(isset($_GET['dXNlcklE'])) {
+                header('Location: /responsavel_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            } else {
+                header('Location: /responsavel_atividade?idEvt=' . $_GET['idEvt']);
+            }
         }
 
         public function removerResponsavelAtividade() {
@@ -140,7 +169,11 @@
             $responsavelAtividade->__set('id', $_POST['remover']);
             $responsavelAtividade->deletarResponsavelAtividade();
 
-            header('Location: /responsavel_atividade');
+            if(isset($_GET['dXNlcklE'])) {
+                header('Location: /responsavel_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            } else {
+                header('Location: /responsavel_atividade?idEvt=' . $_GET['idEvt']);
+            }
         }
     }
 

@@ -37,7 +37,12 @@
     <main class="content">
 
     <div class="form-align">
-        <form action="/cadastrar_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register">
+        <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+            <form action="/cadastrar_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register">
+        <?php } ?>
+        <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+            <form action="/cadastrar_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register">
+        <?php } ?>
             <h1 class="title-center-align">Cadastrar Responsável de Atividade</h1>
             <div class="input-grande">
                 <label>E-mail do Usuário</label>
@@ -51,7 +56,12 @@
             <h1 class="title-center">Responsável Atividade</h1>
             <hr>
             <?php foreach($this->view->responsavel_atividade as $item) {?>
-                <form action="/remover_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="item-lista">
+                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                    <form action="/remover_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="item-lista">
+                <?php } ?>
+                <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                    <form action="/remover_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="item-lista">
+                <?php } ?>
                     <div class="item-medio"><?= $item['nome'] ?></div>
                     <div class="item-medio"><?= $item['login'] ?></div>
                     <div class="item-button">

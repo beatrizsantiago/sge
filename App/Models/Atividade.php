@@ -18,7 +18,7 @@
         private $local;
         private $pontosPex;
         private $palestrante;
-        private $cancelada = false;
+        private $cancelada = 0;
         private $descricao;
 
         public function __get($atributo) {
