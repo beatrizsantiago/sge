@@ -72,22 +72,14 @@
 
         public function listarAtividades() {
 
-            $responsavelAtividade = "";
-            if($this->__get('respAtividadeID')) {
-                $responsavelAtividade = "and a.respAtividadeID = :respAtividadeID";
-            }
-
             $query = "
                 SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome 
                 FROM atividade as a, participante as p, responsavelatividade as ra 
-                WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id " . $responsavelAtividade . " 
+                WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id  
                 ORDER BY a.data;
             ";
 
             $stmt = $this->db->prepare($query);
-            if($this->__get('respAtividadeID')) {
-                $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
-            }
             $stmt->bindValue(':eventoID', $this->__get('eventoID'));
             $stmt->execute();
 
@@ -211,6 +203,21 @@
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        public function gerenciaAtividades() {
+            $query = "
+                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, e.titulo, p.nome 
+                FROM atividade as a, evento as e, participante as p, responsavelatividade as ra 
+                WHERE a.eventoID = e.id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.respAtividadeID = :respAtividadeID 
+                ORDER BY data;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
     }

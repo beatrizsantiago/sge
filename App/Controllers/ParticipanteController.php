@@ -87,10 +87,8 @@
 
         public function gerenciarAtividades() {
             $gerenciarAtividades = Container::getModel('Atividade');
-            if(isset($_GET['dXNlcklEQXR2'])) {
-                $gerenciarAtividades->__set('respAtividadeID', base64_decode($_GET['dXNlcklEQXR2']));
-            }
-            $this->view->atividades = $gerenciarAtividades->listarAtividades();
+            $gerenciarAtividades->__set('respAtividadeID', base64_decode($_GET['dXNlcklEQXR2']));
+            $this->view->atividades = $gerenciarAtividades->gerenciaAtividades();
 
             $this->render('gerenciarAtividades');
         }
@@ -128,11 +126,6 @@
                 $inscricaoAtividade->cancelarInscricaoAtividade();
 
                 header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
-            }
-
-            if(isset($_POST['participantes'])) {
-                print_r($_POST['participantes']);
-                header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . base64_encode($_POST['participantes']));
             }
         }
 

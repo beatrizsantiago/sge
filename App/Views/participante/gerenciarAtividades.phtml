@@ -1,7 +1,6 @@
 <?php
 
     require_once '../App/ValidaLoginParticipante.php';
-    print_r($_SESSION);
 
 ?>
 
@@ -24,8 +23,8 @@
         <h1 class="title-center-align">Gerenciar Atividades</h1>
         <hr>
         <section class="card">
-            <?php foreach($this->view->atividades as $atividade) { print_r($this->view->atividades); ?>
-                <form action="" method="post" class="card-atividade card-block">
+            <?php foreach($this->view->atividades as $atividade) { ?>
+                <form action="/listar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= base64_encode($atividade['eventoID']) ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
 
                     <div class="card-img card-img-atividade">
                         <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
@@ -37,18 +36,20 @@
                         <div class="div-grande">Palestrante <strong><?= $atividade['palestrante'] ?></strong></div>
                         <div class="div-grande">Responsável: <strong><?= $atividade['nome'] ?></strong></div>
                         <div class="div-grande">Local: <strong><?= $atividade['local'] ?></strong></div>
-
+                        
                         <div class="div-grande">
                             <div class="div-pequena">Data: <strong><?= $atividade['data'] ?></strong></div>
                             <div class="div-pequena">Hora: <strong><?= $atividade['hora'] ?>h</strong></div>
                             <div class="div-pequena">Duração: <strong><?= $atividade['duracao'] ?>h</strong></div>
                         </div>
-
+                        
                         <div class="div-grande">
                             <div class="div-pequena">Total de Vagas: <strong><?= $atividade['vagasMaximas'] ?></strong></div>
                             <div class="div-pequena">Vagas Restantes: <strong> -- </strong></div>
                             <div class="div-pequena">Pontos Pex: <strong><?= $atividade['pontosPex'] ?></strong></div>
                         </div>
+                        
+                        <div class="div-grande">Evento: <strong><?= $atividade['titulo'] ?></strong></div>
 
                         <?php if($atividade['descricao'] != '') { ?>
                             <p><?= $atividade['descricao'] ?></p>
@@ -57,8 +58,7 @@
                         <?php } ?>
 
                         <div class="btn-card btn-card-atividade-p">
-                            <button type="submit" name="listaPresenca" value="<?= $atividade['id'] ?>" class="btn-confirm-full">Lista de Presença</button>
-                            <button type="submit" name="relatorioAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Gerar Relatório</button>
+                            <button type="submit" class="btn-confirm-full">Gerenciar</button>
                         </div>
                     </div>
                 </form>

@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../App/ValidaLoginResponsavelGeral.php';
+    require_once '../App/ValidaLoginResponsavelAtividade.php';
 
     $eventoID = $_GET['idEvt'];
     $atividadeID = $_GET['idAtv'];
@@ -28,6 +28,10 @@
                 <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
             <?php } ?>
 
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
+                <a href="/gerenciar_atividades?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>"><img src="./img/icons/atividade.png">Gerenciar Atividades</a>
+            <?php } ?>
+
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
             <a href="/lista_presenca?idAtv=<?= $atividadeID ?>" target="_blank"><img src="./img/icons/relatorio.png">Lista de Presença</a>
             <div class="div-sair">
@@ -39,7 +43,7 @@
     <main class="content">
 
         <section class="form-align">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
                 <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
             <?php } ?>
 
@@ -69,7 +73,7 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
                         <form action="/remover_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
                     <?php } ?>
 
