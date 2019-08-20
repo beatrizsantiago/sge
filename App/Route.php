@@ -157,6 +157,12 @@
                 'action' => 'acaoParticipanteEvento'
             ];
 
+            $routes['gerenciarAtividades'] = [
+                'route' => '/gerenciar_atividades',
+                'controller' => 'ParticipanteController',
+                'action' => 'gerenciarAtividades'
+            ];
+
             $routes['atividadesEvento'] = [
                 'route' => '/atividades_evento',
                 'controller' => 'ParticipanteController',

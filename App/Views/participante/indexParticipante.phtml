@@ -11,6 +11,9 @@
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
+                <a href="/gerenciar_atividades?dXNlcklEQXR2=<?= base64_encode($_SESSION['ResponsavelAtividadeID']) ?>"><img src="./img/icons/criar-atv.png">Gerenciar Atividades</a>
+            <?php } ?>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -22,7 +25,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
-                <form action="/acao_participante_evento?user=<?= base64_encode($_SESSION['id']) ?>&dXNlcklE=<?= base64_encode($_SESSION['ResponsavelGeralID']) ?>" method="post" class="card-evento card-block">
+                <form action="/acao_participante_evento?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>" method="post" class="card-evento card-block">
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
                             <img src="<?= $evento['imgEvento'] ?>" alt="evento">

@@ -1,8 +1,7 @@
 <?php
 
     require_once '../App/ValidaLoginParticipante.php';
-
-    $eventoID = $_GET['idEvt'];
+    print_r($_SESSION);
 
 ?>
 
@@ -14,8 +13,7 @@
         </div>
         <nav class="menu">
             <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
-            <a href="#"><img src="./img/icons/criar-evento.png">Cronograma</a>
-            
+
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -23,11 +21,11 @@
     </aside>
 
     <main class="content">
-        <h1 class="title-center-align">Atividades de <?= $this->view->titulo[0]['titulo'] ?></h1>
+        <h1 class="title-center-align">Gerenciar Atividades</h1>
         <hr>
         <section class="card">
-            <?php foreach($this->view->atividades as $atividade) { ?>
-                <form action="/acao_participante_atividade?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
+            <?php foreach($this->view->atividades as $atividade) { print_r($this->view->atividades); ?>
+                <form action="" method="post" class="card-atividade card-block">
 
                     <div class="card-img card-img-atividade">
                         <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
@@ -59,8 +57,8 @@
                         <?php } ?>
 
                         <div class="btn-card btn-card-atividade-p">
-                            <button type="submit" name="cancelarInscricaoAtividade" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar Inscrição</button>
-                            <button type="submit" name="inscreverAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Inscrever - me</button>
+                            <button type="submit" name="listaPresenca" value="<?= $atividade['id'] ?>" class="btn-confirm-full">Lista de Presença</button>
+                            <button type="submit" name="relatorioAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Gerar Relatório</button>
                         </div>
                     </div>
                 </form>

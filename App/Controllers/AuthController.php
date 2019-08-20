@@ -36,9 +36,6 @@
                     case 'ResponsavelGeral': header('Location: /index_evento?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelGeralID']));
                     break;
 
-                    case 'ResponsavelAtividade': header('Location: /index_participante?dXNlcklE=' .  base64_encode($_SESSION['ResponsavelAtividadeID']));
-                    break;
-
                     default: header('Location: /index_participante');
                     break;
                 }
