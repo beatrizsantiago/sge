@@ -36,7 +36,7 @@
 
     <main class="content">
 
-    <div class="form-align">
+    <section class="form-align">
         <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
             <form action="/cadastrar_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register">
         <?php } ?>
@@ -52,9 +52,20 @@
                 <button type="submit" class="btn-register">Adicionar Responsável</button>
             </div>
         </form>
+    </section>
+
+    <h1 class="title-center">Responsável Atividade</h1>
+    <hr>
+
+    <section class="lista-container">
+        <div class="lista-header">
+            <div class="item-pequeno">Nome</div>
+            <div class="item-pequeno">E-mail</div>
+            <div class="item-pequeno">Matrícula</div>
+            <div class="item-button"></div>
+        </div>
+
         <div class="lista">
-            <h1 class="title-center">Responsável Atividade</h1>
-            <hr>
             <?php foreach($this->view->responsavel_atividade as $item) {?>
                 <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                     <form action="/remover_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="item-lista">
@@ -62,15 +73,16 @@
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                     <form action="/remover_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="item-lista">
                 <?php } ?>
-                    <div class="item-medio"><?= $item['nome'] ?></div>
-                    <div class="item-medio"><?= $item['login'] ?></div>
+                    <div class="item-pequeno"><?= $item['nome'] ?></div>
+                    <div class="item-pequeno"><?= $item['login'] ?></div>
+                    <div class="item-pequeno"><?= $item['matricula'] ?></div>
                     <div class="item-button">
                         <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full">Remover</button>
                     </div>
                 </form>
             <?php } ?>
         </div>
-    </div>
+    </section>
 
     </main>
 </section>

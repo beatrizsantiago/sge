@@ -66,9 +66,10 @@
 
         <section class="lista-container">
             <div class="lista-header">
-                <div class="item-pequeno">Nome</div>
-                <div class="item-pequeno">E-mail</div>
-                <div class="item-pequeno">Curso</div>
+                <div class="item-minimo">Nome</div>
+                <div class="item-minimo">E-mail</div>
+                <div class="item-minimo">Curso</div>
+                <div class="item-minimo">Matrícula</div>
                 <div class="item-button"></div>
             </div>
             <div class="lista">
@@ -80,9 +81,10 @@
                     <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                         <form action="/remover_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
                     <?php } ?>
-                        <div class="item-pequeno"><?= $inscritos['nome'] ?></div>
-                        <div class="item-pequeno"><?= $inscritos['login'] ?></div>
-                        <div class="item-pequeno"><?= $inscritos['curso'] ?></div>
+                        <div class="item-minimo"><?= $inscritos['nome'] ?></div>
+                        <div class="item-minimo"><?= $inscritos['login'] ?></div>
+                        <div class="item-minimo"><?= $inscritos['curso'] ?></div>
+                        <div class="item-minimo"><?= $inscritos['matricula'] ?></div>
                         <div class="item-button">
                             <button type="submit" value="<?= $inscritos['login'] ?>" name="remover" class="btn-danger-full">Remover</button>
                         </div>

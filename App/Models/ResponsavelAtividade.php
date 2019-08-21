@@ -33,7 +33,7 @@
 
         public function listarResponsavelAtividade() {
             $query = "
-                SELECT ra.id, p.nome, u.login 
+                SELECT ra.id, p.nome, p.matricula, u.login 
                 FROM responsavelatividade as ra, participante as p, usuario as u
                 WHERE ra.usuarioID = p.usuarioID AND u.id = p.usuarioID;
             ";

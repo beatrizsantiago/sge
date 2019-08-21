@@ -34,7 +34,7 @@
 
         public function listarResponsavelGeral() {
             $query = "
-                SELECT rg.id, p.nome, u.login 
+                SELECT rg.id, p.nome, p.matricula, u.login 
                 FROM responsavelgeral as rg, participante as p, usuario as u
                 WHERE rg.usuarioID = p.usuarioID AND u.id = p.usuarioID;
             ";

@@ -48,7 +48,7 @@
 
         public function listarInscritos() {
             $query = "
-                SELECT DISTINCT p.nome, u.login, p.curso, ia.usuarioID, ia.atividadeID 
+                SELECT DISTINCT p.nome, u.login, p.curso, p.matricula, ia.usuarioID, ia.atividadeID 
                 FROM participante as p, usuario as u, inscricaoatividade as ia, atividade as a
                 WHERE p.usuarioID = u.id AND ia.usuarioID = u.id AND ia.atividadeID = a.id AND ia.atividadeID = :id;
             ";

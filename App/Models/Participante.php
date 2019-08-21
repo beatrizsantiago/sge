@@ -25,7 +25,7 @@
         public function criarParticipante() {
             $query = "
                 INSERT INTO usuario(login, senha, tipoUsuario) VALUES (:login, :senha, :tipoUsuario);
-                INSERT INTO participante(usuarioID, nome, apelido, instituicao, curso) VALUES (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso);
+                INSERT INTO participante(usuarioID, nome, apelido, instituicao, curso, matricula) VALUES (LAST_INSERT_ID(), :nome, :apelido, :instituicao, :curso, :matricula);
             ";
 
             $stmt = $this->db->prepare($query);
@@ -34,6 +34,7 @@
             $stmt->bindValue(':apelido', $this->__get('apelido'));
             $stmt->bindValue(':instituicao', $this->__get('instituicao'));
             $stmt->bindValue(':curso', $this->__get('curso'));
+            $stmt->bindValue(':matricula', $this->__get('matricula'));
             $stmt->bindValue(':login', $this->__get('login'));
             $stmt->bindValue(':senha', $this->__get('senha'));
             $stmt->bindValue(':tipoUsuario', 'Participante');

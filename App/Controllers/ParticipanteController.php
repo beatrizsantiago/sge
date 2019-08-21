@@ -12,6 +12,7 @@
                 'nome' => '',
                 'instituicao' => '',
                 'curso' => '',
+                'matricula' => '',
                 'login' => '',
                 'senha' => ''
             ];
@@ -26,6 +27,7 @@
             $participante->__set('apelido', explode(" ", $_POST['nome'])[0]);
             $participante->__set('instituicao', $_POST['instituicao']);
             $participante->__set('curso', $_POST['curso']);
+            $participante->__set('matricula', $_POST['matricula']);
             $participante->__set('login', $_POST['login']);
             $participante->__set('senha', md5($_POST['senha']));
 
@@ -37,6 +39,7 @@
                     'nome' => $_POST['nome'],
                     'instituicao' => $_POST['instituicao'],
                     'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
                     'login' => $_POST['login'],
                     'senha' => $_POST['senha']
                 ];
