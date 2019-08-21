@@ -62,6 +62,7 @@ CREATE TABLE `participante` (
   `nome` varchar(255) NOT NULL,
   `instituicao` varchar(255) NOT NULL,
   `curso` varchar(150) NOT NULL,
+  `matricula` varchar(12) DEFAULT NULL,
   `imgUser` varchar(255) DEFAULT NULL,
   `apelido` varchar(45) NOT NULL,
   `usuarioID` int(11) NOT NULL,
@@ -78,7 +79,7 @@ CREATE TABLE `participante` (
 
 LOCK TABLES `participante` WRITE;
 /*!40000 ALTER TABLE `participante` DISABLE KEYS */;
-INSERT INTO `db_sge`.`participante` VALUES (1,'Annabeth Chase','Acampamento Meio Sangue','Arquitetura','','Annabeth',2),(2,'Hermione Granger','Hogwarts','Transfiguração','','Hermione',3),(3,'Percy Jackson','Acampamento Meio Sangue','Oceanografia','','Percy',4),(4,'Harry Potter','Hogwarts','Quadribol','','Harry',5);
+INSERT INTO `db_sge`.`participante` VALUES (1,'Annabeth Chase','Acampamento Meio Sangue','Arquitetura','171014034','','Annabeth',2),(2,'Hermione Granger','Hogwarts','Transfiguração','171014034','','Hermione',3),(3,'Percy Jackson','Acampamento Meio Sangue','Oceanografia','171014034','','Percy',4),(4,'Harry Potter','Hogwarts','Quadribol','171014034','','Harry',5);
 /*!40000 ALTER TABLE `participante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,12 +121,10 @@ DROP TABLE IF EXISTS `db_sge`.`responsavelgeral`;
 CREATE TABLE `responsavelgeral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuarioID` int(11) NOT NULL,
-  `administradorID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespGeral` (`usuarioID`),
-  CONSTRAINT `administradorIdRespGeral` FOREIGN KEY (`administradorID`) REFERENCES `administrador` (`id`) ON DELETE CASCADE,
   CONSTRAINT `usuarioIdRespGeral` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -136,7 +135,7 @@ CREATE TABLE `responsavelgeral` (
 
 LOCK TABLES `responsavelgeral` WRITE;
 /*!40000 ALTER TABLE `responsavelgeral` DISABLE KEYS */;
-INSERT INTO `db_sge`.`responsavelgeral` VALUES (1,2,1);
+INSERT INTO `db_sge`.`responsavelgeral` VALUES (1,2);
 /*!40000 ALTER TABLE `responsavelgeral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,12 +186,10 @@ DROP TABLE IF EXISTS `db_sge`.`responsavelatividade`;
 CREATE TABLE `responsavelatividade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuarioID` int(11) NOT NULL,
-  `administradorID` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `usuarioID` (`usuarioID`),
   KEY `usuarioIdRespAtv` (`usuarioID`),
-  CONSTRAINT `administradorIdRespAtv` FOREIGN KEY (`administradorID`) REFERENCES `administrador` (`id`) ON DELETE CASCADE,
   CONSTRAINT `usuarioIdRespAtv` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -203,7 +200,7 @@ CREATE TABLE `responsavelatividade` (
 
 LOCK TABLES `responsavelatividade` WRITE;
 /*!40000 ALTER TABLE `responsavelatividade` DISABLE KEYS */;
-INSERT INTO `db_sge`.`responsavelatividade` VALUES (1,3,1);
+INSERT INTO `db_sge`.`responsavelatividade` VALUES (1,3);
 /*!40000 ALTER TABLE `responsavelatividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
