@@ -28,11 +28,6 @@
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
                 <form action="/acao_participante_atividade?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
-
-                    <div class="card-img card-img-atividade">
-                        <img src="./img/<?= explode(" ", $atividade['tipo'])[0] ?>.png" alt="Tipo Atividade">
-                    </div>
-
                     <div class="body-card body-card-atividade">
                         <h1><?= $atividade['tipo'] ?></h1>
                         <div class="div-grande">Tema: <strong><?= $atividade['tema'] ?></strong></div>
@@ -41,15 +36,17 @@
                         <div class="div-grande">Local: <strong><?= $atividade['local'] ?></strong></div>
 
                         <div class="div-grande">
-                            <div class="div-pequena">Data: <strong><?= $atividade['data'] ?></strong></div>
-                            <div class="div-pequena">Hora: <strong><?= $atividade['hora'] ?>h</strong></div>
-                            <div class="div-pequena">Duração: <strong><?= $atividade['duracao'] ?>h</strong></div>
+                            <div class="div-media">Data: <strong><?= $atividade['data'] ?></strong></div>
+                            <div class="div-media">Hora: <strong><?= $atividade['hora'] ?>h</strong></div>
                         </div>
-
+                        
                         <div class="div-grande">
-                            <div class="div-pequena">Total de Vagas: <strong><?= $atividade['vagasMaximas'] ?></strong></div>
-                            <div class="div-pequena">Vagas Restantes: <strong> -- </strong></div>
-                            <div class="div-pequena">Pontos Pex: <strong><?= $atividade['pontosPex'] ?></strong></div>
+                            <div class="div-media">Duração: <strong><?= $atividade['duracao'] ?>h</strong></div>
+                            <div class="div-media">Pontos Pex: <strong><?= $atividade['pontosPex'] ?></strong></div>
+                        </div>
+                        <div class="div-grande">
+                            <div class="div-media">Total de Vagas: <strong><?= $atividade['vagasMaximas'] ?></strong></div>
+                            <div class="div-media">Vagas Restantes: <strong> -- </strong></div>
                         </div>
 
                         <?php if($atividade['descricao'] != '') { ?>

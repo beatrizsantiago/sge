@@ -1,6 +1,6 @@
 .card-evento {
-    width: 540px;
-    height: 300px;
+    width: 420px;
+    height: 280px;
 }
 
 .card-img-evento {
@@ -23,8 +23,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 50px;
-    margin: 0px 0px 5px 0px;
+    /* margin-bottom: 6px; */
     font-size: 20px;
     font-weight: bold;
     line-height: 20px;
@@ -38,19 +37,9 @@
 }
 
 .body-card-evento p {
-    height: 60px;
     font-size: 15px;
     text-align: justify;
     margin-top: 8px;
-}
-
-.btn-card-evento-p {
-    display: flex;
-    justify-content: space-around;
-}
-
-.btn-card-evento button {
-    padding: 8px 12px;
 }
 
 .mensagem-aviso {

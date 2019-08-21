@@ -1,5 +1,5 @@
 button, .btn-link {
-    padding: 10px 18px;
+    padding: 6px 10px;
     margin-right: 5px;
     margin-left: 5px;
     border-radius: 5px;
@@ -9,6 +9,11 @@ button, .btn-link {
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
+}
+
+.img-button {
+    width: 25px;
+    height: 25px;
 }
 
 .btn-block {

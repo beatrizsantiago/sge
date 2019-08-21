@@ -1,20 +1,9 @@
 .card-atividade {
-    width: 90%;
-}
-
-.card-img-atividade {
-    width: 30%;
-    height: inherit;
-}
-
-.card-img-atividade img {
-    position: relative;
-    width: 100%;
+    width: 350px;
 }
 
 .body-card-atividade {
-    width: 70%;
-    height: inherit;
+    width: 100%;
 }
 
 .body-card-atividade div {
@@ -29,7 +18,7 @@
 }
 
 .div-media {
-    width: 64.7%;
+    width: 48%;
     display: inline-block;
 }
 
@@ -42,7 +31,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
     margin: 0px;
     font-size: 20px;
     font-weight: bold;
@@ -55,7 +43,6 @@
 }
 
 .body-card-atividade p {
-    height: 40px;
     margin-top: 8px;
     padding-top: 5px;
     font-size: 15px;
