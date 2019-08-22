@@ -116,6 +116,19 @@
             $this->render('listarParticipantes');
         }
 
+        public function cadastrarParticipante() {
+            $this->view->participante = [
+                'nome' => '',
+                'instituicao' => '',
+                'curso' => '',
+                'matricula' => '',
+                'login' => '',
+                'senha' => ''
+            ];
+            $this->view->erroCadastro = false;
+            $this->render('cadastrarParticipante');
+        }
+
         public function atualizarAtividade() {
             $atualizarAtividade = Container::getModel('Atividade');
             $atualizarAtividade->__set('id', base64_decode($_GET['idAtv']));

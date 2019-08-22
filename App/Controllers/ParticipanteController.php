@@ -31,21 +31,31 @@
             $participante->__set('login', $_POST['login']);
             $participante->__set('senha', md5($_POST['senha']));
 
-            if(count($participante->getUsuarioLogin()) == 0) {
-                $participante->criarParticipante();
-                $this->render('sucessoCadastro');
+            if(!$_GET['idEvt']){
+                if(count($participante->getUsuarioLogin()) == 0) {
+                    $participante->criarParticipante();
+                    $this->render('sucessoCadastro');
+                } else {
+                    $this->view->participante = [
+                        'nome' => $_POST['nome'],
+                        'instituicao' => $_POST['instituicao'],
+                        'curso' => $_POST['curso'],
+                        'matricula' => $_POST['matricula'],
+                        'login' => $_POST['login'],
+                        'senha' => $_POST['senha']
+                    ];
+                    $this->view->erroCadastro = true;
+                }
             } else {
-                $this->view->participante = [
-                    'nome' => $_POST['nome'],
-                    'instituicao' => $_POST['instituicao'],
-                    'curso' => $_POST['curso'],
-                    'matricula' => $_POST['matricula'],
-                    'login' => $_POST['login'],
-                    'senha' => $_POST['senha']
-                ];
-                $this->view->erroCadastro = true;
+                if(count($participante->getUsuarioLogin()) == 0) {
+                    $participante->criarParticipante();
+                    if($_GET['dXNlcklEQXR2']) {
+                        header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                    } else {
+                        header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                    }
+                }
             }
-
         }
 
         public function indexParticipante() {
