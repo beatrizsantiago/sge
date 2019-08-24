@@ -38,10 +38,18 @@
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
                 <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                    <form action="/acao_evento" method="post" class="card-evento card-block">
+                    <?php if($evento['cancelado'] == false) { ?>
+                            <form action="/acao_evento" method="post" class="card-evento card-block">
+                        <?php } else { ?>
+                            <form action="/acao_evento" method="post" class="card-evento card-block-cancel">
+                    <?php } ?>
                 <?php } ?>
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block">
+                    <?php if($evento['cancelado'] == false) { ?>
+                        <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block">
+                    <?php } else { ?>
+                        <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block-cancel">
+                    <?php } ?>
                 <?php } ?>
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>

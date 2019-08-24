@@ -49,10 +49,18 @@
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
                 <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                    <form action="/acao_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
+                    <?php if($atividade['cancelada'] == false) { ?>
+                        <form action="/acao_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
+                    <?php } else { ?>
+                        <form action="/acao_atividade?idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block-cancel">
+                    <?php } ?>
                 <?php } ?>
                 <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                    <?php if($atividade['cancelada'] == false) { ?>
                         <form action="/acao_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block">
+                    <?php } else { ?>
+                        <form action="/acao_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block-cancel">
+                    <?php } ?>
                 <?php } ?>
 
                     <div class="body-card body-card-atividade">
