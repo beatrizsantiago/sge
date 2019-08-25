@@ -25,6 +25,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
+                <?php if($evento['cancelado'] == 0) { ?>
                 <form action="/acao_participante_evento?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>" method="post" class="card-evento card-block">
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
@@ -48,6 +49,7 @@
                         </div>
                     </div>
                 </form>
+                <?php } ?>
             <?php } ?>
         </section>
     </main>

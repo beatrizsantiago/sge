@@ -27,6 +27,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
+                <? if($atividade['cancelada'] == 0) { ?>
                 <form action="/acao_participante_atividade?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
                     <div class="body-card body-card-atividade">
                         <h1><?= $atividade['tipo'] ?></h1>
@@ -61,6 +62,7 @@
                         </div>
                     </div>
                 </form>
+                <?php } ?>
             <?php } ?>
         </section>
     </main>
