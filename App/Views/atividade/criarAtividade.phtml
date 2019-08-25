@@ -52,12 +52,9 @@
                 <label>Tipo</label>
                 <select name="tipo" class="input-radius">
                     <option value="">Selecione</option>
-                    <option value="Palestra">Palestra</option>
-                    <option value="Minicurso">Minicurso</option>
-                    <option value="Workshop">Workshop</option>
-                    <option value="Mesa Redonda">Mesa Redonda</option>
-                    <option value="Painel">Painel</option>
-                    <option value="Exposição">Exposição</option>
+                    <?php foreach($this->view->tipo_atividade as $tipoAtividade) { ?>
+                        <option value="<?= $tipoAtividade['id'] ?>"><?= $tipoAtividade['tipo'] ?></option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="input-extra-pequeno">

@@ -18,9 +18,10 @@
         }
 
         public function criarAtividade() {
-            $responsavelAtividade = Container::getModel('responsavelAtividade');
+            $dadosAtividade = Container::getModel('atividade');
 
-            $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
+            $this->view->responsavel_atividade = $dadosAtividade->listarDadosResponsavelAtividade();
+            $this->view->tipo_atividade = $dadosAtividade->listartipoAtividade();
             $this->render('criarAtividade');
         }
 
@@ -28,7 +29,7 @@
             $atividade = Container::getModel('Atividade');
             $atividade->__set('eventoID', base64_decode($_GET['idEvt']));
             $atividade->__set('tema', $_POST['tema']);
-            $atividade->__set('tipo', $_POST['tipo']);
+            $atividade->__set('tipoID', $_POST['tipo']);
             $atividade->__set('vagasMinimas', $_POST['vagasMinimas']);
             $atividade->__set('vagasMaximas', $_POST['vagasMaximas']);
             $atividade->__set('respAtividadeID', $_POST['responsavelAtividade']);
@@ -94,6 +95,7 @@
 
                 $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
                 $this->view->dadosResponsavel = $listaDadosAtividade->listarDadosResponsavelAtividade();
+                $this->view->tipoAtividade = $listaDadosAtividade->listarTipoAtividade();
                 $this->render('alterarAtividade');
             }
 
@@ -133,7 +135,7 @@
             $atualizarAtividade = Container::getModel('Atividade');
             $atualizarAtividade->__set('id', base64_decode($_GET['idAtv']));
             $atualizarAtividade->__set('tema', $_POST['tema']);
-            // $atualizarAtividade->__set('tipo', $_POST['tipo']);
+            $atualizarAtividade->__set('tipoID', $_POST['tipo']);
             $atualizarAtividade->__set('vagasMinimas', $_POST['vagasMinimas']);
             $atualizarAtividade->__set('vagasMaximas', $_POST['vagasMaximas']);
             $atualizarAtividade->__set('respAtividadeID', $_POST['responsavelAtividade']);

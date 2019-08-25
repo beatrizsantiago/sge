@@ -205,6 +205,30 @@ INSERT INTO `db_sge`.`responsavelatividade` VALUES (1,3);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tipoatividade`
+--
+
+DROP TABLE IF EXISTS `db_sge`.`tipoatividade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tipoatividade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(50) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipoatividade`
+--
+
+LOCK TABLES `tipoatividade` WRITE;
+/*!40000 ALTER TABLE `tipoatividade` DISABLE KEYS */;
+INSERT INTO `db_sge`.`tipoatividade` VALUES ("Palestra", "Minicurso", "Workshop", "Mesa Redonda", "Painel", "Exposição");
+/*!40000 ALTER TABLE `tipoatividade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `atividade`
 --
 
@@ -213,7 +237,7 @@ DROP TABLE IF EXISTS `db_sge`.`atividade`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `atividade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(255) NOT NULL,
+  `tipoID` int(11) NOT NULL,
   `tema` varchar(255) NOT NULL,
   `data` date NOT NULL,
   `hora` time NOT NULL,
@@ -231,8 +255,10 @@ CREATE TABLE `atividade` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `eventoID_idx` (`eventoID`),
   KEY `respAtividadeID` (`respAtividadeID`),
+  KEY `tipoID` (`tipoID`),
   CONSTRAINT `eventoIdAtv` FOREIGN KEY (`eventoID`) REFERENCES `evento` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `respAtividadeID` FOREIGN KEY (`respAtividadeID`) REFERENCES `responsavelatividade` (`id`) ON DELETE SET NULL
+  CONSTRAINT `respAtividadeID` FOREIGN KEY (`respAtividadeID`) REFERENCES `responsavelatividade` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `tipoID` FOREIGN KEY (`tipoID`) REFERENCES `tipoatividade` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,7 +268,7 @@ CREATE TABLE `atividade` (
 
 LOCK TABLES `atividade` WRITE;
 /*!40000 ALTER TABLE `atividade` DISABLE KEYS */;
-INSERT INTO `db_sge`.`atividade` VALUES (1,'Palestra','Fazer a Neve Cair com Let It Go','2019-10-15','19:00:00','02:00:00','Auditório 02',20,30,100,0,'',1,1,'Rainha Elsa - Atriz Principal de Frozen');
+INSERT INTO `db_sge`.`atividade` VALUES (1,1,'Fazer a Neve Cair com Let It Go','2019-10-15','19:00:00','02:00:00','Auditório 02',20,30,100,0,'',1,1,'Rainha Elsa - Atriz Principal de Frozen');
 /*!40000 ALTER TABLE `atividade` ENABLE KEYS */;
 UNLOCK TABLES;
 

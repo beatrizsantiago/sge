@@ -40,12 +40,14 @@
             <div class="input-medio">
                 <label>Tipo</label>
                 <select name="tipo" class="input-radius">
-                    <option value="Palestra">Palestra</option>
-                    <option value="Minicurso">Minicurso</option>
-                    <option value="Workshop">Workshop</option>
-                    <option value="Mesa Redonda">Mesa Redonda</option>
-                    <option value="Painel">Painel</option>
-                    <option value="Exposição">Exposição</option>
+                    <?php 
+                        foreach($this->view->tipoAtividade as $tipoAtividade) { 
+                            if($atividade['tipoID'] == $tipoAtividade['id']) {
+                    ?>
+                        <option value="<?= $tipoAtividade['id'] ?>" selected><?= $tipoAtividade['tipo'] ?></option>
+                    <?php } else { ?>
+                        <option value="<?= $tipoAtividade['id'] ?>"><?= $tipoAtividade['tipo'] ?></option>
+                    <?php } } ?>
                 </select>
             </div>
             <div class="input-extra-pequeno">

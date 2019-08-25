@@ -8,7 +8,7 @@
         private $id;
         private $eventoID;
         private $tema;
-        private $tipo;
+        private $tipoID;
         private $vagasMinimas;
         private $vagasMaximas;
         private $respAtividadeID;
@@ -31,15 +31,15 @@
 
         public function adicionarAtividade() {
             $query = "
-                INSERT INTO atividade(eventoID, tema, tipo, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
-                VALUES (:eventoID, :tema, :tipo, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
+                INSERT INTO atividade(eventoID, tema, tipoID, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
+                VALUES (:eventoID, :tema, :tipoID, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
             ";
 
             $stmt = $this->db->prepare($query);
 
             $stmt->bindValue(':eventoID', $this->__get('eventoID'));
             $stmt->bindValue(':tema', $this->__get('tema'));
-            $stmt->bindValue(':tipo', $this->__get('tipo'));
+            $stmt->bindValue(':tipoID', $this->__get('tipoID'));
             $stmt->bindValue(':vagasMinimas', $this->__get('vagasMinimas'));
             $stmt->bindValue(':vagasMaximas', $this->__get('vagasMaximas'));
             $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
@@ -73,9 +73,9 @@
         public function listarAtividades() {
 
             $query = "
-                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome 
-                FROM atividade as a, participante as p, responsavelatividade as ra 
-                WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id  
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome 
+                FROM atividade as a, participante as p, responsavelatividade as ra, tipoatividade as ta
+                WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.tipoID = ta.id  
                 ORDER BY a.data;
             ";
 
@@ -86,11 +86,23 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function listarTipoAtividade() {
+            $query = "
+                SELECT id, tipo 
+                FROM tipoatividade
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function listarDadosAtividade() {
             $query = "
-                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.descricao, a.respAtividadeID, p.nome 
-                FROM atividade as a, participante as p, responsavelatividade as ra 
-                WHERE a.id = :id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id
+                SELECT a.id, a.eventoID, a.tema, a.tipoID, ta.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.descricao, a.respAtividadeID, p.nome 
+                FROM atividade as a, participante as p, responsavelatividade as ra, tipoatividade as ta
+                WHERE a.id = :id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.tipoID = ta.id
             ";
 
             $stmt = $this->db->prepare($query);
@@ -117,6 +129,7 @@
             $query = "
                 UPDATE atividade 
                 SET tema = :tema,
+                    tipoID = :tipoID,
                     vagasMinimas = :vagasMinimas, 
                     vagasMaximas = :vagasMaximas, 
                     respAtividadeID = :respAtividadeID,
@@ -134,7 +147,7 @@
 
             $stmt->bindValue(':id', $this->__get('id'));
             $stmt->bindValue(':tema', $this->__get('tema'));
-            // $stmt->bindValue(':tipo', $this->__get('tipo'));
+            $stmt->bindValue(':tipoID', $this->__get('tipoID'));
             $stmt->bindValue(':vagasMinimas', $this->__get('vagasMinimas'));
             $stmt->bindValue(':vagasMaximas', $this->__get('vagasMaximas'));
             $stmt->bindValue(':respAtividadeID', $this->__get('respAtividadeID'));
