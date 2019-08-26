@@ -43,9 +43,15 @@
                         <p><?= $evento['descricao'] ?></p>
 
                         <div class="btn-card">
-                            <button type="submit" value="<?= $evento['id'] ?>" name="visualizarAtividades" class="btn-confirm-full"><img class="img-button" src="./img/icons/atividades.png" /></button>
-                            <button type="submit" value="<?= $evento['id'] ?>" name="cancelarInscricaoEvento" class="btn-danger-full">Cancelar Inscrição</button>
-                            <button type="submit" value="<?= $evento['id'] ?>" name="inscreverEvento" class="btn-register-full btn-block">Inscrever - me</button>
+                            <?php
+                                foreach($this->view->inscrito as $inscrito) {
+                                    if($inscrito['usuarioID'] === $_SESSION['id'] && $inscrito['eventoID'] === $evento['id']) {
+                            ?>
+                                <button type="submit" value="<?= $evento['id'] ?>" name="cancelarInscricaoEvento" class="btn-danger-full">Cancelar Inscrição</button>
+                                <button type="submit" value="<?= $evento['id'] ?>" name="visualizarAtividades" class="btn-confirm-full"><img class="img-button" src="./img/icons/atividades.png" /></button>
+                            <?php } else if(!$inscrito['eventoID']) { ?>
+                                <button type="submit" value="<?= $evento['id'] ?>" name="inscreverEvento" class="btn-register-full btn-block">Inscrever - me</button>
+                            <?php } } ?>
                         </div>
                     </div>
                 </form>

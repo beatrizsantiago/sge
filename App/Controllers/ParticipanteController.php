@@ -112,6 +112,7 @@
             $listaAtividade->__set('eventoID', $eventoID);
             $this->view->titulo = $listaAtividade->getTituloEvento();
             $this->view->atividades = $listaAtividade->listarAtividades();
+            $this->view->inscritos = $listaAtividade->inscritoAtividade();
 
             $this->render('atividadesEvento');
         }

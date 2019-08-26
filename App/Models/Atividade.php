@@ -233,6 +233,18 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function inscritoAtividade() {
+            $query = "
+                SELECT DISTINCT usuarioID, atividadeID
+                FROM inscricaoatividade
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>

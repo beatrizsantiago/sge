@@ -169,7 +169,7 @@
 
         public function inscritoEvento() {
             $query = "
-                SELECT usuarioID, eventoID
+                SELECT DISTINCT usuarioID, eventoID
                 FROM inscricaoevento
             ";
 
