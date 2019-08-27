@@ -57,14 +57,11 @@
                         <?php } ?>
 
                         <div class="btn-card btn-card-atividade-p">
-                            <?php
-                                foreach($this->view->inscritos as $inscrito) {
-                                    if($inscrito['usuarioID'] === $_SESSION['id'] && $inscrito['atividadeID'] === $atividade['id']) {
-                            ?>
+                            <?php if($atividade['atividadeID'] && $atividade['usuarioID'] == $_SESSION['id']) { ?>
                                 <button type="submit" name="cancelarInscricaoAtividade" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar Inscrição</button>
                             <?php } else { ?>
                                 <button type="submit" name="inscreverAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Inscrever - me</button>
-                            <?php } } ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </form>

@@ -53,8 +53,9 @@
             }
 
             $query = "
-                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome 
+                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome, ie.usuarioID, ie.eventoID 
                 FROM evento as e 
+                    LEFT JOIN inscricaoevento as ie ON e.id = ie.eventoID 
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
                     LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 
                     ". $responsavelGeral ."
@@ -169,8 +170,8 @@
 
         public function inscritoEvento() {
             $query = "
-                SELECT DISTINCT usuarioID, eventoID
-                FROM inscricaoevento
+                SELECT DISTINCT ie.usuarioID, ie.eventoID
+                FROM inscricaoevento as ie
             ";
 
             $stmt = $this->db->prepare($query);

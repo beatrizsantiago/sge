@@ -61,7 +61,7 @@
         public function indexParticipante() {
             $listaEvento = Container::getModel('Evento');
             $this->view->eventos = $listaEvento->listarEventos();
-            $this->view->inscrito = $listaEvento->inscritoEvento();
+            // $this->view->inscrito = $listaEvento->inscritoEvento();
 
             $this->render('indexParticipante');
         }
@@ -112,7 +112,7 @@
             $listaAtividade->__set('eventoID', $eventoID);
             $this->view->titulo = $listaAtividade->getTituloEvento();
             $this->view->atividades = $listaAtividade->listarAtividades();
-            $this->view->inscritos = $listaAtividade->inscritoAtividade();
+            // $this->view->inscritos = $listaAtividade->inscritoAtividade();
 
             $this->render('atividadesEvento');
         }

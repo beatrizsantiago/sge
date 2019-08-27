@@ -73,8 +73,10 @@
         public function listarAtividades() {
 
             $query = "
-                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome 
-                FROM atividade as a, participante as p, responsavelatividade as ra, tipoatividade as ta
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome, ia.usuarioID, ia.atividadeID 
+                FROM atividade as a 
+                    LEFT JOIN inscricaoatividade as ia ON a.id = ia.atividadeID, 
+                    participante as p, responsavelatividade as ra, tipoatividade as ta
                 WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.tipoID = ta.id  
                 ORDER BY a.data;
             ";
@@ -235,8 +237,8 @@
 
         public function inscritoAtividade() {
             $query = "
-                SELECT DISTINCT usuarioID, atividadeID
-                FROM inscricaoatividade
+                SELECT DISTINCT ia.usuarioID, ia.atividadeID
+                FROM inscricaoatividade as ia
             ";
 
             $stmt = $this->db->prepare($query);
