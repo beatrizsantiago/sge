@@ -21,41 +21,55 @@
         }
 
         public function cadastrar() {
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
 
-            $participante = Container::getModel('Participante');
-            $participante->__set('nome', $_POST['nome']);
-            $participante->__set('apelido', explode(" ", $_POST['nome'])[0]);
-            $participante->__set('instituicao', $_POST['instituicao']);
-            $participante->__set('curso', $_POST['curso']);
-            $participante->__set('matricula', $_POST['matricula']);
-            $participante->__set('login', $_POST['login']);
-            $participante->__set('senha', md5($_POST['senha']));
+            echo "<pre>";
+            print_r($_FILES);
+            echo "</pre>";
 
-            if(!$_GET['idEvt']){
-                if(count($participante->getUsuarioLogin()) == 0) {
-                    $participante->criarParticipante();
-                    $this->render('sucessoCadastro');
-                } else {
-                    $this->view->participante = [
-                        'nome' => $_POST['nome'],
-                        'instituicao' => $_POST['instituicao'],
-                        'curso' => $_POST['curso'],
-                        'matricula' => $_POST['matricula'],
-                        'login' => $_POST['login'],
-                        'senha' => $_POST['senha']
-                    ];
-                    $this->view->erroCadastro = true;
-                }
-            } else {
-                if(count($participante->getUsuarioLogin()) == 0) {
-                    $participante->criarParticipante();
-                    if($_GET['dXNlcklEQXR2']) {
-                        header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                    } else {
-                        header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                    }
-                }
-            }
+            $uploaddir = '../App/assets/img/';
+            $uploadfile = $uploaddir . basename($_FILES['imgUser']['name']);
+
+            move_uploaded_file($_FILES['imgUser']['tmp_name'], $uploadfile);
+
+            print_r("../App/assets/img/" . $_FILES['imgUser']['name']); 
+
+            // $participante = Container::getModel('Participante');
+            // $participante->__set('nome', $_POST['nome']);
+            // $participante->__set('apelido', explode(" ", $_POST['nome'])[0]);
+            // $participante->__set('instituicao', $_POST['instituicao']);
+            // $participante->__set('curso', $_POST['curso']);
+            // $participante->__set('matricula', $_POST['matricula']);
+            // $participante->__set('login', $_POST['login']);
+            // $participante->__set('senha', md5($_POST['senha']));
+
+            // if(!$_GET['idEvt']){
+            //     if(count($participante->getUsuarioLogin()) == 0) {
+            //         $participante->criarParticipante();
+            //         $this->render('sucessoCadastro');
+            //     } else {
+            //         $this->view->participante = [
+            //             'nome' => $_POST['nome'],
+            //             'instituicao' => $_POST['instituicao'],
+            //             'curso' => $_POST['curso'],
+            //             'matricula' => $_POST['matricula'],
+            //             'login' => $_POST['login'],
+            //             'senha' => $_POST['senha']
+            //         ];
+            //         $this->view->erroCadastro = true;
+            //     }
+            // } else {
+            //     if(count($participante->getUsuarioLogin()) == 0) {
+            //         $participante->criarParticipante();
+            //         if($_GET['dXNlcklEQXR2']) {
+            //             header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+            //         } else {
+            //             header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+            //         }
+            //     }
+            // }
         }
 
         public function indexParticipante() {

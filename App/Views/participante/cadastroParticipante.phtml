@@ -5,7 +5,7 @@
 
 <main class="form-align">
     
-    <form action="/cadastrar" method="post" class="form-register">
+    <form enctype="multipart/form-data" action="/cadastrar" method="post" class="form-register">
     <?php if($this->view->erroCadastro) { ?>
         <div class="msg-box msg-error">
             <small class="text-error"><strong>Erro ao tentar realizar o cadastro!</strong> Verifique se os campos foram preenchidos corretamente. </small>
@@ -40,6 +40,7 @@
             <input type="text" name="confirmaSenha" class="input-radius">
         </div>
         <div class="input-grande">
+            <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
             <label>Foto de Perfil</label>
             <input type="file" name="imgUser">
         </div>
