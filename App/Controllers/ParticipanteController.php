@@ -60,7 +60,8 @@
 
         public function indexParticipante() {
             $listaEvento = Container::getModel('Evento');
-            $this->view->eventos = $listaEvento->listarEventos();
+            $listaEvento->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
+            $this->view->eventos = $listaEvento->listarEventosParticipante();
             // $this->view->inscrito = $listaEvento->inscritoEvento();
 
             $this->render('indexParticipante');

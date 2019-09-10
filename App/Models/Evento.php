@@ -70,6 +70,24 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
+
+        public function listarEventosParticipante() {
+
+            $query = "
+                SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome, ie.usuarioID, ie.eventoID 
+                FROM evento as e 
+                    LEFT JOIN inscricaoevento as ie ON e.id = ie.eventoID 
+                    LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
+                    LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 
+                ORDER BY e.dataInicio;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            // $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
         
         public function listarDadosEvento() {
             $query = "
