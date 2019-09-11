@@ -1,5 +1,5 @@
 .card-atividade {
-    width: 350px;
+    width: 290px;
 }
 
 .body-card-atividade {
@@ -32,12 +32,16 @@
     display: inline-block;
 }
 
+.body-card-atividade div {
+    font-size: 14px;
+}
+
 .body-card-atividade h1 {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
 }
