@@ -25,6 +25,13 @@
 
         public function cadastrarEvento() {
 
+            $uploaddir = './assets/img-eventos/';
+            $uploadfile = $uploaddir . basename($_FILES['imgEvento']['name']);
+
+            move_uploaded_file($_FILES['imgEvento']['tmp_name'], $uploadfile);
+
+            $caminhoImg = "./assets/img-eventos/" . $_FILES['imgEvento']['name'];
+
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
@@ -36,6 +43,7 @@
             $cadastrarEvento->__set('dataInicio', $_POST['dataInicio']);
             $cadastrarEvento->__set('dataFim', $_POST['dataFim']);
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
+            $cadastrarEvento->__set('imgEvento', $caminhoImg);
 
             $cadastrarEvento->adicionarEvento();
 

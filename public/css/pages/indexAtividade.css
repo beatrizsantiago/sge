@@ -17,13 +17,18 @@
     display: block;
 }
 
+.div-palestrante {
+    width: 73%;
+    display: inline-block;
+}
+
 .div-media {
     width: 48%;
     display: inline-block;
 }
 
 .div-pequena {
-    width: 32%;
+    width: 25%;
     display: inline-block;
 }
 
@@ -49,4 +54,27 @@
     text-align: justify;
     border-top: 1px solid #b8b8b8;
     box-sizing: border-box;
+}
+
+.dados-palestrante {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #7c7c7c;
+}
+
+.img-palestrante {
+    width: 65px;
+    height: 65px;
+    border-radius: 5px;
+}
+
+.align-img {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

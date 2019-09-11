@@ -18,6 +18,7 @@
         private $local;
         private $pontosPex;
         private $palestrante;
+        private $imgPalestrante;
         private $cancelada = 0;
         private $descricao;
 
@@ -31,8 +32,8 @@
 
         public function adicionarAtividade() {
             $query = "
-                INSERT INTO atividade(eventoID, tema, tipoID, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, cancelada, descricao) 
-                VALUES (:eventoID, :tema, :tipoID, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :cancelada, :descricao)
+                INSERT INTO atividade(eventoID, tema, tipoID, vagasMinimas, vagasMaximas, respAtividadeID, data, hora, duracao, local, pontosPex, palestrante, imgPalestrante, cancelada, descricao) 
+                VALUES (:eventoID, :tema, :tipoID, :vagasMinimas, :vagasMaximas, :respAtividadeID, :data, :hora, :duracao, :local, :pontosPex, :palestrante, :imgPalestrante, :cancelada, :descricao)
             ";
 
             $stmt = $this->db->prepare($query);
@@ -49,6 +50,7 @@
             $stmt->bindValue(':local', $this->__get('local'));
             $stmt->bindValue(':pontosPex', $this->__get('pontosPex'));
             $stmt->bindValue(':palestrante', $this->__get('palestrante'));
+            $stmt->bindValue(':imgPalestrante', $this->__get('imgPalestrante'));
             $stmt->bindValue(':cancelada', $this->__get('cancelada'));
             $stmt->bindValue(':descricao', $this->__get('descricao'));
             $stmt->execute();
@@ -73,7 +75,7 @@
         public function listarAtividades() {
 
             $query = "
-                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, p.nome, ia.usuarioID, ia.atividadeID 
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ia.usuarioID, ia.atividadeID 
                 FROM atividade as a 
                     LEFT JOIN inscricaoatividade as ia ON a.id = ia.atividadeID, 
                     participante as p, responsavelatividade as ra, tipoatividade as ta

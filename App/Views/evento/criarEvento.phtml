@@ -34,11 +34,11 @@
 
     <div class="form-align">
         <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-            <form action="/cadastrar_evento" method="post" class="form-register space-top">
+            <form enctype="multipart/form-data" action="/cadastrar_evento" method="post" class="form-register space-top">
         <?php } ?>
 
         <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-            <form action="/cadastrar_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="form-register space-top">
+            <form enctype="multipart/form-data" action="/cadastrar_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="form-register space-top">
         <?php } ?>
             <div class="input-grande">
                 <span>Nome</span>
@@ -72,6 +72,7 @@
                 <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"></textarea>
             </div>
             <div class="input-medio">
+                <input type="hidden" name="MAX_FILE_SIZE" value="15728640" />
                 <label>Imagem/logo</label>
                 <input type="file" name="imgEvento">
             </div>

@@ -14,7 +14,7 @@
         private $dataFim;      
         private $cancelado = 0;
         private $descricao;
-        private $imgEvento = './img/evento.jpg';     
+        private $imgEvento;     
         
         public function __get($atributo) {
             return $this->$atributo;

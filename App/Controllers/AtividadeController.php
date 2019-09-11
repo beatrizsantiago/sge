@@ -26,6 +26,18 @@
         }
 
         public function cadastrarAtividade() {
+
+            echo "<pre>";
+            print_r($_FILES);
+            echo "</pre>";
+
+            $uploaddir = './assets/img-palestrantes/';
+            $uploadfile = $uploaddir . basename($_FILES['imgPalestrante']['name']);
+
+            move_uploaded_file($_FILES['imgPalestrante']['tmp_name'], $uploadfile);
+
+            $caminhoImg = "./assets/img-palestrantes/" . $_FILES['imgPalestrante']['name'];
+
             $atividade = Container::getModel('Atividade');
             $atividade->__set('eventoID', base64_decode($_GET['idEvt']));
             $atividade->__set('tema', $_POST['tema']);
@@ -39,6 +51,7 @@
             $atividade->__set('local', $_POST['local']);
             $atividade->__set('pontosPex', $_POST['pontosPex']);
             $atividade->__set('palestrante', $_POST['palestrante']);
+            $atividade->__set('imgPalestrante', $caminhoImg);
             $atividade->__set('descricao', $_POST['descricao']);
 
             $atividade->adicionarAtividade();

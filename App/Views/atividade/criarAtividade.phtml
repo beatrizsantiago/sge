@@ -38,11 +38,11 @@
 
     <div class="form-align">
         <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-            <form action="/cadastrar_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
+            <form enctype="multipart/form-data" action="/cadastrar_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
         <?php } ?>
 
         <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-            <form action="/cadastrar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
+            <form enctype="multipart/form-data" action="/cadastrar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
         <?php } ?>
             <div class="input-grande">
                 <span>Tema</span>
@@ -94,9 +94,14 @@
                 <label>Pontos Pex</label>
                 <input type="number" name="pontosPex" class="input-radius">
             </div>
-            <div class="input-grande">
+            <div class="input-medio">
                 <label>Palestrante</label>
                 <input type="text" name="palestrante" maxlength="65" class="input-radius">
+            </div>
+            <div class="input-medio">
+                <input type="hidden" name="MAX_FILE_SIZE" value="835584" />
+                <label>Foto do Palestrante</label>
+                <input type="file" name="imgPalestrante">
             </div>
             <div class="input-grande">
                 <label>Descrição</label>
