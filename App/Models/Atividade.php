@@ -224,9 +224,9 @@
 
         public function gerenciaAtividades() {
             $query = "
-                SELECT a.id, a.eventoID, a.tema, a.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.cancelada, a.descricao, e.titulo, p.nome 
-                FROM atividade as a, evento as e, participante as p, responsavelatividade as ra 
-                WHERE a.eventoID = e.id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.respAtividadeID = :respAtividadeID 
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, e.titulo, p.nome 
+                FROM atividade as a, evento as e, participante as p, responsavelatividade as ra, tipoatividade as ta 
+                WHERE a.eventoID = e.id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.respAtividadeID = :respAtividadeID AND a.tipoID = ta.id
                 ORDER BY data;
             ";
 
