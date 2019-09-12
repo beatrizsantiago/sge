@@ -212,7 +212,9 @@
         
         public function getNomeAtividade() {
             $query = '
-                SELECT tipo, tema FROM atividade WHERE id = :id;
+                SELECT ta.tipo, a.tema 
+                FROM atividade as a, tipoatividade as ta
+                WHERE a.id = :id AND a.tipoID = ta.id;
             ';
 
             $stmt = $this->db->prepare($query);
