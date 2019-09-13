@@ -88,6 +88,29 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function listarAtividadesParticipante() {
+
+            $query = "
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ia.usuarioID, ia.atividadeID 
+                FROM atividade as a 
+                    LEFT JOIN (
+                        SELECT * FROM inscricaoatividade WHERE usuarioID = :usuarioID
+                    ) as ia ON a.id = ia.atividadeID 
+                    LEFT JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
+                    INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
+                    INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
+                WHERE a.eventoID = :eventoID   
+                ORDER BY a.data, a.hora;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->bindValue(':eventoID', $this->__get('eventoID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function listarTipoAtividade() {
             $query = "
                 SELECT id, tipo 

@@ -70,7 +70,6 @@
             $listaEvento = Container::getModel('Evento');
             $listaEvento->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
             $this->view->eventos = $listaEvento->listarEventosParticipante();
-            // $this->view->inscrito = $listaEvento->inscritoEvento();
 
             $this->render('indexParticipante');
         }
@@ -79,31 +78,32 @@
 
             if(isset($_POST['visualizarAtividades'])) {
                 $id = $_POST['visualizarAtividades'];
-                header('Location: /atividades_evento?idEvt=' . base64_encode($id));
+                $usuarioID = $_GET['cGFydGljaXBhbnRl'];
+                header('Location: /atividades_evento?cGFydGljaXBhbnRl=' . $usuarioID . '&idEvt=' . base64_encode($id));
             }
 
             if(isset($_POST['inscreverEvento'])) {
                 $eventoID = $_POST['inscreverEvento'];
-                $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
+                $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
                 $inscricaoEvento = Container::getModel('InscricaoEvento');
                 $inscricaoEvento->__set('eventoID', $eventoID);
-                $inscricaoEvento->__set('usuarioID', $usuarioID);
+                $inscricaoEvento->__set('usuarioID', base64_decode($usuarioID));
                 $inscricaoEvento->inscreverEvento();
 
-                header('Location: /index_participante');
+                header('Location: /index_participante?cGFydGljaXBhbnRl=' . $usuarioID);
             }
 
             if(isset($_POST['cancelarInscricaoEvento'])) {
                 $eventoID = $_POST['cancelarInscricaoEvento'];
-                $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
+                $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
                 $inscricaoEvento = Container::getModel('InscricaoEvento');
                 $inscricaoEvento->__set('eventoID', $eventoID);
-                $inscricaoEvento->__set('usuarioID', $usuarioID);
+                $inscricaoEvento->__set('usuarioID', base64_decode($usuarioID));
                 $inscricaoEvento->cancelarInscricaoEvento();
 
-                header('Location: /index_participante');
+                header('Location: /index_participante?cGFydGljaXBhbnRl=' . $usuarioID);
             }
         }
 
@@ -117,11 +117,12 @@
 
         public function atividadesEvento() {
             $listaAtividade = Container::getModel('Atividade');
+            $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
             $eventoID = base64_decode($_GET['idEvt']);
+            $listaAtividade->__set('usuarioID', $usuarioID);
             $listaAtividade->__set('eventoID', $eventoID);
             $this->view->titulo = $listaAtividade->getTituloEvento();
-            $this->view->atividades = $listaAtividade->listarAtividades();
-            // $this->view->inscritos = $listaAtividade->inscritoAtividade();
+            $this->view->atividades = $listaAtividade->listarAtividadesParticipante();
 
             $this->render('atividadesEvento');
         }
@@ -129,26 +130,26 @@
         public function acaoParticipanteAtividade() {
             if(isset($_POST['inscreverAtividade'])) {
                 $atividadeID = $_POST['inscreverAtividade'];
-                $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
+                $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
                 $inscricaoAtividade = Container::getModel('InscricaoAtividade');
                 $inscricaoAtividade->__set('atividadeID', $atividadeID);
-                $inscricaoAtividade->__set('usuarioID', $usuarioID);
+                $inscricaoAtividade->__set('usuarioID', base64_decode($usuarioID));
                 $inscricaoAtividade->inscreverAtividade();
 
-                header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
+                header('Location: /atividades_evento?cGFydGljaXBhbnRl=' . $usuarioID . '&idEvt=' . $_GET['idEvt']);
             }
 
             if(isset($_POST['cancelarInscricaoAtividade'])) {
                 $atividadeID = $_POST['cancelarInscricaoAtividade'];
-                $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
+                $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
                 $inscricaoAtividade = Container::getModel('InscricaoAtividade');
                 $inscricaoAtividade->__set('atividadeID', $atividadeID);
-                $inscricaoAtividade->__set('usuarioID', $usuarioID);
+                $inscricaoAtividade->__set('usuarioID', base64_decode($usuarioID));
                 $inscricaoAtividade->cancelarInscricaoAtividade();
 
-                header('Location: /atividades_evento?idEvt=' . $_GET['idEvt']);
+                header('Location: /atividades_evento?cGFydGljaXBhbnRl=' . $usuarioID . '&idEvt=' . $_GET['idEvt']);
             }
         }
 

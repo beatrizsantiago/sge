@@ -1,6 +1,7 @@
 <?php
 
     require_once '../App/ValidaLoginParticipante.php';
+    $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
 ?>
 
@@ -26,7 +27,7 @@
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
                 <?php if($evento['cancelado'] == 0) { ?>
-                <form action="/acao_participante_evento?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>" method="post" class="card-evento card-block">
+                <form action="/acao_participante_evento?cGFydGljaXBhbnRl=<?= $usuarioID ?>" method="post" class="card-evento card-block">
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
                             <img src="<?= $evento['imgEvento'] ?>" alt="evento">

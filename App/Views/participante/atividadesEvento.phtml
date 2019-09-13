@@ -3,6 +3,7 @@
     require_once '../App/ValidaLoginParticipante.php';
 
     $eventoID = $_GET['idEvt'];
+    $usuarioID = $_GET['cGFydGljaXBhbnRl'];
 
 ?>
 
@@ -13,7 +14,7 @@
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">
-            <a href="/index_participante"><img src="./img/icons/eventos.png">Eventos</a>
+            <a href="/index_participante?cGFydGljaXBhbnRl=<?= $usuarioID ?>"><img src="./img/icons/eventos.png">Eventos</a>
             <a href="#"><img src="./img/icons/criar-evento.png">Cronograma</a>
             
             <div class="div-sair">
@@ -25,10 +26,17 @@
     <main class="content">
         <h1 class="title-center-align">Atividades de <?= $this->view->titulo[0]['titulo'] ?></h1>
         <hr>
+        <?php if($this->view->atividades == []) { ?>
+            <div class="mensagem-aviso">
+                <div class="msg-box-medium msg-info">
+                    <small class="text-info">Ainda <strong>não existem atividades</strong> para este evento!</small>
+                </div>
+            </div>
+        <?php } ?>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
                 <? if($atividade['cancelada'] == 0) { ?>
-                <form action="/acao_participante_atividade?cGFydGljaXBhbnRl=<?= base64_encode($_SESSION['id']) ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
+                <form action="/acao_participante_atividade?cGFydGljaXBhbnRl=<?= $usuarioID ?>&idEvt=<?= $eventoID ?>" method="post" class="card-atividade card-block">
                     <div class="body-card body-card-atividade">
                         <h1><?= $atividade['tipo'] ?></h1>
                         <div class="div-grande">Tema: <strong><?= $atividade['tema'] ?></strong></div>
@@ -66,7 +74,7 @@
                         <?php } ?>
 
                         <div class="btn-card btn-card-atividade-p">
-                            <?php if($atividade['atividadeID'] && $atividade['usuarioID'] == $_SESSION['id']) { ?>
+                            <?php if($atividade['usuarioID'] == $_SESSION['id']) { ?>
                                 <button type="submit" name="cancelarInscricaoAtividade" value="<?= $atividade['id'] ?>" class="btn-danger-full">Cancelar Inscrição</button>
                             <?php } else { ?>
                                 <button type="submit" name="inscreverAtividade" value="<?= $atividade['id'] ?>" class="btn-register-full">Inscrever - me</button>
