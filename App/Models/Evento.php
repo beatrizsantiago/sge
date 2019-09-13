@@ -53,11 +53,10 @@
             }
 
             $query = "
-                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome, ie.usuarioID, ie.eventoID 
+                SELECT DISTINCT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome
                 FROM evento as e 
-                    LEFT JOIN inscricaoevento as ie ON e.id = ie.eventoID 
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
-                    LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 
+                    INNER JOIN participante as p ON p.usuarioID = rg.usuarioID 
                     ". $responsavelGeral ."
                 ORDER BY e.dataInicio;
             ";
@@ -76,14 +75,16 @@
             $query = "
                 SELECT e.id, e.titulo, e.local, DATE_FORMAT(e.dataInicio, '%d/%m/%Y') as dataInicio, DATE_FORMAT(e.dataFim, '%d/%m/%Y') as dataFim, e.cancelado, e.descricao, e.imgEvento, p.nome, ie.usuarioID, ie.eventoID 
                 FROM evento as e 
-                    LEFT JOIN inscricaoevento as ie ON e.id = ie.eventoID 
+                    LEFT JOIN (
+                        SELECT * FROM inscricaoevento WHERE usuarioID = :usuarioID
+                    ) as ie on e.id = ie.eventoID
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id 
-                    LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID 
+                    INNER JOIN participante as p ON p.usuarioID = rg.usuarioID
                 ORDER BY e.dataInicio;
             ";
 
             $stmt = $this->db->prepare($query);
-            // $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -94,7 +95,7 @@
                 SELECT e.id, e.titulo, e.local, e.dataInicio, e.dataFim, e.descricao, e.imgEvento, p.nome 
                 FROM evento as e 
                     LEFT JOIN responsavelgeral as rg ON e.respGeralID = rg.id
-                    LEFT JOIN participante as p ON p.usuarioID = rg.usuarioID
+                    INNER JOIN participante as p ON p.usuarioID = rg.usuarioID
                 WHERE e.id = :id 
             ";
 

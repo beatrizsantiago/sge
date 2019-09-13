@@ -251,6 +251,7 @@ CREATE TABLE `atividade` (
   `eventoID` int(11) NOT NULL,
   `respAtividadeID` int(11) DEFAULT NULL,
   `palestrante` varchar(255) NOT NULL,
+  `imgPalestrante` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `eventoID_idx` (`eventoID`),
