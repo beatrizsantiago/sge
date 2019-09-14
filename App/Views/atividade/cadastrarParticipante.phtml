@@ -71,8 +71,11 @@
                 </div>
                 <div class="input-grande">
                     <button type="submit" class="btn-register btn-right">Cadastrar</button>
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                         <a href="/listar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm btn-right">Voltar</a>
+                    <?php } ?>
+                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                        <a href="/listar_participante?dXNlcklE=<?= $_GET['dXNlcklE'] ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm btn-right">Voltar</a>
                     <?php } ?>
                     <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
                         <a href="/listar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm btn-right">Voltar</a>

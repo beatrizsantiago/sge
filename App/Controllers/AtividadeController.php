@@ -144,6 +144,54 @@
             $this->render('cadastrarParticipante');
         }
 
+        public function adicionarParticipante() {
+            $adicionar = Container::getModel('InscricaoAtividade');
+            $adicionar->__set('login', $_POST['login']);
+            $adicionar->__set('atividadeID', base64_decode($_GET['idAtv']));
+            $adicionar->adicionarInscricao();
+
+            if(isset($_GET['dXNlcklEQXR2'])) {
+                header('Location: /listar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+            } else if(isset($_GET['dXNlcklE'])) {
+                header('Location: /listar_participante?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+            } else {
+                header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+            }
+        }
+
+        public function acaoListaParticipante() {
+            if(isset($_POST['remover'])) {
+                $remover = Container::getModel('InscricaoAtividade');
+                $remover->__set('login', $_POST['remover']);
+                $remover->__set('atividadeID', base64_decode($_GET['idAtv']));
+                $remover->removerInscricao();
+
+                if(isset($_GET['dXNlcklEQXR2'])) {
+                    header('Location: /listar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                } else if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /listar_participante?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                } else {
+                    header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                }
+
+            }
+
+            if(isset($_POST['confirmar'])) {
+                $confirmar = Container::getModel('InscricaoAtividade');
+                $confirmar->__set('login', $_POST['confirmar']);
+                $confirmar->__set('atividadeID', base64_decode($_GET['idAtv']));
+                $confirmar->confirmarInscricao();
+
+                if(isset($_GET['dXNlcklEQXR2'])) {
+                    header('Location: /listar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                } else if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /listar_participante?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                } else {
+                    header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                }
+            }
+        }
+
         public function atualizarAtividade() {
             $atualizarAtividade = Container::getModel('Atividade');
             $atualizarAtividade->__set('id', base64_decode($_GET['idAtv']));

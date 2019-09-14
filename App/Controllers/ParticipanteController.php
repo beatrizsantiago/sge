@@ -153,23 +153,6 @@
             }
         }
 
-        public function adicionarParticipante() {
-            $adicionar = Container::getModel('InscricaoAtividade');
-            $adicionar->__set('login', $_POST['login']);
-            $adicionar->__set('atividadeID', base64_decode($_GET['idAtv']));
-            $adicionar->adicionarInscricao();
-
-            header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-        }
-
-        public function removerParticipante() {
-            $remover = Container::getModel('InscricaoAtividade');
-            $remover->__set('login', $_POST['remover']);
-            $remover->removerInscricao();
-
-            header('Location: /listar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-        }
-
         public function gerarCertificado() {
             $gerarCertificado = Container::getModel('Participante');
             $gerarCertificado->__set('eventoID', base64_decode($_GET['idEvt']));

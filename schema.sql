@@ -309,6 +309,7 @@ DROP TABLE IF EXISTS `db_sge`.`inscricaoatividade`;
 CREATE TABLE `inscricaoatividade` (
   `usuarioID` int(11) NOT NULL,
   `atividadeID` int(11) NOT NULL,
+  `presente` tinyint(1) DEFAULT NULL,
   KEY `usuarioID_idx` (`usuarioID`),
   KEY `atividadeID_idx` (`atividadeID`),
   CONSTRAINT `atividadeIdInsAtv` FOREIGN KEY (`atividadeID`) REFERENCES `atividade` (`id`) ON DELETE CASCADE,

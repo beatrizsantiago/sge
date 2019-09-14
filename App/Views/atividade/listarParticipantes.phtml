@@ -8,6 +8,10 @@
         $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
     }
 
+    if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') {
+        $ResponsavelAtividade = base64_encode($_SESSION['ResponsavelAtividadeID']);
+    }
+
 ?>
 
 <section class="grid-base">
@@ -29,7 +33,7 @@
             <?php } ?>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                <a href="/gerenciar_atividades?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>"><img src="./img/icons/atividade.png">Gerenciar Atividades</a>
+                <a href="/gerenciar_atividades?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>"><img src="./img/icons/atividade.png">Gerenciar Atividades</a>
             <?php } ?>
 
             <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
@@ -43,12 +47,16 @@
     <main class="content">
 
         <section class="form-align">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                 <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
             <?php } ?>
 
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                 <form action="/adicionar_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
+            <?php } ?>
+
+            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
+                <form action="/adicionar_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
             <?php } ?>
                 <h1 class="title-center-align">Adicionar Participante</h1>
                 <div class="input-grande">
@@ -56,11 +64,14 @@
                     <input type="text" name="login" class="input-radius">
                 </div>
                 <div class="input-grande btn-align-center btn-space-top">
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                         <a href="/cadastrar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
                     <?php } ?>
+                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
+                            <a href="/cadastrar_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
+                    <?php } ?>
                     <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                            <a href="/cadastrar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
+                            <a href="/cadastrar_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
                     <?php } ?>
                     
                     <button type="submit" class="btn-register">Adicionar</button>
@@ -81,20 +92,25 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador' || $_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                        <form action="/remover_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                        <form action="/acao_lista_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
                     <?php } ?>
 
                     <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                        <form action="/remover_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                        <form action="/acao_lista_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
+                    <?php } ?>
+
+                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
+                        <form action="/acao_lista_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
                     <?php } ?>
                         <div class="item-minimo"><?= $inscritos['nome'] ?></div>
                         <div class="item-minimo"><?= $inscritos['login'] ?></div>
                         <div class="item-minimo"><?= $inscritos['curso'] ?></div>
                         <div class="item-minimo"><?= $inscritos['matricula'] ?></div>
-                        <div class="item-button">
-                            <button type="submit" value="<?= $inscritos['login'] ?>" name="remover" class="btn-danger-full">Remover</button>
-                        </div>
+                        <?php if($inscritos['presente'] == 0) { ?>
+                            <button type="submit" value="<?= $inscritos['login'] ?>" name="remover" class="btn-danger-full"><img class="img-button" src="./img/icons/cancel.png" /></button>
+                            <button type="submit" value="<?= $inscritos['login'] ?>" name="confirmar" class="btn-register-full"><img class="img-button" src="./img/icons/ativar.png" /></button>
+                        <?php } ?>
                     </form>
                 <?php } ?>
             </div>

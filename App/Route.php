@@ -127,6 +127,24 @@
                 'action' => 'cadastrarParticipante'
             ];
 
+            $routes['adicionarParticipante'] = [
+                'route' => '/adicionar_participante',
+                'controller' => 'AtividadeController',
+                'action' => 'adicionarParticipante'
+            ];
+
+            $routes['removerParticipante'] = [
+                'route' => '/remover_participante',
+                'controller' => 'AtividadeController',
+                'action' => 'removerParticipante'
+            ];
+
+            $routes['acaoListaParticipante'] = [
+                'route' => '/acao_lista_participante',
+                'controller' => 'AtividadeController',
+                'action' => 'acaoListaParticipante'
+            ];
+
             $routes['atualizarAtividade'] = [
                 'route' => '/atualizar_atividade',
                 'controller' => 'AtividadeController',
@@ -179,18 +197,6 @@
                 'route' => '/acao_participante_atividade',
                 'controller' => 'ParticipanteController',
                 'action' => 'acaoParticipanteAtividade'
-            ];
-
-            $routes['adicionarParticipante'] = [
-                'route' => '/adicionar_participante',
-                'controller' => 'ParticipanteController',
-                'action' => 'adicionarParticipante'
-            ];
-
-            $routes['removerParticipante'] = [
-                'route' => '/remover_participante',
-                'controller' => 'ParticipanteController',
-                'action' => 'removerParticipante'
             ];
 
             $routes['gerarCertificado'] = [
