@@ -214,6 +214,7 @@ DROP TABLE IF EXISTS `db_sge`.`tipoatividade`;
 CREATE TABLE `tipoatividade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(50) NOT NULL,
+  `cor` varchar(7) NOT NULL,
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -224,7 +225,7 @@ CREATE TABLE `tipoatividade` (
 
 LOCK TABLES `tipoatividade` WRITE;
 /*!40000 ALTER TABLE `tipoatividade` DISABLE KEYS */;
-INSERT INTO `db_sge`.`tipoatividade` VALUES ("Palestra", "Minicurso", "Workshop", "Mesa Redonda", "Painel", "Exposição");
+INSERT INTO `db_sge`.`tipoatividade` VALUES ("Palestra", "#75036c"), ("Minicurso", "#036819"), ("Workshop", "#225e97"), ("Mesa Redonda", "#c27e00"), ("Painel", "#6107aa"), ("Exposição", "#5c3c00");
 /*!40000 ALTER TABLE `tipoatividade` ENABLE KEYS */;
 UNLOCK TABLES;
 
