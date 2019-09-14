@@ -149,6 +149,12 @@
         }
 
         public function imprimirCertificado() {
+            $dadosAtividade = Container::getModel('Participante');
+            $dadosAtividade->__set('atividadeID', base64_decode($_GET['idAtv']));
+            $dadosAtividade->__set('usuarioID', base64_decode($_GET['ui']));
+
+            $dados = $dadosAtividade->certificadoAtividade();
+
             $dompdf = new Dompdf();
 
             $html = '
@@ -159,7 +165,8 @@
                     <title>Certificado</title>
                 </head>
                 <body>
-                    <h1>Certificado</h1>
+                    <h1>'. $dados[0]['tema'] .'</h1>
+                    <h1>'. $dados[0]['nome'] .'</h1>
                 </body>
                 </html>
             ';

@@ -156,7 +156,7 @@
         public function gerarCertificado() {
             $gerarCertificado = Container::getModel('Participante');
             $gerarCertificado->__set('eventoID', base64_decode($_GET['idEvt']));
-            $gerarCertificado->__set('usuarioID', base64_decode($_GET['ui']));
+            $gerarCertificado->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
             $this->view->somatorio = $gerarCertificado->somatorioPex();
             $this->view->relatorio = $gerarCertificado->relatorioParticipacao();
 
