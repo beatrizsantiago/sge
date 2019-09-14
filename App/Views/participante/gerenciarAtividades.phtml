@@ -55,10 +55,7 @@
                             <div class="div-media">Pontos Pex: <strong><?= $atividade['pontosPex'] ?></strong></div>
                         </div>
                         
-                        <div class="div-grande">
-                            <div class="div-media">Total de Vagas: <strong><?= $atividade['vagasMaximas'] ?></strong></div>
-                            <div class="div-media">Vagas Restantes: <strong> -- </strong></div>
-                        </div>
+                        <div class="div-grande">Vagas Restantes: <strong> <?= $atividade['vagasMaximas'] - $atividade['qtdInscritos'] ?> </strong></div>
                         
                         <div class="div-grande">Evento: <strong><?= $atividade['titulo'] ?></strong></div>
 

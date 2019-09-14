@@ -75,9 +75,15 @@
         public function listarAtividades() {
 
             $query = "
-                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ta.cor 
-                FROM atividade as a, participante as p, responsavelatividade as ra, tipoatividade as ta
-                WHERE a.eventoID = :eventoID AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.tipoID = ta.id  
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ta.cor, COUNT(ia.usuarioID) as qtdInscritos   
+                FROM atividade as a 
+                    LEFT JOIN inscricaoatividade as ia ON a.id = ia.atividadeID
+                    INNER JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
+                    INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
+                    INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
+                WHERE a.eventoID = :eventoID 
+                GROUP BY ia.atividadeID
+                HAVING count(ia.atividadeID) >= 0
                 ORDER BY a.data;
             ";
 
@@ -91,15 +97,18 @@
         public function listarAtividadesParticipante() {
 
             $query = "
-                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ta.cor, ia.usuarioID, ia.atividadeID 
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ta.cor, ia.usuarioID, ia.atividadeID, COUNT(iatv.usuarioID) as qtdInscritos  
                 FROM atividade as a 
                     LEFT JOIN (
                         SELECT * FROM inscricaoatividade WHERE usuarioID = :usuarioID
                     ) as ia ON a.id = ia.atividadeID 
+                    LEFT JOIN inscricaoatividade as iatv ON a.id = iatv.atividadeID
                     LEFT JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
                     INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
                     INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
-                WHERE a.eventoID = :eventoID   
+                WHERE a.eventoID = :eventoID  
+                GROUP BY iatv.atividadeID
+                HAVING count(iatv.atividadeID) >= 0 
                 ORDER BY a.data, a.hora;
             ";
 
@@ -247,9 +256,16 @@
 
         public function gerenciaAtividades() {
             $query = "
-                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, e.titulo, p.nome, ta.cor 
-                FROM atividade as a, evento as e, participante as p, responsavelatividade as ra, tipoatividade as ta 
-                WHERE a.eventoID = e.id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.respAtividadeID = :respAtividadeID AND a.tipoID = ta.id
+                SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, e.titulo, p.nome, ta.cor, COUNT(ia.usuarioID) as qtdInscritos  
+                FROM atividade as a 
+                    LEFT JOIN inscricaoatividade as ia ON a.id = ia.atividadeID
+                    INNER JOIN evento as e ON a.eventoID = e.id
+                    INNER JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
+                    INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
+                    INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
+                WHERE a.respAtividadeID = :respAtividadeID
+                GROUP BY ia.atividadeID
+                HAVING count(ia.atividadeID) >= 0
                 ORDER BY data;
             ";
 
