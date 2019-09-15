@@ -78,8 +78,8 @@
                 SELECT a.id, a.eventoID, a.tema, ta.tipo, a.vagasMinimas, a.vagasMaximas, DATE_FORMAT(a.data, '%d/%m/%Y') as data, TIME_FORMAT(a.hora, '%h:%i') as hora, TIME_FORMAT(a.duracao, '%h:%i') as duracao, a.local, a.pontosPex, a.palestrante, a.imgPalestrante, a.cancelada, a.descricao, p.nome, ta.cor, COUNT(ia.usuarioID) as qtdInscritos   
                 FROM atividade as a 
                     LEFT JOIN inscricaoatividade as ia ON a.id = ia.atividadeID
-                    INNER JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
-                    INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
+                    LEFT JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
+                    LEFT JOIN participante as p ON p.usuarioID = ra.usuarioID
                     INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
                 WHERE a.eventoID = :eventoID 
                 GROUP BY ia.atividadeID
@@ -104,7 +104,7 @@
                     ) as ia ON a.id = ia.atividadeID 
                     LEFT JOIN inscricaoatividade as iatv ON a.id = iatv.atividadeID
                     LEFT JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
-                    INNER JOIN participante as p ON p.usuarioID = ra.usuarioID
+                    LEFT JOIN participante as p ON p.usuarioID = ra.usuarioID
                     INNER JOIN tipoatividade as ta ON a.tipoID = ta.id
                 WHERE a.eventoID = :eventoID  
                 GROUP BY iatv.atividadeID
@@ -135,8 +135,11 @@
         public function listarDadosAtividade() {
             $query = "
                 SELECT a.id, a.eventoID, a.tema, a.tipoID, ta.tipo, a.vagasMinimas, a.vagasMaximas, a.data, a.hora, a.duracao, a.local, a.pontosPex, a.palestrante, a.descricao, a.respAtividadeID, p.nome 
-                FROM atividade as a, participante as p, responsavelatividade as ra, tipoatividade as ta
-                WHERE a.id = :id AND p.usuarioID = ra.usuarioID AND a.respAtividadeID = ra.id AND a.tipoID = ta.id
+                FROM atividade as a
+                    LEFT JOIN responsavelatividade as ra ON a.respAtividadeID = ra.id
+                    LEFT JOIN participante as p ON p.usuarioID = ra.usuarioID 
+                    INNER JOIN tipoatividade as ta ON a.tipoID = ta.id 
+                WHERE a.id = :id;
             ";
 
             $stmt = $this->db->prepare($query);

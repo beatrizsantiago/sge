@@ -61,6 +61,7 @@
             <div class="input-grande">
                 <label>Responsável Pela Atividade</label>
                 <select class="input-radius" name="responsavelAtividade">
+                    <option value="">Selecione</option>
                     <?php 
                         foreach($this->view->dadosResponsavel as $dadosResponsavel) { 
                             if($atividade['respAtividadeID'] == $dadosResponsavel['id']) {
