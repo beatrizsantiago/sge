@@ -22,14 +22,39 @@
 
             $this->view->responsavel_atividade = $dadosAtividade->listarDadosResponsavelAtividade();
             $this->view->tipo_atividade = $dadosAtividade->listartipoAtividade();
+
+            $this->view->atividade = [
+                'tema' => '',
+                'vagasMinimas' => '',
+                'vagasMaximas' => '',
+                'data' => '',
+                'hora' => '',
+                'duracao' => '',
+                'local' => '',
+                'pontosPex' => '',
+                'palestrante' => '',
+                'descricao' => ''
+            ];
+
+            $this->view->erroAtividade = false;
+            $this->view->erroTema = false;
+            $this->view->erroVagasMinimas = false;
+            $this->view->erroVagasMaximas = false;
+            $this->view->erroData = false;
+            $this->view->erroHora = false;
+            $this->view->erroDuracao = false;
+            $this->view->erroLocal = false;
+            $this->view->erroPontosPex = false;
+            $this->view->erroPalestrante = false;
+
             $this->render('criarAtividade');
         }
 
         public function cadastrarAtividade() {
 
-            echo "<pre>";
-            print_r($_FILES);
-            echo "</pre>";
+            // echo "<pre>";
+            // print_r($_FILES);
+            // echo "</pre>";
 
             $uploaddir = './assets/img-palestrantes/';
             $uploadfile = $uploaddir . basename($_FILES['imgPalestrante']['name']);
@@ -54,14 +79,70 @@
             $atividade->__set('imgPalestrante', $caminhoImg);
             $atividade->__set('descricao', $_POST['descricao']);
 
-            $atividade->adicionarAtividade();
+            $this->view->atividade = [
+                'tema' => $_POST['tema'],
+                'vagasMinimas' => $_POST['vagasMinimas'],
+                'vagasMaximas' => $_POST['vagasMaximas'],
+                'data' => $_POST['data'],
+                'hora' => $_POST['hora'],
+                'duracao' => $_POST['duracao'],
+                'local' => $_POST['local'],
+                'pontosPex' => $_POST['pontosPex'],
+                'palestrante' => $_POST['palestrante'],
+                'descricao' => $_POST['descricao']
+            ];
 
-            if(isset($_GET['dXNlcklE'])) {
-                header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['data'] == '' || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
+
+                $this->view->erroAtividade = true;
+
+                if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3) {
+                    $this->view->erroTema = true;
+                }
+
+                if ($_POST['vagasMinimas'] == '') {
+                    $this->view->erroVagasMinimas = true;
+                }
+                
+                if ($_POST['vagasMaximas'] == '') {
+                    $this->view->erroVagasMaximas = true;
+                }
+                
+                if ($_POST['data'] == '') {
+                    $this->view->erroData = true;
+                }
+                
+                if ($_POST['hora'] == '') {
+                    $this->view->erroHora = true;
+                }
+                
+                if ($_POST['duracao'] == '') {
+                    $this->view->erroDuracao = true;
+                }
+                
+                if ($_POST['local'] == '') {
+                    $this->view->erroLocal = true;
+                }
+                
+                if ($_POST['pontosPex'] == '') {
+                    $this->view->erroPontosPex = true;
+                }
+                
+                if ($_POST['palestrante'] == '') {
+                    $this->view->erroPalestrante = true;
+                }
+
+                $this->render('criarAtividade');
+                
             } else {
-                header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                $atividade->adicionarAtividade();
+    
+                if(isset($_GET['dXNlcklE'])) {
+                    header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+                } else {
+                    header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                }
             }
-
         }
 
         public function acaoAtividade() {

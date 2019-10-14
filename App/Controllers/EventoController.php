@@ -21,6 +21,21 @@
             $responsavelGeral = Container::getModel('ResponsavelGeral');
             $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
 
+            $this->view->evento = [
+                'titulo' => '',
+                'local' => '',
+                'dataInicio' => '',
+                'dataFim' => '',
+                'descricao' => '',
+            ];
+
+            $this->view->erroEvento = false;
+            $this->view->erroTitulo = false;
+            $this->view->erroLocal = false;
+            $this->view->erroResponsavelGeral = false;
+            $this->view->erroDataInicio = false;
+            $this->view->erroDataFim = false;
+
             $this->render('criarEvento');
         }
 
@@ -46,8 +61,58 @@
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
             $cadastrarEvento->__set('imgEvento', $caminhoImg);
 
-            if ($_POST['titulo'] == '') {
-                // $this->view->erroCadastroEvendo = false;
+            if ($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3) {
+                $this->view->evento = [
+                    'titulo' => $_POST['titulo'],
+                    'local' => $_POST['local'],
+                    // 'responsavelGeral' => $_POST['responsavelGeral'],
+                    'dataInicio' => $_POST['dataInicio'],
+                    'dataFim' => $_POST['dataFim'],
+                    'descricao' => $_POST['descricao'],
+                ];
+                $this->view->erroEvento = true;
+                $this->view->erroTitulo = true;
+                $this->render('criarEvento');
+
+            } else if ($_POST['local'] == '' || strlen($_POST['local']) < 3) {
+                $this->view->evento = [
+                    'titulo' => $_POST['titulo'],
+                    'local' => $_POST['local'],
+                    // 'responsavelGeral' => $_POST['responsavelGeral'],
+                    'dataInicio' => $_POST['dataInicio'],
+                    'dataFim' => $_POST['dataFim'],
+                    'descricao' => $_POST['descricao'],
+                ];
+                $this->view->erroEvento = true;
+                $this->view->erroLocal = true;
+                $this->render('criarEvento');
+
+            } else if ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) {
+                $this->view->evento = [
+                    'titulo' => $_POST['titulo'],
+                    'local' => $_POST['local'],
+                    // 'responsavelGeral' => $_POST['responsavelGeral'],
+                    'dataInicio' => $_POST['dataInicio'],
+                    'dataFim' => $_POST['dataFim'],
+                    'descricao' => $_POST['descricao'],
+                ];
+                $this->view->erroEvento = true;
+                $this->view->erroDataInicio = true;
+                $this->render('criarEvento');
+
+            } else if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+                $this->view->evento = [
+                    'titulo' => $_POST['titulo'],
+                    'local' => $_POST['local'],
+                    // 'responsavelGeral' => $_POST['responsavelGeral'],
+                    'dataInicio' => $_POST['dataInicio'],
+                    'dataFim' => $_POST['dataFim'],
+                    'descricao' => $_POST['descricao'],
+                ];
+                $this->view->erroEvento = true;
+                $this->view->erroDataFim = true;
+                $this->render('criarEvento');
+
             } else {
                 $cadastrarEvento->adicionarEvento();
 

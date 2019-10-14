@@ -40,13 +40,26 @@
         <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
             <form enctype="multipart/form-data" action="/cadastrar_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="form-register space-top">
         <?php } ?>
+
+        <?php if($this->view->erroEvento) { ?>
+            <div class="msg-box msg-error">
+                <small class="text-error"><strong>Erro ao tentar criar o evento!</strong> Verifique se os campos foram preenchidos corretamente. </small>
+            </div>
+        <?php } ?>
+
             <div class="input-grande">
                 <span>Nome</span>
-                <input type="text" name="titulo" maxlength="50" class="input-radius" autofocus>
+                <input type="text" name="titulo" maxlength="50" class="input-radius" value="<?= $this->view->evento['titulo'] ?>" autofocus>
+                <?php if(isset($this->view->erroTitulo) && $this->view->erroTitulo != false) { ?>
+                    <small class="text-error"><strong>Informe um nome válido!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-grande">
                 <label>Local</label>
-                <input type="text" name="local" maxlength="50" class="input-radius">
+                <input type="text" name="local" maxlength="50" class="input-radius" value="<?= $this->view->evento['local'] ?>">
+                <?php if(isset($this->view->erroLocal) && $this->view->erroLocal != false) { ?>
+                    <small class="text-error"><strong>Informe um local válido!</strong></small>
+                <?php } ?>
             </div>
             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                 <div class="input-grande">
@@ -57,19 +70,28 @@
                             <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
                         <?php } ?>
                     </select>
+                    <?php if(isset($this->view->erroResponsavelGeral) && $this->view->erroResponsavelGeral != false) { ?>
+                        <small class="text-error"><strong>Informe um Responsável Geral!</strong></small>
+                    <?php } ?>
                 </div>
             <?php } ?>
             <div class="input-medio">
                 <label>Data de Início</label>
-                <input type="date" name="dataInicio" class="input-radius">
+                <input type="date" name="dataInicio" class="input-radius" value="<?= $this->view->evento['dataInicio'] ?>">
+                <?php if(isset($this->view->erroDataInicio) && $this->view->erroDataInicio != false) { ?>
+                    <small class="text-error"><strong>Informe uma data inicial válida!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-medio">
                 <label>Data de Término</label>
-                <input type="date" name="dataFim" class="input-radius">
+                <input type="date" name="dataFim" class="input-radius" value="<?= $this->view->evento['dataFim'] ?>">
+                <?php if(isset($this->view->erroDataFim) && $this->view->erroDataFim != false) { ?>
+                    <small class="text-error"><strong>Informe uma data final válida!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-medio">
                 <label>Descrição</label>
-                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"></textarea>
+                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140" value="<?= $this->view->evento['descricao'] ?>"></textarea>
             </div>
             <div class="input-medio">
                 <input type="hidden" name="MAX_FILE_SIZE" value="15728640" />

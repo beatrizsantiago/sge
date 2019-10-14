@@ -44,9 +44,19 @@
         <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
             <form enctype="multipart/form-data" action="/cadastrar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
         <?php } ?>
+
+        <?php if($this->view->erroAtividade) { ?>
+            <div class="msg-box msg-error">
+                <small class="text-error"><strong>Erro ao tentar criar a atividade!</strong> Verifique se os campos foram preenchidos corretamente. </small>
+            </div>
+        <?php } ?>
+
             <div class="input-grande">
                 <span>Tema</span>
-                <input type="text" name="tema" maxlength="80" class="input-radius" autofocus>
+                <input type="text" name="tema" maxlength="80" class="input-radius" value="<?= $this->view->atividade['tema'] ?>" autofocus>
+                <?php if(isset($this->view->erroTema) && $this->view->erroTema != false) { ?>
+                    <small class="text-error"><strong>Informe um tema válido!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-medio">
                 <label>Tipo</label>
@@ -59,11 +69,17 @@
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Mínimas</label>
-                <input type="number" name="vagasMinimas" class="input-radius">
+                <input type="number" name="vagasMinimas" class="input-radius" value="<?= $this->view->atividade['vagasMinimas'] ?>">
+                <?php if(isset($this->view->erroVagasMinimas) && $this->view->erroVagasMinimas != false) { ?>
+                    <small class="text-error"><strong>Informe a quantidade mínima de vagas!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Máximas</label>
-                <input type="number" name="vagasMaximas" class="input-radius">
+                <input type="number" name="vagasMaximas" class="input-radius" value="<?= $this->view->atividade['vagasMaximas'] ?>">
+                <?php if(isset($this->view->erroVagasMaximas) && $this->view->erroVagasMaximas != false) { ?>
+                    <small class="text-error"><strong>Informe a quantidade máxima de vagas!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-grande">
                 <label>Responsável Pela Atividade</label>
@@ -76,27 +92,45 @@
             </div>
             <div class="input-pequeno">
                 <label>Data</label>
-                <input type="date" name="data" class="input-radius">
+                <input type="date" name="data" class="input-radius" value="<?= $this->view->atividade['data'] ?>">
+                <?php if(isset($this->view->erroData) && $this->view->erroData != false) { ?>
+                    <small class="text-error"><strong>Informe uma data válida!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-pequeno">
                 <label>Hora</label>
-                <input type="time" name="hora" class="input-radius">
+                <input type="time" name="hora" class="input-radius" value="<?= $this->view->atividade['hora'] ?>">
+                <?php if(isset($this->view->erroHora) && $this->view->erroHora != false) { ?>
+                    <small class="text-error"><strong>Informe um horário válido!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-pequeno">
                 <label>Duração</label>
-                <input type="time" name="duracao" class="input-radius">
+                <input type="time" name="duracao" class="input-radius" value="<?= $this->view->atividade['duracao'] ?>">
+                <?php if(isset($this->view->erroDuracao) && $this->view->erroDuracao != false) { ?>
+                    <small class="text-error"><strong>Informe uma duração válida!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-quase-grande">
                 <label>Local</label>
-                <input type="text" name="local" maxlength="40" class="input-radius">
+                <input type="text" name="local" maxlength="40" class="input-radius" value="<?= $this->view->atividade['local'] ?>">
+                <?php if(isset($this->view->erroLocal) && $this->view->erroLocal != false) { ?>
+                    <small class="text-error"><strong>Informe um local!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-pequeno">
                 <label>Pontos Pex</label>
-                <input type="number" name="pontosPex" class="input-radius">
+                <input type="number" name="pontosPex" class="input-radius" value="<?= $this->view->atividade['pontosPex'] ?>">
+                <?php if(isset($this->view->erroPontosPex) && $this->view->erroPontosPex != false) { ?>
+                    <small class="text-error"><strong>Informe a quantidade de PEX!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-medio">
                 <label>Palestrante</label>
-                <input type="text" name="palestrante" maxlength="65" class="input-radius">
+                <input type="text" name="palestrante" maxlength="65" class="input-radius" value="<?= $this->view->atividade['palestrante'] ?>">
+                <?php if(isset($this->view->erroPalestrante) && $this->view->erroPalestrante != false) { ?>
+                    <small class="text-error"><strong>Informe um palestrante!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-medio">
                 <input type="hidden" name="MAX_FILE_SIZE" value="835584" />
@@ -105,7 +139,7 @@
             </div>
             <div class="input-grande">
                 <label>Descrição</label>
-                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="180"></textarea>
+                <textarea name="descricao" class="radius-textarea" rows="5" maxlength="180" value="<?= $this->view->atividade['descricao'] ?>"></textarea>
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Adicionar Atividade</button>
