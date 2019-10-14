@@ -14,9 +14,20 @@
                 'curso' => '',
                 'matricula' => '',
                 'login' => '',
-                'senha' => ''
+                'senha' => '',
+                'confirmaSenha' => ''
             ];
+
             $this->view->erroCadastro = false;
+            $this->view->erroNome = false;
+            $this->view->erroInstituicao = false;
+            $this->view->erroCurso = false;
+            $this->view->erroMatricula = false;
+            $this->view->erroEmail = false;
+            $this->view->erroEmailRepetido = false;
+            $this->view->erroSenha = false;
+            $this->view->erroConfirmarSenha = false;
+
             $this->render('cadastroParticipante');
         }
 
@@ -39,29 +50,126 @@
             $participante->__set('senha', md5($_POST['senha']));
             $participante->__set('imgUser', $caminhoImg);
 
-            if(!isset($_GET['idEvt'])){
-                if(count($participante->getUsuarioLogin()) == 0) {
-                    $participante->criarParticipante();
-                    $this->render('sucessoCadastro');
-                } else {
-                    $this->view->participante = [
-                        'nome' => $_POST['nome'],
-                        'instituicao' => $_POST['instituicao'],
-                        'curso' => $_POST['curso'],
-                        'matricula' => $_POST['matricula'],
-                        'login' => $_POST['login'],
-                        'senha' => $_POST['senha']
-                    ];
-                    $this->view->erroCadastro = true;
-                }
+            if ($_POST['nome'] == '' || strlen($_POST['nome']) < 3) {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroNome = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['instituicao'] == '') {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroInstituicao = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['curso'] == '') {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroCurso = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['matricula'] == '' || !is_numeric($_POST['matricula'])) {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroMatricula = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['login'] == '') {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroEmail = true;
+                $this->render('cadastroParticipante');
+
+            } else if(count($participante->getUsuarioLogin()) > 0) {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroEmailRepetido = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['senha'] == '' || strlen($_POST['senha']) < 6) {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroSenha = true;
+                $this->render('cadastroParticipante');
+
+            } else if($_POST['confirmarSenha'] != $_POST['senha']) {
+                $this->view->participante = [
+                    'nome' => $_POST['nome'],
+                    'instituicao' => $_POST['instituicao'],
+                    'curso' => $_POST['curso'],
+                    'matricula' => $_POST['matricula'],
+                    'login' => $_POST['login'],
+                    'senha' => $_POST['senha'],
+                    'confirmarSenha' => $_POST['confirmarSenha']
+                ];
+                $this->view->erroCadastro = true;
+                $this->view->erroConfirmarSenha = true;
+                $this->render('cadastroParticipante');
+
             } else {
-                if(count($participante->getUsuarioLogin()) == 0) {
-                    $participante->criarParticipante();
-                    if($_GET['dXNlcklEQXR2']) {
-                        header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                    } else {
-                        header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                    }
+                $participante->criarParticipante();
+                if(!isset($_GET['idEvt'])){
+                    $this->render('sucessoCadastro');
+                } else if(isset($_GET['dXNlcklEQXR2'])) {
+                    header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
+                } else {
+                    header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
                 }
             }
         }

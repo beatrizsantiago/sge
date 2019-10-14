@@ -12,6 +12,7 @@
                 $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
             }
             $this->view->eventos = $listaEvento->listarEventos();
+            $this->view->erroCadastroEvendo = false;
 
             $this->render('indexEvento');
         }
@@ -31,7 +32,7 @@
             move_uploaded_file($_FILES['imgEvento']['tmp_name'], $uploadfile);
 
             $caminhoImg = "./assets/img-eventos/" . $_FILES['imgEvento']['name'];
-
+            
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
@@ -45,12 +46,16 @@
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
             $cadastrarEvento->__set('imgEvento', $caminhoImg);
 
-            $cadastrarEvento->adicionarEvento();
-
-            if(isset($_GET['dXNlcklE'])) {
-                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+            if ($_POST['titulo'] == '') {
+                // $this->view->erroCadastroEvendo = false;
             } else {
-                header('Location: /index_evento');
+                $cadastrarEvento->adicionarEvento();
+
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                } else {
+                    header('Location: /index_evento');
+                }
             }
 
         }
@@ -164,5 +169,3 @@
             header('Location: /responsavel_geral');
         }
     }
-
-?>
