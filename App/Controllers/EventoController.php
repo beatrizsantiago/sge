@@ -148,6 +148,7 @@
 
                 $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
                 $this->view->dadosResponsavel = $listaDadosEvento->listarDadosResponsavelGeral();
+                $this->view->erroEvento = false;
                 $this->render('alterarEvento');
             }
 
@@ -177,12 +178,23 @@
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
-            $atualizarEvento->alterarEvento();
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+                $listaDadosEvento = Container::getModel('Evento');
+                $listaDadosEvento->__set('id', $_POST['id']);
 
-            if(isset($_GET['dXNlcklE'])) {
-                header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
+                $this->view->dadosResponsavel = $listaDadosEvento->listarDadosResponsavelGeral();
+                $this->view->erroEvento = true;
+
+                $this->render('alterarEvento');
             } else {
-                header('Location: /index_evento');
+                $atualizarEvento->alterarEvento();
+                
+                if(isset($_GET['dXNlcklE'])) {
+                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
+                } else {
+                    header('Location: /index_evento');
+                }
             }
         }
 

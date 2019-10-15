@@ -190,6 +190,8 @@
                 $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
                 $this->view->dadosResponsavel = $listaDadosAtividade->listarDadosResponsavelAtividade();
                 $this->view->tipoAtividade = $listaDadosAtividade->listarTipoAtividade();
+                $this->view->erroAtividade = false;
+                
                 $this->render('alterarAtividade');
             }
 
@@ -288,13 +290,25 @@
             $atualizarAtividade->__set('pontosPex', $_POST['pontosPex']);
             $atualizarAtividade->__set('palestrante', $_POST['palestrante']);
             $atualizarAtividade->__set('descricao', $_POST['descricao']);
-            
-            $atualizarAtividade->alterarAtividade();
 
-            if(isset($_GET['dXNlcklE'])) {
-                header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+            if($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['data'] == '' || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
+                $listaDadosAtividade = Container::getModel('Atividade');
+                $listaDadosAtividade->__set('id', base64_decode($_GET['idAtv']));
+
+                $this->view->dadosAtividades = $listaDadosAtividade->listarDadosAtividade();
+                $this->view->dadosResponsavel = $listaDadosAtividade->listarDadosResponsavelAtividade();
+                $this->view->tipoAtividade = $listaDadosAtividade->listarTipoAtividade();
+                $this->view->erroAtividade = true;
+
+                $this->render('alterarAtividade');
             } else {
-                header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                $atualizarAtividade->alterarAtividade();
+                
+                if(isset($_GET['dXNlcklE'])) {
+                    header('location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . $_GET['idEvt']);
+                } else {
+                    header('location: /index_atividade?idEvt=' . $_GET['idEvt']);
+                }
             }
         }
 

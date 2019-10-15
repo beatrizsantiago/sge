@@ -32,6 +32,13 @@
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                 <form action="/atualizar_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="form-register space-top">
             <?php } ?>
+
+            <?php if($this->view->erroEvento) { ?>
+                <div class="msg-box msg-error">
+                    <small class="text-error"><strong>Não foi possível alterar este evento!</strong> Modifique corretamente os campos necessários. </small>
+                </div>
+            <?php } ?>
+
                 <div class="input-grande">
                     <span>Nome</span>
                     <input type="text" value="<?= $dadosEventos['titulo'] ?>" name="titulo" maxlength="50" class="input-radius">

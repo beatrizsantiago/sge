@@ -33,6 +33,13 @@
             <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
                 <form action="/atualizar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="form-register space-top">
             <?php } ?>
+
+            <?php if($this->view->erroAtividade) { ?>
+                <div class="msg-box msg-error">
+                    <small class="text-error"><strong>Não foi possível alterar esta atividade!</strong> Modifique corretamente os campos necessários. </small>
+                </div>
+            <?php } ?>
+
             <div class="input-grande">
                 <span>Tema</span>
                 <input type="text" value="<?= $atividade['tema'] ?>" name="tema" maxlength="80" class="input-radius">
