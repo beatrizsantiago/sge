@@ -61,56 +61,35 @@
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
             $cadastrarEvento->__set('imgEvento', $caminhoImg);
 
-            if ($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3) {
-                $this->view->evento = [
-                    'titulo' => $_POST['titulo'],
-                    'local' => $_POST['local'],
-                    // 'responsavelGeral' => $_POST['responsavelGeral'],
-                    'dataInicio' => $_POST['dataInicio'],
-                    'dataFim' => $_POST['dataFim'],
-                    'descricao' => $_POST['descricao'],
-                ];
-                $this->view->erroEvento = true;
-                $this->view->erroTitulo = true;
-                $this->render('criarEvento');
+            $this->view->evento = [
+                'titulo' => $_POST['titulo'],
+                'local' => $_POST['local'],
+                // 'responsavelGeral' => $_POST['responsavelGeral'],
+                'dataInicio' => $_POST['dataInicio'],
+                'dataFim' => $_POST['dataFim'],
+                'descricao' => $_POST['descricao']
+            ];
 
-            } else if ($_POST['local'] == '' || strlen($_POST['local']) < 3) {
-                $this->view->evento = [
-                    'titulo' => $_POST['titulo'],
-                    'local' => $_POST['local'],
-                    // 'responsavelGeral' => $_POST['responsavelGeral'],
-                    'dataInicio' => $_POST['dataInicio'],
-                    'dataFim' => $_POST['dataFim'],
-                    'descricao' => $_POST['descricao'],
-                ];
-                $this->view->erroEvento = true;
-                $this->view->erroLocal = true;
-                $this->render('criarEvento');
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
 
-            } else if ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) {
-                $this->view->evento = [
-                    'titulo' => $_POST['titulo'],
-                    'local' => $_POST['local'],
-                    // 'responsavelGeral' => $_POST['responsavelGeral'],
-                    'dataInicio' => $_POST['dataInicio'],
-                    'dataFim' => $_POST['dataFim'],
-                    'descricao' => $_POST['descricao'],
-                ];
                 $this->view->erroEvento = true;
-                $this->view->erroDataInicio = true;
-                $this->render('criarEvento');
 
-            } else if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
-                $this->view->evento = [
-                    'titulo' => $_POST['titulo'],
-                    'local' => $_POST['local'],
-                    // 'responsavelGeral' => $_POST['responsavelGeral'],
-                    'dataInicio' => $_POST['dataInicio'],
-                    'dataFim' => $_POST['dataFim'],
-                    'descricao' => $_POST['descricao'],
-                ];
-                $this->view->erroEvento = true;
-                $this->view->erroDataFim = true;
+                if ($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3) {
+                    $this->view->erroTitulo = true;
+                }
+                
+                if ($_POST['local'] == '' || strlen($_POST['local']) < 3) {
+                    $this->view->erroLocal = true;
+                }
+                
+                if ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) {
+                    $this->view->erroDataInicio = true;
+                }
+                
+                if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+                    $this->view->erroDataFim = true;
+                }
+
                 $this->render('criarEvento');
 
             } else {
