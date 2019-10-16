@@ -133,6 +133,12 @@
                 'action' => 'adicionarParticipante'
             ];
 
+            $routes['inserirParticipante'] = [
+                'route' => '/inserirParticipante',
+                'controller' => 'AtividadeController',
+                'action' => 'inserirParticipante'
+            ];
+
             $routes['removerParticipante'] = [
                 'route' => '/remover_participante',
                 'controller' => 'AtividadeController',

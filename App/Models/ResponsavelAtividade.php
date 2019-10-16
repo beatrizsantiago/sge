@@ -61,6 +61,20 @@
 
             return $this;
         }
+
+        public function getResponsavelAtividadeLogin() {
+            $query = "
+                SELECT u.login 
+                FROM usuario as u, responsavelatividade as ra
+                WHERE u.id = ra.usuarioId AND u.login = :login
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
     }
 
 ?>

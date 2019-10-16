@@ -46,7 +46,13 @@
             <h1 class="title-center-align">Cadastrar Responsável de Atividade</h1>
             <div class="input-grande">
                 <label>E-mail do Usuário</label>
-                <input type="email" name="login" class="input-radius">
+                <input type="email" name="login" class="input-radius" value="<?= $this->view->responsavelAtividade['login'] ?>">
+                <?php if(isset($this->view->erroEmailCadastrado) && $this->view->erroEmailCadastrado != false) { ?>
+                    <small class="text-error"><strong> Este Responsável de Atividade já existe!</strong></small>
+                <?php } ?>
+                <?php if(isset($this->view->erroEmail) && $this->view->erroEmail != false) { ?>
+                    <small class="text-error"><strong> Informe um e-mail!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-grande btn-align-center btn-space-top">
                 <button type="submit" class="btn-register">Adicionar Responsável</button>

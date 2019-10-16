@@ -64,12 +64,18 @@
             <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                 <div class="input-grande">
                     <label>Responsável Geral</label>
+
                     <select class="input-radius" name="responsavelGeral">
                         <option value="">Selecione</option>
-                        <?php foreach($this->view->responsavel_geral as $responsavel_geral) { ?>
-                            <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
-                        <?php } ?>
+                        
+                        <?php foreach($this->view->responsavel_geral as $responsavel_geral) {
+                            if($this->view->evento['responsavelGeral'] == $responsavel_geral['id']) { ?>
+                                <option value="<?= $responsavel_geral['id'] ?>" selected><?= $responsavel_geral['nome'] ?></option>
+                            <?php } else { ?>
+                                <option value="<?= $responsavel_geral['id'] ?>"><?= $responsavel_geral['nome'] ?></option>
+                        <?php } } ?>
                     </select>
+
                     <?php if(isset($this->view->erroResponsavelGeral) && $this->view->erroResponsavelGeral != false) { ?>
                         <small class="text-error"><strong>Informe um Responsável Geral!</strong></small>
                     <?php } ?>

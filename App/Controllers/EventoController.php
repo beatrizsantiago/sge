@@ -41,6 +41,8 @@
 
         public function cadastrarEvento() {
 
+            $responsavelGeral = Container::getModel('ResponsavelGeral');
+
             $uploaddir = './assets/img-eventos/';
             $uploadfile = $uploaddir . basename($_FILES['imgEvento']['name']);
 
@@ -64,13 +66,13 @@
             $this->view->evento = [
                 'titulo' => $_POST['titulo'],
                 'local' => $_POST['local'],
-                // 'responsavelGeral' => $_POST['responsavelGeral'],
+                'responsavelGeral' => $_POST['responsavelGeral'],
                 'dataInicio' => $_POST['dataInicio'],
                 'dataFim' => $_POST['dataFim'],
                 'descricao' => $_POST['descricao']
             ];
 
-            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['responsavelGeral'] == '' || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
 
                 $this->view->erroEvento = true;
 
@@ -82,6 +84,10 @@
                     $this->view->erroLocal = true;
                 }
                 
+                if ($_POST['responsavelGeral'] == '') {
+                    $this->view->erroResponsavelGeral = true;
+                }
+                
                 if ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) {
                     $this->view->erroDataInicio = true;
                 }
@@ -89,7 +95,8 @@
                 if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
                     $this->view->erroDataFim = true;
                 }
-
+                
+                $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
                 $this->render('criarEvento');
 
             } else {
@@ -178,12 +185,9 @@
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
 
-            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
-                $listaDadosEvento = Container::getModel('Evento');
-                $listaDadosEvento->__set('id', $_POST['id']);
-
-                $this->view->dadosEventos = $listaDadosEvento->listarDadosEvento();
-                $this->view->dadosResponsavel = $listaDadosEvento->listarDadosResponsavelGeral();
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['responsavelGeral'] == '' || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+                $this->view->dadosEventos = $atualizarEvento->listarDadosEvento();
+                $this->view->dadosResponsavel = $atualizarEvento->listarDadosResponsavelGeral();
                 $this->view->erroEvento = true;
 
                 $this->render('alterarEvento');
@@ -203,6 +207,9 @@
                 'login' => ''
             ];
 
+            $this->view->erroEmail = false;
+            $this->view->erroEmailCadastrado = false;
+
             $responsavelGeral = Container::getModel('responsavelGeral');
             $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
             
@@ -213,8 +220,26 @@
             $responsavelGeral = Container::getModel('ResponsavelGeral');
             $responsavelGeral->__set('login', $_POST['login']);
 
-            $responsavelGeral->criarResponsavelGeral();
-            header('Location: /responsavel_geral');
+            if(count($responsavelGeral->getResponsavelGeralLogin()) > 0 || $_POST['login'] == '') {
+                $this->view->responsavelGeral = [
+                    'login' => $_POST['login']
+                ];
+
+                if(count($responsavelGeral->getResponsavelGeralLogin()) > 0) {
+                    $this->view->erroEmailCadastrado = true;
+                }
+                
+                if ($_POST['login'] == '') {
+                    $this->view->erroEmail = true;
+                }
+
+                $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
+                $this->render('responsavelGeral');
+            } else {
+                $responsavelGeral->criarResponsavelGeral();
+                header('Location: /responsavel_geral');
+            }
+
         }
 
         public function removerResponsavelGeral() {

@@ -62,10 +62,17 @@
                 <label>Tipo</label>
                 <select name="tipo" class="input-radius">
                     <option value="">Selecione</option>
-                    <?php foreach($this->view->tipo_atividade as $tipoAtividade) { ?>
-                        <option value="<?= $tipoAtividade['id'] ?>"><?= $tipoAtividade['tipo'] ?></option>
-                    <?php } ?>
+                    <?php foreach($this->view->tipo_atividade as $tipoAtividade) { 
+                        if($this->view->atividade['tipo'] == $tipoAtividade['id']) { ?>
+                            <option value="<?= $tipoAtividade['id'] ?>" selected><?= $tipoAtividade['tipo'] ?></option>
+                        <?php } else { ?>
+                            <option value="<?= $tipoAtividade['id'] ?>"><?= $tipoAtividade['tipo'] ?></option>
+                    <?php } } ?>
                 </select>
+
+                <?php if(isset($this->view->erroTipo) && $this->view->erroTipo != false) { ?>
+                    <small class="text-error"><strong>Informe o tipo da atividade!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Mínimas</label>
@@ -82,13 +89,20 @@
                 <?php } ?>
             </div>
             <div class="input-grande">
-                <label>Responsável Pela Atividade</label>
+                <label>Responsável da Atividade</label>
                 <select class="input-radius" name="responsavelAtividade">
                     <option value="">Selecione</option>
-                    <?php foreach($this->view->responsavel_atividade as $responsavel_atividade) { ?>
-                        <option value="<?= $responsavel_atividade['id'] ?>"><?= $responsavel_atividade['nome'] ?></option>
-                    <?php } ?>
+                    <?php foreach($this->view->responsavel_atividade as $responsavel_atividade) { 
+                        if($this->view->atividade['responsavelAtividade'] == $responsavel_atividade['id']) { ?>
+                            <option value="<?= $responsavel_atividade['id'] ?>" selected><?= $responsavel_atividade['nome'] ?></option>
+                        <?php } else { ?>
+                            <option value="<?= $responsavel_atividade['id'] ?>"><?= $responsavel_atividade['nome'] ?></option>
+                    <?php } } ?>
                 </select>
+
+                <?php if(isset($this->view->erroResponsavelAtividade) && $this->view->erroResponsavelAtividade != false) { ?>
+                    <small class="text-error"><strong>Informe um Responsável da Atividade!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-pequeno">
                 <label>Data</label>

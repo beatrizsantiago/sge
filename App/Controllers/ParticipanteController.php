@@ -100,13 +100,7 @@
             
             } else {
                 $participante->criarParticipante();
-                if(!isset($_GET['idEvt'])){
-                    $this->render('sucessoCadastro');
-                } else if(isset($_GET['dXNlcklEQXR2'])) {
-                    header('Location: /cadastrar_participante?dXNlcklEQXR2=' . $_GET['dXNlcklEQXR2'] . '&idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                } else {
-                    header('Location: /cadastrar_participante?idEvt=' . $_GET['idEvt'] . '&idAtv=' . $_GET['idAtv']);
-                }
+                $this->render('sucessoCadastro');
             }
         }
 

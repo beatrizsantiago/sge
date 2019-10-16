@@ -62,6 +62,20 @@
 
             return $this;
         }
+
+        public function getResponsavelGeralLogin() {
+            $query = "
+                SELECT u.login 
+                FROM usuario as u, responsavelgeral as rg
+                WHERE u.id = rg.usuarioId AND u.login = :login
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
