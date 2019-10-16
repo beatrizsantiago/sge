@@ -21,9 +21,9 @@
 
         public function autenticar() {
             $query = "
-                SELECT id, login, tipoUsuario 
-                FROM usuario 
-                WHERE login = :login AND senha = :senha
+                SELECT u.id, u.login, u.tipoUsuario, p.apelido
+                FROM usuario as u LEFT JOIN participante as p ON (u.id = p.usuarioID)
+                WHERE u.login = :login AND u.senha = :senha
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':login', $this->__get('login'));
@@ -36,6 +36,7 @@
                 $this->__set('id', $usuario['id']);
                 $this->__set('login', $usuario['login']);
                 $this->__set('tipoUsuario', $usuario['tipoUsuario']);
+                $this->__set('apelido', $usuario['apelido']);
             }
 
             return $this;

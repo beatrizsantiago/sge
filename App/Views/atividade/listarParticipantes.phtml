@@ -110,6 +110,8 @@
                         <?php if($inscritos['presente'] == 0) { ?>
                             <button type="submit" value="<?= $inscritos['login'] ?>" name="remover" class="btn-danger-full"><img class="img-button" src="./img/icons/cancel.png" /></button>
                             <button type="submit" value="<?= $inscritos['login'] ?>" name="confirmar" class="btn-register-full"><img class="img-button" src="./img/icons/ativar.png" /></button>
+                        <?php } else { ?>
+                            <div class="item-button"></div>
                         <?php } ?>
                     </form>
                 <?php } ?>

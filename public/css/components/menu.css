@@ -50,12 +50,33 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 .img-perfil {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.bemvindo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.bemvindo h3 {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.bemvindo h1 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
 }
 
 .apelido {

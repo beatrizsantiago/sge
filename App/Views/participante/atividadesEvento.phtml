@@ -11,7 +11,10 @@
     <aside class="menu-topo">
         <div class="form-menu">
             <img src="./img/user.png" alt="user" class="img-perfil">
-            <h1 class="apelido">Beatriz Santiago</h1>
+            <div class="bemvindo">
+                <h3>Bem-vindo(a),</h3>
+                <h1 class="apelido"><?= ($_SESSION['apelido'] != '') ? $_SESSION['apelido'] : $_SESSION['login'] ?></h1>
+            </div>
         </div>
         <nav class="menu">
             <a href="/index_participante?cGFydGljaXBhbnRl=<?= $usuarioID ?>"><img src="./img/icons/eventos.png">Eventos</a>

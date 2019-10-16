@@ -21,6 +21,7 @@
                 $_SESSION['id'] = $usuario->__get('id');
                 $_SESSION['login'] = $usuario->__get('login');
                 $_SESSION['tipoUsuario'] = $usuario->__get('tipoUsuario');
+                $_SESSION['apelido'] = $usuario->__get('apelido');
                 
                 if($ResponsavelGeralID) {
                     $_SESSION['ResponsavelGeralID'] = $ResponsavelGeralID[0]['id'];
