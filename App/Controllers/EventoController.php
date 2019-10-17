@@ -37,6 +37,7 @@
                 'local' => '',
                 'dataInicio' => '',
                 'dataFim' => '',
+                'responsavelGeral' => '',
                 'descricao' => ''
             ];
 
@@ -92,7 +93,7 @@
             $this->view->evento = [
                 'titulo' => $_POST['titulo'],
                 'local' => $_POST['local'],
-                'responsavelGeral' => $_POST['responsavelGeral'],
+                'responsavelGeral' => (isset($_GET['dXNlcklE'])) ? '' : $_POST['responsavelGeral'],
                 'dataInicio' => $_POST['dataInicio'],
                 'dataFim' => $_POST['dataFim'],
                 'descricao' => $_POST['descricao']
@@ -110,7 +111,7 @@
                     $this->view->erroLocal = true;
                 }
                 
-                if ($_POST['responsavelGeral'] == '') {
+                if (!isset($_GET['dXNlcklE']) && $_POST['responsavelGeral'] == '') {
                     $this->view->erroResponsavelGeral = true;
                 }
                 
@@ -127,6 +128,10 @@
                 }
                 
                 $responsavelGeral = Container::getModel('ResponsavelGeral');
+                if(isset($_GET['dXNlcklE'])) {
+                    $responsavelGeral->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $responsavelGeral->getImagemPerfil();
+                }
                 $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
                 $this->render('criarEvento');
 

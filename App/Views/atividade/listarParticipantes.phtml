@@ -17,7 +17,11 @@
 <section class="grid-base">
     <aside class="menu-topo">
         <div class="form-menu">
-            <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php if($_SESSION['tipoUsuario'] != 'Administrador' && $this->view->fotoPerfil[0]['imgUser'] != '') { ?>
+                <img src="<?= $this->view->fotoPerfil[0]['imgUser'] ?>" alt="user" class="img-perfil">
+            <?php } else { ?>
+                <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php } ?>
             <h1 class="apelido">Beatriz Santiago</h1>
         </div>
         <nav class="menu">

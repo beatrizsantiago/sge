@@ -7,6 +7,12 @@
 
     class AtividadeController extends Action {
         public function indexAtividade() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $eventoID = base64_decode($_GET['idEvt']);
 
             $listaAtividade = Container::getModel('Atividade');
@@ -18,6 +24,12 @@
         }
 
         public function criarAtividade() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $dadosAtividade = Container::getModel('atividade');
 
             $this->view->responsavel_atividade = $dadosAtividade->listarDadosResponsavelAtividade();
@@ -163,6 +175,12 @@
                     $this->view->erroImage = true;
                 }
 
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+                }
+
                 $this->view->responsavel_atividade = $atividade->listarDadosResponsavelAtividade();
                 $this->view->tipo_atividade = $atividade->listartipoAtividade();
                 $this->render('criarAtividade');
@@ -217,6 +235,12 @@
             }
 
             if(isset($_POST['alterar'])) {
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+                }
+
                 $listaDadosAtividade = Container::getModel('Atividade');
                 $listaDadosAtividade->__set('id', $_POST['alterar']);
 
@@ -239,6 +263,12 @@
         }
 
         public function listarParticipante() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $listarInscritos = Container::getModel('InscricaoAtividade');
             $listarInscritos->__set('id', base64_decode($_GET['idAtv']));
 
@@ -248,6 +278,12 @@
         }
 
         public function cadastrarParticipante() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $this->view->participante = [
                 'nome' => '',
                 'instituicao' => '',
@@ -325,6 +361,12 @@
                 
                 if($_POST['confirmarSenha'] != $_POST['senha']) {
                     $this->view->erroConfirmarSenha = true;
+                }
+
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
                 }
                  
                 $this->render('cadastrarParticipante');
@@ -404,6 +446,11 @@
             $atualizarAtividade->__set('descricao', $_POST['descricao']);
 
             if($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+                }
                 $this->view->dadosAtividades = $atualizarAtividade->listarDadosAtividade();
                 $this->view->dadosResponsavel = $atualizarAtividade->listarDadosResponsavelAtividade();
                 $this->view->tipoAtividade = $atualizarAtividade->listarTipoAtividade();
@@ -422,6 +469,12 @@
         }
 
         public function responsavelAtividade() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $this->view->responsavelAtividade = [
                 'login' => ''
             ];
@@ -450,6 +503,12 @@
                 
                 if ($_POST['login'] == '') {
                     $this->view->erroEmail = true;
+                }
+
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
                 }
 
                 $this->view->responsavel_atividade = $responsavelAtividade->listarResponsavelAtividade();
