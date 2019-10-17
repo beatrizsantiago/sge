@@ -71,9 +71,8 @@
 }
 
 .img-palestrante {
-    width: 65px;
-    height: 65px;
-    border-radius: 5px;
+    position: relative;
+    height: 100%;
 }
 
 .align-img {
@@ -81,4 +80,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 65px;
+    height: 65px;
 }

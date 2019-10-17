@@ -152,7 +152,10 @@
             <div class="input-medio">
                 <input type="hidden" name="MAX_FILE_SIZE" value="835584" />
                 <label>Foto do Palestrante</label>
-                <input type="file" name="imgPalestrante">
+                <input type="file" name="imgPalestrante" accept="image/*">
+                <?php if(isset($this->view->erroImage) && $this->view->erroImage != false) { ?>
+                    <small class="text-error"><strong>A imagem excede o limite de tamanho!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-grande">
                 <label>Descrição</label>

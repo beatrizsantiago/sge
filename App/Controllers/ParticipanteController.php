@@ -19,6 +19,7 @@
             ];
 
             $this->view->erroCadastro = false;
+            $this->view->erroCadastro = false;
             $this->view->erroNome = false;
             $this->view->erroInstituicao = false;
             $this->view->erroCurso = false;
@@ -27,18 +28,36 @@
             $this->view->erroEmailRepetido = false;
             $this->view->erroSenha = false;
             $this->view->erroConfirmarSenha = false;
+            $this->view->erroImage = false;
 
             $this->render('cadastroParticipante');
         }
 
         public function cadastrar() {
 
+            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $tamanho = 20;
+            $letra = "";
+            $resultado = "";
+
+            for ($i = 0; $i < $tamanho; $i++) { 
+                $letra = substr($alfabeto, rand(0, 35), 1);
+                $resultado .= $letra;
+            }
+
+            date_default_timezone_set('America/Sao_Paulo');
+            $agora = getDate();
+
+            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
+
             $uploaddir = './assets/img-user/';
-            $uploadfile = $uploaddir . basename($_FILES['imgUser']['name']);
+            $uploadfile = basename($_FILES['imgUser']['name']);
 
-            move_uploaded_file($_FILES['imgUser']['tmp_name'], $uploadfile);
+            $novoNome = $nomeUnico . strrchr($uploadfile,".");
+            $caminhoImg = $uploaddir . $novoNome;
 
-            $caminhoImg = "./assets/img-user/" . $_FILES['imgUser']['name']; 
+            move_uploaded_file($_FILES['imgUser']['tmp_name'], $caminhoImg);  
 
             $participante = Container::getModel('Participante');
             $participante->__set('nome', $_POST['nome']);
@@ -60,7 +79,7 @@
                 'confirmarSenha' => $_POST['confirmarSenha']
             ];
 
-            if ($_POST['nome'] == '' || strlen($_POST['nome']) < 3 || $_POST['instituicao'] == '' || $_POST['curso'] == '' || $_POST['matricula'] == '' || !is_numeric($_POST['matricula']) || $_POST['login'] == '' || count($participante->getUsuarioLogin()) > 0 || $_POST['senha'] == '' || strlen($_POST['senha']) < 6 || $_POST['confirmarSenha'] != $_POST['senha']) {
+            if ($_POST['nome'] == '' || strlen($_POST['nome']) < 3 || $_POST['instituicao'] == '' || $_POST['curso'] == '' || $_POST['matricula'] == '' || !is_numeric($_POST['matricula']) || $_POST['login'] == '' || count($participante->getUsuarioLogin()) > 0 || $_POST['senha'] == '' || strlen($_POST['senha']) < 6 || $_POST['confirmarSenha'] != $_POST['senha'] || $_FILES['imgUser']['size'] > 4194304) {
 
                 $this->view->erroCadastro = true;
 
@@ -95,6 +114,10 @@
                 if($_POST['confirmarSenha'] != $_POST['senha']) {
                     $this->view->erroConfirmarSenha = true;
                 }
+
+                if ($_FILES['imgUser']['size'] > 4194304) {
+                    $this->view->erroImage = true;
+                }
                  
                 $this->render('cadastroParticipante');
             
@@ -105,6 +128,10 @@
         }
 
         public function indexParticipante() {
+            $fotoPerfil = Container::getModel('Participante');
+            $fotoPerfil->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
+            $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+
             $listaEvento = Container::getModel('Evento');
             $listaEvento->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
             $this->view->eventos = $listaEvento->listarEventosParticipante();
@@ -154,6 +181,10 @@
         }
 
         public function atividadesEvento() {
+            $fotoPerfil = Container::getModel('Participante');
+            $fotoPerfil->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
+            $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+
             $listaAtividade = Container::getModel('Atividade');
             $usuarioID = base64_decode($_GET['cGFydGljaXBhbnRl']);
             $eventoID = base64_decode($_GET['idEvt']);
@@ -192,6 +223,10 @@
         }
 
         public function gerarCertificado() {
+            $fotoPerfil = Container::getModel('Participante');
+            $fotoPerfil->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));
+            $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+
             $gerarCertificado = Container::getModel('Participante');
             $gerarCertificado->__set('eventoID', base64_decode($_GET['idEvt']));
             $gerarCertificado->__set('usuarioID', base64_decode($_GET['cGFydGljaXBhbnRl']));

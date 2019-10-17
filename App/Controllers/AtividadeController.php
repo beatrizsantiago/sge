@@ -50,22 +50,35 @@
             $this->view->erroLocal = false;
             $this->view->erroPontosPex = false;
             $this->view->erroPalestrante = false;
+            $this->view->erroImage = false;
 
             $this->render('criarAtividade');
         }
 
         public function cadastrarAtividade() {
+            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $tamanho = 20;
+            $letra = "";
+            $resultado = "";
 
-            // echo "<pre>";
-            // print_r($_FILES);
-            // echo "</pre>";
+            for ($i = 0; $i < $tamanho; $i++) { 
+                $letra = substr($alfabeto, rand(0, 35), 1);
+                $resultado .= $letra;
+            }
+
+            date_default_timezone_set('America/Sao_Paulo');
+            $agora = getDate();
+
+            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
 
             $uploaddir = './assets/img-palestrantes/';
-            $uploadfile = $uploaddir . basename($_FILES['imgPalestrante']['name']);
+            $uploadfile = basename($_FILES['imgPalestrante']['name']);
 
-            move_uploaded_file($_FILES['imgPalestrante']['tmp_name'], $uploadfile);
+            $novoNome = $nomeUnico . strrchr($uploadfile,".");
+            $caminhoImg = $uploaddir . $novoNome;
 
-            $caminhoImg = "./assets/img-palestrantes/" . $_FILES['imgPalestrante']['name'];
+            move_uploaded_file($_FILES['imgPalestrante']['tmp_name'], $caminhoImg);
 
             $atividade = Container::getModel('Atividade');
             $atividade->__set('eventoID', base64_decode($_GET['idEvt']));
@@ -98,7 +111,7 @@
                 'descricao' => $_POST['descricao']
             ];
 
-            if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
+            if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '' || $_FILES['imgPalestrante']['size'] > 835584) {
 
                 $this->view->erroAtividade = true;
 
@@ -144,6 +157,10 @@
                 
                 if ($_POST['palestrante'] == '') {
                     $this->view->erroPalestrante = true;
+                }
+
+                if ($_FILES['imgPalestrante']['size'] > 835584) {
+                    $this->view->erroImage = true;
                 }
 
                 $this->view->responsavel_atividade = $atividade->listarDadosResponsavelAtividade();
@@ -240,18 +257,21 @@
                 'senha' => '',
                 'confirmarSenha' => ''
             ];
+
             $this->view->erroCadastro = false;
+            $this->view->erroNome = false;
+            $this->view->erroInstituicao = false;
+            $this->view->erroCurso = false;
+            $this->view->erroMatricula = false;
+            $this->view->erroEmail = false;
+            $this->view->erroEmailRepetido = false;
+            $this->view->erroSenha = false;
+            $this->view->erroConfirmarSenha = false;
+
             $this->render('cadastrarParticipante');
         }
 
         public function inserirParticipante() {
-            $uploaddir = './assets/img-user/';
-            $uploadfile = $uploaddir . basename($_FILES['imgUser']['name']);
-
-            move_uploaded_file($_FILES['imgUser']['tmp_name'], $uploadfile);
-
-            $caminhoImg = "./assets/img-user/" . $_FILES['imgUser']['name']; 
-
             $participante = Container::getModel('Participante');
             $participante->__set('nome', $_POST['nome']);
             $participante->__set('apelido', explode(" ", $_POST['nome'])[0]);
@@ -260,7 +280,6 @@
             $participante->__set('matricula', $_POST['matricula']);
             $participante->__set('login', $_POST['login']);
             $participante->__set('senha', md5($_POST['senha']));
-            $participante->__set('imgUser', $caminhoImg);
 
             $this->view->participante = [
                 'nome' => $_POST['nome'],

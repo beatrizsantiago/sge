@@ -11,7 +11,11 @@
 <section class="grid-base">
     <aside class="menu-topo">
         <div class="form-menu">
-            <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php if($_SESSION['tipoUsuario'] != 'Administrador' && $this->view->fotoPerfil[0]['imgUser'] != '') { ?>
+                <img src="<?= $this->view->fotoPerfil[0]['imgUser'] ?>" alt="user" class="img-perfil">
+            <?php } else { ?>
+                <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php } ?>
             <div class="bemvindo">
                 <h3>Bem-vindo(a),</h3>
                 <h1 class="apelido"><?= ($_SESSION['apelido'] != '') ? $_SESSION['apelido'] : $_SESSION['login'] ?></h1>
@@ -74,7 +78,7 @@
                     <label>Data de Término</label>
                     <input type="date" value="<?= $dadosEventos['dataFim'] ?>" name="dataFim" class="input-radius">
                 </div>
-                <div class="input-medio">
+                <div class="input-grande">
                     <label>Descrição</label>
                     <textarea name="descricao" class="radius-textarea" rows="5" maxlength="140"><?= $dadosEventos['descricao'] ?></textarea>
                 </div>

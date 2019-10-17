@@ -44,6 +44,21 @@
             return $this;
         }
 
+        public function getImagemPerfil() {
+            $query = "
+                SELECT imgUser
+                FROM participante
+                WHERE usuarioID = :usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
         public function relatorioParticipacao() {
             $query = "
                 SELECT DISTINCT a.id, a.tema, a.pontosPex, ia.presente

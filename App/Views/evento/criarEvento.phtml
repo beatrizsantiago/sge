@@ -11,7 +11,11 @@
 <section class="grid-base">
     <aside class="menu-topo">
         <div class="form-menu">
-            <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php if($_SESSION['tipoUsuario'] != 'Administrador' && $this->view->fotoPerfil[0]['imgUser'] != '') { ?>
+                <img src="<?= $this->view->fotoPerfil[0]['imgUser'] ?>" alt="user" class="img-perfil">
+            <?php } else { ?>
+                <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php } ?>
             <div class="bemvindo">
                 <h3>Bem-vindo(a),</h3>
                 <h1 class="apelido"><?= ($_SESSION['apelido'] != '') ? $_SESSION['apelido'] : $_SESSION['login'] ?></h1>
@@ -105,7 +109,10 @@
             <div class="input-medio">
                 <input type="hidden" name="MAX_FILE_SIZE" value="15728640" />
                 <label>Imagem/logo</label>
-                <input type="file" name="imgEvento">
+                <input type="file" name="imgEvento" accept="image/*">
+                <?php if(isset($this->view->erroImage) && $this->view->erroImage != false) { ?>
+                    <small class="text-error"><strong>A imagem excede o limite de tamanho!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Adicionar Evento</button>

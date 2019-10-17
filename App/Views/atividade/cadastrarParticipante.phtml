@@ -92,12 +92,12 @@
                         <small class="text-error"><strong>As senhas não coincidem!</strong></small>
                     <?php } ?>
                 </div>
-                <div class="input-grande">
+                <!-- <div class="input-grande">
                     <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                     <label>Foto de Perfil</label>
                     <input type="file" name="imgUser">
-                </div>
-                <div class="input-grande">
+                </div> -->
+                <div class="input-grande btn-space-top">
                     <button type="submit" class="btn-register btn-right">Cadastrar</button>
                     <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
                         <a href="/listar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm btn-right">Voltar</a>

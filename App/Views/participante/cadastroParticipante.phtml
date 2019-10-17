@@ -66,7 +66,10 @@
         <div class="input-grande">
             <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
             <label>Foto de Perfil</label>
-            <input type="file" name="imgUser">
+            <input type="file" name="imgUser" accept="image/*">
+            <?php if(isset($this->view->erroImage) && $this->view->erroImage != false) { ?>
+                <small class="text-error"><strong>A imagem excede o limite de tamanho!</strong></small>
+            <?php } ?>
         </div>
         <div class="input-grande">
             <button type="submit" class="btn-register btn-right">Cadastrar</button>

@@ -67,11 +67,27 @@
             $query = "
                 SELECT u.login 
                 FROM usuario as u, responsavelgeral as rg
-                WHERE u.id = rg.usuarioId AND u.login = :login
+                WHERE u.id = rg.usuarioID AND u.login = :login
             ";
 
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':login', $this->__get('login'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function getImagemPerfil() {
+            $query = "
+                SELECT p.imgUser
+                FROM participante as p 
+                    LEFT JOIN responsavelgeral as rg ON (rg.usuarioID = p.usuarioID)
+                WHERE rg.id = :usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);

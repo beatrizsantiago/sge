@@ -7,6 +7,12 @@
 
     class EventoController extends Action {
         public function indexEvento() {
+            if(isset($_GET['dXNlcklE'])) {
+                $fotoPerfil = Container::getModel('ResponsavelGeral');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             $listaEvento = Container::getModel('Evento');
             if(isset($_GET['dXNlcklE'])) {
                 $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
@@ -18,7 +24,12 @@
         }
 
         public function criarEvento() {
+            
             $responsavelGeral = Container::getModel('ResponsavelGeral');
+            if(isset($_GET['dXNlcklE'])) {
+                $responsavelGeral->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                $this->view->fotoPerfil = $responsavelGeral->getImagemPerfil();
+            }
             $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
 
             $this->view->evento = [
@@ -26,7 +37,7 @@
                 'local' => '',
                 'dataInicio' => '',
                 'dataFim' => '',
-                'descricao' => '',
+                'descricao' => ''
             ];
 
             $this->view->erroEvento = false;
@@ -35,20 +46,35 @@
             $this->view->erroResponsavelGeral = false;
             $this->view->erroDataInicio = false;
             $this->view->erroDataFim = false;
+            $this->view->erroImage = false;
 
             $this->render('criarEvento');
         }
 
         public function cadastrarEvento() {
+            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $tamanho = 20;
+            $letra = "";
+            $resultado = "";
 
-            $responsavelGeral = Container::getModel('ResponsavelGeral');
+            for ($i = 0; $i < $tamanho; $i++) { 
+                $letra = substr($alfabeto, rand(0, 35), 1);
+                $resultado .= $letra;
+            }
+
+            date_default_timezone_set('America/Sao_Paulo');
+            $agora = getDate();
+
+            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
 
             $uploaddir = './assets/img-eventos/';
-            $uploadfile = $uploaddir . basename($_FILES['imgEvento']['name']);
+            $uploadfile = basename($_FILES['imgEvento']['name']);
 
-            move_uploaded_file($_FILES['imgEvento']['tmp_name'], $uploadfile);
+            $novoNome = $nomeUnico . strrchr($uploadfile,".");
+            $caminhoImg = $uploaddir . $novoNome;
 
-            $caminhoImg = "./assets/img-eventos/" . $_FILES['imgEvento']['name'];
+            move_uploaded_file($_FILES['imgEvento']['tmp_name'], $caminhoImg);
             
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
@@ -72,7 +98,7 @@
                 'descricao' => $_POST['descricao']
             ];
 
-            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['responsavelGeral'] == '' || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['responsavelGeral'] == '' || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d") || $_FILES['imgEvento']['size'] > 15728640) {
 
                 $this->view->erroEvento = true;
 
@@ -95,7 +121,12 @@
                 if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
                     $this->view->erroDataFim = true;
                 }
+
+                if ($_FILES['imgEvento']['size'] > 15728640) {
+                    $this->view->erroImage = true;
+                }
                 
+                $responsavelGeral = Container::getModel('ResponsavelGeral');
                 $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
                 $this->render('criarEvento');
 
@@ -150,6 +181,12 @@
             }
 
             if(isset($_POST['alterar'])) {
+                if(isset($_GET['dXNlcklE'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelGeral');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+                }
+
                 $listaDadosEvento = Container::getModel('Evento');
                 $listaDadosEvento->__set('id', $_POST['alterar']);
 

@@ -10,7 +10,11 @@
 <section class="grid-base">
     <aside class="menu-topo">
         <div class="form-menu">
-            <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php if($this->view->fotoPerfil[0]['imgUser'] != '') { ?>
+                <img src="<?= $this->view->fotoPerfil[0]['imgUser'] ?>" alt="user" class="img-perfil">
+            <?php } else { ?>
+                <img src="./img/user.png" alt="user" class="img-perfil">
+            <?php } ?>
             <div class="bemvindo">
                 <h3>Bem-vindo(a),</h3>
                 <h1 class="apelido"><?= ($_SESSION['apelido'] != '') ? $_SESSION['apelido'] : $_SESSION['login'] ?></h1>
