@@ -263,6 +263,12 @@
         }
 
         public function listarParticipante() {
+            if(isset($_GET['dXNlcklEQXR2'])) {
+                $fotoPerfil = Container::getModel('ResponsavelAtividade');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklEQXR2']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             if(isset($_GET['dXNlcklE'])) {
                 $fotoPerfil = Container::getModel('ResponsavelGeral');
                 $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
@@ -278,6 +284,12 @@
         }
 
         public function cadastrarParticipante() {
+            if(isset($_GET['dXNlcklEQXR2'])) {
+                $fotoPerfil = Container::getModel('ResponsavelAtividade');
+                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklEQXR2']));
+                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+            }
+
             if(isset($_GET['dXNlcklE'])) {
                 $fotoPerfil = Container::getModel('ResponsavelGeral');
                 $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
@@ -361,6 +373,12 @@
                 
                 if($_POST['confirmarSenha'] != $_POST['senha']) {
                     $this->view->erroConfirmarSenha = true;
+                }
+
+                if(isset($_GET['dXNlcklEQXR2'])) {
+                    $fotoPerfil = Container::getModel('ResponsavelAtividade');
+                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklEQXR2']));
+                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
                 }
 
                 if(isset($_GET['dXNlcklE'])) {

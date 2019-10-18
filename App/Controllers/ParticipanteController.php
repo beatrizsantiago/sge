@@ -173,6 +173,10 @@
         }
 
         public function gerenciarAtividades() {
+            $fotoPerfil = Container::getModel('ResponsavelAtividade');
+            $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklEQXR2']));
+            $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+
             $gerenciarAtividades = Container::getModel('Atividade');
             $gerenciarAtividades->__set('respAtividadeID', base64_decode($_GET['dXNlcklEQXR2']));
             $this->view->atividades = $gerenciarAtividades->gerenciaAtividades();

@@ -75,6 +75,22 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
+
+        public function getImagemPerfil() {
+            $query = "
+                SELECT p.imgUser
+                FROM participante as p 
+                    LEFT JOIN responsavelatividade as ra ON (ra.usuarioID = p.usuarioID)
+                WHERE ra.id = :usuarioID
+            ";
+
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindValue(':usuarioID', $this->__get('usuarioID'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
     }
 
 ?>
