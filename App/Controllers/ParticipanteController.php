@@ -35,29 +35,33 @@
 
         public function cadastrar() {
 
-            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $tamanho = 20;
-            $letra = "";
-            $resultado = "";
+            if($_FILES['imgUser']['name']) {
+                $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $tamanho = 20;
+                $letra = "";
+                $resultado = "";
 
-            for ($i = 0; $i < $tamanho; $i++) { 
-                $letra = substr($alfabeto, rand(0, 35), 1);
-                $resultado .= $letra;
-            }
+                for ($i = 0; $i < $tamanho; $i++) { 
+                    $letra = substr($alfabeto, rand(0, 35), 1);
+                    $resultado .= $letra;
+                }
 
-            date_default_timezone_set('America/Sao_Paulo');
-            $agora = getDate();
+                date_default_timezone_set('America/Sao_Paulo');
+                $agora = getDate();
 
-            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
-            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
+                $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+                $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
 
-            $uploaddir = './assets/img-user/';
-            $uploadfile = basename($_FILES['imgUser']['name']);
+                $uploaddir = './assets/img-user/';
+                $uploadfile = basename($_FILES['imgUser']['name']);
 
-            $novoNome = $nomeUnico . strrchr($uploadfile,".");
-            $caminhoImg = $uploaddir . $novoNome;
+                $novoNome = $nomeUnico . strrchr($uploadfile,".");
+                $caminhoImg = $uploaddir . $novoNome;
 
-            move_uploaded_file($_FILES['imgUser']['tmp_name'], $caminhoImg);  
+                move_uploaded_file($_FILES['imgUser']['tmp_name'], $caminhoImg); 
+            } else {
+                $caminhoImg = '';
+            } 
 
             $participante = Container::getModel('Participante');
             $participante->__set('nome', $_POST['nome']);

@@ -3,8 +3,13 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
     
     $eventoID = $_GET['idEvt'];
+
+    if($_SESSION['tipoUsuario'] == 'Administrador') {
+        $url = '?idEvt=' . $eventoID;
+    }
+
     if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
-        $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+        $url = '?dXNlcklE=' . base64_encode($_SESSION['ResponsavelGeralID']) . '&idEvt=' . $eventoID;
     }
 
 ?>
@@ -23,18 +28,9 @@
             </div>
         </div>
         <nav class="menu">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/index_evento"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
-                <a href="/responsavel_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
-            <?php } ?>
-                
-            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividades</a>
-                <a href="/responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
-            <?php } ?>
-            
+            <a href="/index_evento<?= $_SESSION['tipoUsuario'] == 'ResponsavelGeral' ? $url : '' ?>"><img src="./img/icons/eventos.png">Eventos</a>
+            <a href="/index_atividade<?= $url ?>"><img src="./img/icons/atividade.png">Atividades</a>
+            <a href="/responsavel_atividade<?= $url ?>"><img src="./img/icons/resp-atv.png">Responsável por Atividade</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -44,19 +40,12 @@
     <main class="content">
 
     <div class="form-align">
-        <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-            <form enctype="multipart/form-data" action="/cadastrar_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
-        <?php } ?>
-
-        <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-            <form enctype="multipart/form-data" action="/cadastrar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register space-top">
-        <?php } ?>
-
-        <?php if($this->view->erroAtividade) { ?>
-            <div class="msg-box msg-error">
-                <small class="text-error"><strong>Erro ao tentar criar a atividade!</strong> Verifique se os campos foram preenchidos corretamente. </small>
-            </div>
-        <?php } ?>
+        <form enctype="multipart/form-data" action="/cadastrar_atividade<?= $url ?>" method="post" class="form-register space-top">
+            <?php if($this->view->erroAtividade) { ?>
+                <div class="msg-box msg-error">
+                    <small class="text-error"><strong>Erro ao tentar criar a atividade!</strong> Verifique se os campos foram preenchidos corretamente. </small>
+                </div>
+            <?php } ?>
 
             <div class="input-grande">
                 <span>Tema</span>
@@ -65,6 +54,7 @@
                     <small class="text-error"><strong>Informe um tema válido!</strong></small>
                 <?php } ?>
             </div>
+
             <div class="input-medio">
                 <label>Tipo</label>
                 <select name="tipo" class="input-radius">
@@ -81,6 +71,7 @@
                     <small class="text-error"><strong>Informe o tipo da atividade!</strong></small>
                 <?php } ?>
             </div>
+
             <div class="input-extra-pequeno">
                 <label>Vagas Mínimas</label>
                 <input type="number" name="vagasMinimas" class="input-radius" value="<?= $this->view->atividade['vagasMinimas'] ?>">
@@ -95,6 +86,7 @@
                     <small class="text-error"><strong>Informe a quantidade máxima de vagas!</strong></small>
                 <?php } ?>
             </div>
+
             <div class="input-grande">
                 <label>Responsável da Atividade</label>
                 <select class="input-radius" name="responsavelAtividade">
@@ -111,6 +103,7 @@
                     <small class="text-error"><strong>Informe um Responsável da Atividade!</strong></small>
                 <?php } ?>
             </div>
+
             <div class="input-pequeno">
                 <label>Data</label>
                 <input type="date" name="data" class="input-radius" value="<?= $this->view->atividade['data'] ?>">
@@ -167,14 +160,7 @@
             </div>
             <div class="input-grande">
                 <button type="submit" class="btn-register btn-right btn-space-top">Adicionar Atividade</button>
-
-                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                    <a href="/index_atividade?idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
-                <?php } ?>
-                
-                <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
-                <?php } ?>
+                <a href="/index_atividade<?= $url ?>" class="btn-link btn-right btn-space-top btn-confirm">Voltar</a>
             </div>
         </form>
     </div>

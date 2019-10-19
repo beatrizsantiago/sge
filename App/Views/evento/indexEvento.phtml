@@ -2,8 +2,12 @@
 
     require_once '../App/ValidaLoginResponsavelGeral.php';
 
+    if($_SESSION['tipoUsuario'] == 'Administrador') {
+        $url = '';
+    }
+
     if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
-        $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+        $url = '?dXNlcklE=' . base64_encode($_SESSION['ResponsavelGeralID']);
     }
 
 ?>
@@ -22,15 +26,11 @@
             </div>
         </div>
         <nav class="menu">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/index_evento"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/criar_evento"><img src="./img/icons/criar-evento.png">Criar Evento</a>
-                <a href="/responsavel_geral"><img src="./img/icons/resp-geral.png">Responsável Geral</a>
-            <?php } ?>
+            <a href="/index_evento<?= $url ?>"><img src="./img/icons/eventos.png">Eventos</a>
+            <a href="/criar_evento<?= $url ?>"><img src="./img/icons/criar-evento.png">Criar Evento</a>
 
-            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/criar_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/criar-evento.png">Criar Evento</a>
+            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                <a href="/responsavel_geral"><img src="./img/icons/resp-geral.png">Responsável Geral</a>
             <?php } ?>
 
             <div class="div-sair">
@@ -44,20 +44,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->eventos as $evento) { ?>
-                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                    <?php if($evento['cancelado'] == false) { ?>
-                            <form action="/acao_evento" method="post" class="card-evento card-block">
-                        <?php } else { ?>
-                            <form action="/acao_evento" method="post" class="card-evento card-block-cancel">
-                    <?php } ?>
-                <?php } ?>
-                <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <?php if($evento['cancelado'] == false) { ?>
-                        <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block">
-                    <?php } else { ?>
-                        <form action="/acao_evento?dXNlcklE=<?= $ResponsavelGeral ?>" method="post" class="card-evento card-block-cancel">
-                    <?php } ?>
-                <?php } ?>
+                <form action="/acao_evento<?= $url ?>" method="post" class="card-evento <?= $evento['cancelado'] == false ? 'card-block' : 'card-block-cancel' ?> ">
                     <div class="card-img card-img-evento">
                         <?php if($evento['imgEvento'] != ''){ ?>
                             <img src="<?= $evento['imgEvento'] ?>" alt="evento">

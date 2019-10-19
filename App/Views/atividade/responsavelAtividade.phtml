@@ -3,8 +3,13 @@
     require_once '../App/ValidaLoginResponsavelGeral.php';
 
     $eventoID = $_GET['idEvt'];
+
+    if($_SESSION['tipoUsuario'] == 'Administrador') {
+        $url = '?idEvt=' . $eventoID;
+    }
+
     if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
-        $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+        $url = '?dXNlcklE=' . base64_encode($_SESSION['ResponsavelGeralID']) . '&idEvt=' . $eventoID;
     }
 
 ?>
@@ -23,18 +28,9 @@
             </div>
         </div>
         <nav class="menu">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/index_evento"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/index_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividade</a>
-                <a href="/criar_atividade?idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-            <?php } ?>
-
-            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <a href="/index_evento?dXNlcklE=<?= $ResponsavelGeral ?>"><img src="./img/icons/eventos.png">Eventos</a>
-                <a href="/index_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/atividade.png">Atividade</a>
-                <a href="/criar_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
-            <?php } ?>
-
+            <a href="/index_evento<?= $_SESSION['tipoUsuario'] == 'ResponsavelGeral' ? $url : '' ?>"><img src="./img/icons/eventos.png">Eventos</a>
+            <a href="/index_atividade<?= $url ?>"><img src="./img/icons/atividade.png">Atividades</a>
+            <a href="/criar_atividade<?= $url ?>"><img src="./img/icons/criar-atv.png">Criar Atividade</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
             </div>
@@ -44,12 +40,7 @@
     <main class="content">
 
     <section class="form-align">
-        <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-            <form action="/cadastrar_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="form-register">
-        <?php } ?>
-        <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-            <form action="/cadastrar_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="form-register">
-        <?php } ?>
+        <form action="/cadastrar_responsavel_atividade<?= $url ?>" method="post" class="form-register">
             <h1 class="title-center-align">Cadastrar Responsável de Atividade</h1>
             <div class="input-grande">
                 <label>E-mail do Usuário</label>
@@ -80,12 +71,7 @@
 
         <div class="lista">
             <?php foreach($this->view->responsavel_atividade as $item) {?>
-                <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                    <form action="/remover_responsavel_atividade?idEvt=<?= $eventoID ?>" method="post" class="item-lista">
-                <?php } ?>
-                <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                    <form action="/remover_responsavel_atividade?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>" method="post" class="item-lista">
-                <?php } ?>
+                <form action="/remover_responsavel_atividade<?= $url ?>" method="post" class="item-lista">
                     <div class="item-pequeno"><?= $item['nome'] ?></div>
                     <div class="item-pequeno"><?= $item['login'] ?></div>
                     <div class="item-pequeno"><?= $item['matricula'] ?></div>

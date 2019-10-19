@@ -61,29 +61,33 @@
         }
 
         public function cadastrarAtividade() {
-            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $tamanho = 20;
-            $letra = "";
-            $resultado = "";
+            if($_FILES['imgPalestrante']['name']) {
+                $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $tamanho = 20;
+                $letra = "";
+                $resultado = "";
 
-            for ($i = 0; $i < $tamanho; $i++) { 
-                $letra = substr($alfabeto, rand(0, 35), 1);
-                $resultado .= $letra;
+                for ($i = 0; $i < $tamanho; $i++) { 
+                    $letra = substr($alfabeto, rand(0, 35), 1);
+                    $resultado .= $letra;
+                }
+
+                date_default_timezone_set('America/Sao_Paulo');
+                $agora = getDate();
+
+                $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+                $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
+
+                $uploaddir = './assets/img-palestrantes/';
+                $uploadfile = basename($_FILES['imgPalestrante']['name']);
+
+                $novoNome = $nomeUnico . strrchr($uploadfile,".");
+                $caminhoImg = $uploaddir . $novoNome;
+
+                move_uploaded_file($_FILES['imgPalestrante']['tmp_name'], $caminhoImg);
+            } else {
+                $caminhoImg = '';
             }
-
-            date_default_timezone_set('America/Sao_Paulo');
-            $agora = getDate();
-
-            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
-            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
-
-            $uploaddir = './assets/img-palestrantes/';
-            $uploadfile = basename($_FILES['imgPalestrante']['name']);
-
-            $novoNome = $nomeUnico . strrchr($uploadfile,".");
-            $caminhoImg = $uploaddir . $novoNome;
-
-            move_uploaded_file($_FILES['imgPalestrante']['tmp_name'], $caminhoImg);
 
             $atividade = Container::getModel('Atividade');
             $atividade->__set('eventoID', base64_decode($_GET['idEvt']));

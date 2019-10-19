@@ -4,12 +4,19 @@
 
     $eventoID = $_GET['idEvt'];
     $atividadeID = $_GET['idAtv'];
+
+    if($_SESSION['tipoUsuario'] == 'Administrador') {
+        $url = '?idEvt=' . $eventoID . '&idAtv=' . $atividadeID;
+    }
+
     if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') {
         $ResponsavelGeral = base64_encode($_SESSION['ResponsavelGeralID']);
+        $url = '?dXNlcklE=' . $ResponsavelGeral . '&idEvt=' . $eventoID . '&idAtv=' . $atividadeID;
     }
 
     if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') {
         $ResponsavelAtividade = base64_encode($_SESSION['ResponsavelAtividadeID']);
+        $url = '?dXNlcklEQXR2=' . $ResponsavelAtividade . '&idEvt=' . $eventoID . '&idAtv=' . $atividadeID;
     }
 
 ?>
@@ -40,7 +47,7 @@
                 <a href="/gerenciar_atividades?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>"><img src="./img/icons/atividade.png">Gerenciar Atividades</a>
             <?php } ?>
 
-            <a><img src="./img/icons/relatorio.png">Gerar Relatório</a>
+            <!-- <a><img src="./img/icons/relatorio.png">Gerar Relatório</a> -->
             <a href="/lista_presenca?idAtv=<?= $atividadeID ?>" target="_blank"><img src="./img/icons/relatorio.png">Lista de Presença</a>
             <div class="div-sair">
                 <a href="/sair" class="sair">Sair</a>
@@ -51,33 +58,14 @@
     <main class="content">
 
         <section class="form-align">
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <form action="/adicionar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
-            <?php } ?>
-
-            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                <form action="/adicionar_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
-            <?php } ?>
-
-            <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                <form action="/adicionar_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="form-register">
-            <?php } ?>
+            <form action="/adicionar_participante<?= $url ?>" method="post" class="form-register">
                 <h1 class="title-center-align">Adicionar Participante</h1>
                 <div class="input-grande">
                     <label>E-mail do Usuário</label>
                     <input type="email" name="login" class="input-radius">
                 </div>
                 <div class="input-grande btn-align-center btn-space-top">
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                        <a href="/cadastrar_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
-                    <?php } ?>
-                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                            <a href="/cadastrar_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
-                    <?php } ?>
-                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                            <a href="/cadastrar_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
-                    <?php } ?>
-                    
+                    <a href="/cadastrar_participante<?= $url ?>" class="btn-link btn-confirm">Cadastrar Participante</a>
                     <button type="submit" class="btn-register">Adicionar</button>
                 </div>
             </form>
@@ -96,17 +84,7 @@
             </div>
             <div class="lista">
                 <?php foreach($this->view->inscritos as $inscritos) {?>
-                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                        <form action="/acao_lista_participante?idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
-                    <?php } ?>
-
-                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelGeral') { ?>
-                        <form action="/acao_lista_participante?dXNlcklE=<?= $ResponsavelGeral ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
-                    <?php } ?>
-
-                    <?php if($_SESSION['tipoUsuario'] == 'ResponsavelAtividade') { ?>
-                        <form action="/acao_lista_participante?dXNlcklEQXR2=<?= $ResponsavelAtividade ?>&idEvt=<?= $eventoID ?>&idAtv=<?= $atividadeID ?>" method="post" class="item-lista">
-                    <?php } ?>
+                    <form action="/acao_lista_participante<?= $url ?>" method="post" class="item-lista">
                         <div class="item-minimo"><?= $inscritos['nome'] ?></div>
                         <div class="item-minimo"><?= $inscritos['login'] ?></div>
                         <div class="item-minimo"><?= $inscritos['curso'] ?></div>

@@ -43,29 +43,33 @@
         }
 
         public function cadastrarEvento() {
-            $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $tamanho = 20;
-            $letra = "";
-            $resultado = "";
-
-            for ($i = 0; $i < $tamanho; $i++) { 
-                $letra = substr($alfabeto, rand(0, 35), 1);
-                $resultado .= $letra;
+            if($_FILES['imgEvento']['name']) {
+                $alfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $tamanho = 20;
+                $letra = "";
+                $resultado = "";
+    
+                for ($i = 0; $i < $tamanho; $i++) { 
+                    $letra = substr($alfabeto, rand(0, 35), 1);
+                    $resultado .= $letra;
+                }
+    
+                date_default_timezone_set('America/Sao_Paulo');
+                $agora = getDate();
+    
+                $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
+                $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
+    
+                $uploaddir = './assets/img-eventos/';
+                $uploadfile = basename($_FILES['imgEvento']['name']);
+    
+                $novoNome = $nomeUnico . strrchr($uploadfile,".");
+                $caminhoImg = $uploaddir . $novoNome;
+    
+                move_uploaded_file($_FILES['imgEvento']['tmp_name'], $caminhoImg);
+            } else {
+                $caminhoImg = '';
             }
-
-            date_default_timezone_set('America/Sao_Paulo');
-            $agora = getDate();
-
-            $codigo_data = $agora['year'] . "_" . $agora['yday'] . $agora['hours'] . $agora['minutes'] . $agora['seconds'];
-            $nomeUnico = "foto_" . $codigo_data . "_" . $resultado;
-
-            $uploaddir = './assets/img-eventos/';
-            $uploadfile = basename($_FILES['imgEvento']['name']);
-
-            $novoNome = $nomeUnico . strrchr($uploadfile,".");
-            $caminhoImg = $uploaddir . $novoNome;
-
-            move_uploaded_file($_FILES['imgEvento']['tmp_name'], $caminhoImg);
             
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);

@@ -31,11 +31,7 @@
         <hr>
         <section class="card">
             <?php foreach($this->view->atividades as $atividade) { ?>
-                <?php if($atividade['cancelada'] == 0) { ?>
-                    <form action="/listar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= base64_encode($atividade['eventoID']) ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block" style="border: solid 1px <?= $atividade['cor'] ?>">
-                <?php } else { ?>
-                    <form action="/listar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= base64_encode($atividade['eventoID']) ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade card-block-cancel">
-                <?php } ?>
+                <form action="/listar_participante?dXNlcklEQXR2=<?= $_GET['dXNlcklEQXR2'] ?>&idEvt=<?= base64_encode($atividade['eventoID']) ?>&idAtv=<?= base64_encode($atividade['id']) ?>" method="post" class="card-atividade <?= $atividade['cancelada'] == 0 ? 'card-block' : 'card-block-cancel' ?>" style="border: solid 1px <?= $atividade['cor'] ?>">
                     <div class="body-card body-card-atividade">
                         <h1 style="color: <?= $atividade['cor'] ?>"><?= $atividade['tipo'] ?></h1>
                         <div class="div-grande">Tema: <strong><?= $atividade['tema'] ?></strong></div>
