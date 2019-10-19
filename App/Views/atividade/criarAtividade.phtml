@@ -110,6 +110,9 @@
                 <?php if(isset($this->view->erroData) && $this->view->erroData != false) { ?>
                     <small class="text-error"><strong>Informe uma data válida!</strong></small>
                 <?php } ?>
+                <?php if((isset($this->view->erroDataMenor) && $this->view->erroDataMenor != false) || (isset($this->view->erroDataMaior) && $this->view->erroDataMaior != false)) { ?>
+                    <small class="text-error"><strong>A data deve estar entre início e o final do evento!</strong></small>
+                <?php } ?>
             </div>
             <div class="input-pequeno">
                 <label>Hora</label>

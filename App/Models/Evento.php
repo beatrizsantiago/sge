@@ -199,6 +199,20 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function getDatas() {
+            $query = "
+                SELECT dataInicio, dataFim
+                FROM evento
+                WHERE id = :id;
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>
