@@ -83,41 +83,15 @@
 
                 $this->view->erroCadastro = true;
 
-                if ($_POST['nome'] == '' || strlen($_POST['nome']) < 3) {
-                    $this->view->erroNome = true;
-                }
-                
-                if($_POST['instituicao'] == '') {
-                    $this->view->erroInstituicao = true;
-                }
-                
-                if($_POST['curso'] == '') {
-                    $this->view->erroCurso = true;
-                }
-                
-                if($_POST['matricula'] == '' || !is_numeric($_POST['matricula'])) {
-                    $this->view->erroMatricula = true;
-                }
-                
-                if($_POST['login'] == '') {
-                    $this->view->erroEmail = true;
-                }
-                
-                if(count($participante->getUsuarioLogin()) > 0) {
-                    $this->view->erroEmailRepetido = true;
-                }
-                
-                if($_POST['senha'] == '' || strlen($_POST['senha']) < 6) {
-                    $this->view->erroSenha = true;
-                }
-                
-                if($_POST['confirmarSenha'] != $_POST['senha']) {
-                    $this->view->erroConfirmarSenha = true;
-                }
-
-                if ($_FILES['imgUser']['size'] > 4194304) {
-                    $this->view->erroImage = true;
-                }
+                ($_POST['nome'] == '' || strlen($_POST['nome']) < 3) ? $this->view->erroNome = true : null;
+                ($_POST['instituicao'] == '') ? $this->view->erroInstituicao = true : null;
+                ($_POST['curso'] == '') ? $this->view->erroCurso = true : null;
+                ($_POST['matricula'] == '' || !is_numeric($_POST['matricula'])) ? $this->view->erroMatricula = true : null;
+                ($_POST['login'] == '') ? $this->view->erroEmail = true : null;
+                (count($participante->getUsuarioLogin()) > 0) ? $this->view->erroEmailRepetido = true : null;
+                ($_POST['senha'] == '' || strlen($_POST['senha']) < 6) ? $this->view->erroSenha = true : null;
+                ($_POST['confirmarSenha'] != $_POST['senha']) ? $this->view->erroConfirmarSenha = true : null;
+                ($_FILES['imgUser']['size'] > 4194304) ? $this->view->erroImage = true : null;
                  
                 $this->render('cadastroParticipante');
             

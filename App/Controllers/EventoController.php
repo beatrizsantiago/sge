@@ -6,17 +6,12 @@
     use MF\Model\Container;
 
     class EventoController extends Action {
+
         public function indexEvento() {
-            if(isset($_GET['dXNlcklE'])) {
-                $fotoPerfil = Container::getModel('ResponsavelGeral');
-                $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
-                $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
-            }
+            isset($_GET['dXNlcklE']) ? EventoController::getPerfil() : null;
 
             $listaEvento = Container::getModel('Evento');
-            if(isset($_GET['dXNlcklE'])) {
-                $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
-            }
+            isset($_GET['dXNlcklE']) ? $listaEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE'])) : null;
             $this->view->eventos = $listaEvento->listarEventos();
             $this->view->erroCadastroEvendo = false;
 
@@ -24,13 +19,8 @@
         }
 
         public function criarEvento() {
-            
-            $responsavelGeral = Container::getModel('ResponsavelGeral');
-            if(isset($_GET['dXNlcklE'])) {
-                $responsavelGeral->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
-                $this->view->fotoPerfil = $responsavelGeral->getImagemPerfil();
-            }
-            $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
+            isset($_GET['dXNlcklE']) ? EventoController::getPerfil() : null;
+            EventoController::listarRespGeral();
 
             $this->view->evento = [
                 'titulo' => '',
@@ -80,11 +70,7 @@
             $cadastrarEvento = Container::getModel('Evento');
             $cadastrarEvento->__set('titulo', $_POST['titulo']);
             $cadastrarEvento->__set('local', $_POST['local']);
-            if(isset($_GET['dXNlcklE'])) {
-                $cadastrarEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
-            } else {
-                $cadastrarEvento->__set('respGeralID', $_POST['responsavelGeral']);
-            }
+            $cadastrarEvento->__set('respGeralID', isset($_GET['dXNlcklE']) ? base64_decode($_GET['dXNlcklE']) : $_POST['responsavelGeral']);
             $cadastrarEvento->__set('dataInicio', $_POST['dataInicio']);
             $cadastrarEvento->__set('dataFim', $_POST['dataFim']);
             $cadastrarEvento->__set('descricao', $_POST['descricao']);
@@ -99,50 +85,28 @@
                 'descricao' => $_POST['descricao']
             ];
 
-            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['responsavelGeral'] == '' || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d") || $_FILES['imgEvento']['size'] > 15728640) {
+            if($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3 || $_POST['local'] == '' || strlen($_POST['local']) < 3 || $_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d") || $_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d") || $_FILES['imgEvento']['size'] > 15728640) {
 
                 $this->view->erroEvento = true;
 
-                if ($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3) {
-                    $this->view->erroTitulo = true;
-                }
+                ($_POST['titulo'] == '' || strlen($_POST['titulo']) < 3) ? $this->view->erroTitulo = true : null;
+                ($_POST['local'] == '' || strlen($_POST['local']) < 3) ? $this->view->erroLocal = true : null;
+                ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) ? $this->view->erroDataInicio = true : null;
+                ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) ? $this->view->erroDataFim = true : null;
+                ($_FILES['imgEvento']['size'] > 15728640) ? $this->view->erroImage = true : null;
                 
-                if ($_POST['local'] == '' || strlen($_POST['local']) < 3) {
-                    $this->view->erroLocal = true;
-                }
+                // if (!isset($_GET['dXNlcklE']) || isset($_POST['responsavelGeral']) == '') {
+                //     $this->view->erroResponsavelGeral = true;
+                // }
                 
-                if (!isset($_GET['dXNlcklE']) && $_POST['responsavelGeral'] == '') {
-                    $this->view->erroResponsavelGeral = true;
-                }
+                isset($_GET['dXNlcklE']) ? EventoController::getPerfil() : null;
                 
-                if ($_POST['dataInicio'] == '' || $_POST['dataInicio'] < date("Y-m-d")) {
-                    $this->view->erroDataInicio = true;
-                }
-                
-                if ($_POST['dataFim'] == '' || $_POST['dataFim'] > date("Y")+1 . "-" . date("m") . "-" . date("d")) {
-                    $this->view->erroDataFim = true;
-                }
-
-                if ($_FILES['imgEvento']['size'] > 15728640) {
-                    $this->view->erroImage = true;
-                }
-                
-                $responsavelGeral = Container::getModel('ResponsavelGeral');
-                if(isset($_GET['dXNlcklE'])) {
-                    $responsavelGeral->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
-                    $this->view->fotoPerfil = $responsavelGeral->getImagemPerfil();
-                }
-                $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
+                EventoController::listarRespGeral();
                 $this->render('criarEvento');
 
             } else {
                 $cadastrarEvento->adicionarEvento();
-
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
-                } else {
-                    header('Location: /index_evento');
-                }
+                EventoController::locationEvento();
             }
 
         }
@@ -154,11 +118,7 @@
                 $excluir->__set('id', $_POST['excluir']);
                 $excluir->deletarEvento();
                 
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
-                } else {
-                    header('Location: /index_evento');
-                }
+                EventoController::locationEvento();
             }
             
             if(isset($_POST['cancelar'])) {
@@ -166,11 +126,7 @@
                 $cancelarEvento->__set('id', $_POST['cancelar']);
                 $cancelarEvento->cancelarEvento();
 
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
-                } else {
-                    header('Location: /index_evento');
-                }
+                EventoController::locationEvento();
             }
 
             if(isset($_POST['ativar'])) {
@@ -178,19 +134,11 @@
                 $ativarEvento->__set('id', $_POST['ativar']);
                 $ativarEvento->ativarEvento();
 
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
-                } else {
-                    header('Location: /index_evento');
-                }
+                EventoController::locationEvento();
             }
 
             if(isset($_POST['alterar'])) {
-                if(isset($_GET['dXNlcklE'])) {
-                    $fotoPerfil = Container::getModel('ResponsavelGeral');
-                    $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
-                    $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
-                }
+                isset($_GET['dXNlcklE']) ? EventoController::getPerfil() : null;
 
                 $listaDadosEvento = Container::getModel('Evento');
                 $listaDadosEvento->__set('id', $_POST['alterar']);
@@ -202,13 +150,8 @@
             }
 
             if(isset($_POST['atividades'])) {
-                $id = $_POST['atividades'];
-                
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . base64_encode($id));
-                } else {
-                    header('Location: /index_atividade?idEvt=' . base64_encode($id));
-                }
+                $id = $_POST['atividades'];  
+                isset($_GET['dXNlcklE']) ? header('Location: /index_atividade?dXNlcklE=' . $_GET['dXNlcklE'] . '&idEvt=' . base64_encode($id)) : header('Location: /index_atividade?idEvt=' . base64_encode($id));
             }
                        
         }
@@ -218,11 +161,7 @@
             $atualizarEvento->__set('id', $_POST['id']);
             $atualizarEvento->__set('titulo', $_POST['titulo']);
             $atualizarEvento->__set('local', $_POST['local']);
-            if(isset($_GET['dXNlcklE'])) {
-                $atualizarEvento->__set('respGeralID', base64_decode($_GET['dXNlcklE']));
-            } else {
-                $atualizarEvento->__set('respGeralID', $_POST['responsavelGeral']);
-            }
+            $atualizarEvento->__set('respGeralID', isset($_GET['dXNlcklE']) ? base64_decode($_GET['dXNlcklE']) : $_POST['responsavelGeral']);
             $atualizarEvento->__set('dataInicio', $_POST['dataInicio']);
             $atualizarEvento->__set('dataFim', $_POST['dataFim']);
             $atualizarEvento->__set('descricao', $_POST['descricao']);
@@ -235,12 +174,7 @@
                 $this->render('alterarEvento');
             } else {
                 $atualizarEvento->alterarEvento();
-                
-                if(isset($_GET['dXNlcklE'])) {
-                    header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']);
-                } else {
-                    header('Location: /index_evento');
-                }
+                EventoController::locationEvento();
             }
         }
 
@@ -252,9 +186,7 @@
             $this->view->erroEmail = false;
             $this->view->erroEmailCadastrado = false;
 
-            $responsavelGeral = Container::getModel('responsavelGeral');
-            $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
-            
+            EventoController::listarRespGeral();
             $this->render('responsavelGeral');
         }
 
@@ -267,13 +199,8 @@
                     'login' => $_POST['login']
                 ];
 
-                if(count($responsavelGeral->getResponsavelGeralLogin()) > 0) {
-                    $this->view->erroEmailCadastrado = true;
-                }
-                
-                if ($_POST['login'] == '') {
-                    $this->view->erroEmail = true;
-                }
+                (count($responsavelGeral->getResponsavelGeralLogin()) > 0) ? $this->view->erroEmailCadastrado = true : null;
+                ($_POST['login'] == '') ? $this->view->erroEmail = true : null;
 
                 $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
                 $this->render('responsavelGeral');
@@ -290,5 +217,22 @@
             
             $responsavelGeral->deletarResponsavelGeral();
             header('Location: /responsavel_geral');
+        }
+
+        // >>>>>>>>>>>>> FUNÇÕES GERAIS <<<<<<<<<<<<<<<<
+
+        public function getPerfil() {
+            $fotoPerfil = Container::getModel('ResponsavelGeral');
+            $fotoPerfil->__set('usuarioID', base64_decode($_GET['dXNlcklE']));
+            $this->view->fotoPerfil = $fotoPerfil->getImagemPerfil();
+        }
+
+        public function locationEvento() {
+            isset($_GET['dXNlcklE']) ? header('Location: /index_evento?dXNlcklE=' . $_GET['dXNlcklE']) : header('Location: /index_evento');
+        }
+
+        public function listarRespGeral() {
+            $responsavelGeral = Container::getModel('ResponsavelGeral');
+            $this->view->responsavel_geral = $responsavelGeral->listarResponsavelGeral();
         }
     }
