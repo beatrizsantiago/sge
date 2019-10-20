@@ -76,14 +76,14 @@
                 <label>Vagas Mínimas</label>
                 <input type="number" name="vagasMinimas" class="input-radius" value="<?= $this->view->atividade['vagasMinimas'] ?>">
                 <?php if(isset($this->view->erroVagasMinimas) && $this->view->erroVagasMinimas != false) { ?>
-                    <small class="text-error"><strong>Informe a quantidade mínima de vagas!</strong></small>
+                    <small class="text-error"><strong>Informe uma quantidade válida de vagas!</strong></small>
                 <?php } ?>
             </div>
             <div class="input-extra-pequeno">
                 <label>Vagas Máximas</label>
                 <input type="number" name="vagasMaximas" class="input-radius" value="<?= $this->view->atividade['vagasMaximas'] ?>">
                 <?php if(isset($this->view->erroVagasMaximas) && $this->view->erroVagasMaximas != false) { ?>
-                    <small class="text-error"><strong>Informe a quantidade máxima de vagas!</strong></small>
+                    <small class="text-error"><strong>Informe uma quantidade válida de vagas!</strong></small>
                 <?php } ?>
             </div>
 

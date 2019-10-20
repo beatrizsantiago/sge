@@ -126,14 +126,14 @@
             $datas->__set('id', base64_decode($_GET['idEvt']));
             $validationDatas = $datas->getDatas();
 
-            if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['data'] < $validationDatas[0]['dataInicio'] || $_POST['data'] > $validationDatas[0]['dataFim'] || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '' || $_FILES['imgPalestrante']['size'] > 835584) {
+            if ($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['vagasMaximas'] < $_POST['vagasMinimas'] || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['data'] < $validationDatas[0]['dataInicio'] || $_POST['data'] > $validationDatas[0]['dataFim'] || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '' || $_FILES['imgPalestrante']['size'] > 835584) {
 
                 $this->view->erroAtividade = true;
 
                 ($_POST['tema'] == '' || strlen($_POST['tema']) < 3) ? $this->view->erroTema = true : null;
                 ($_POST['tipo'] == '') ? $this->view->erroTipo = true : null;
-                ($_POST['vagasMinimas'] == '') ? $this->view->erroVagasMinimas = true : null;
-                ($_POST['vagasMaximas'] == '') ? $this->view->erroVagasMaximas = true : null;
+                ($_POST['vagasMinimas'] == '' ) ? $this->view->erroVagasMinimas = true : null;
+                ($_POST['vagasMaximas'] == '' || $_POST['vagasMaximas'] < $_POST['vagasMinimas']) ? $this->view->erroVagasMaximas = true : null;
                 ($_POST['responsavelAtividade'] == '') ? $this->view->erroResponsavelAtividade = true : null;
                 ($_POST['data'] == '') ? $this->view->erroData = true : null;
                 ($_POST['data'] < $validationDatas[0]['dataInicio']) ? $this->view->erroDataMenor = true : null;
@@ -343,7 +343,7 @@
             $datas->__set('id', base64_decode($_GET['idEvt']));
             $validationDatas = $datas->getDatas();
 
-            if($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['data'] < $validationDatas[0]['dataInicio'] || $_POST['data'] > $validationDatas[0]['dataFim'] || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
+            if($_POST['tema'] == '' || strlen($_POST['tema']) < 3 || $_POST['tipo'] == '' || $_POST['vagasMinimas'] == '' || $_POST['vagasMaximas'] == '' || $_POST['vagasMaximas'] < $_POST['vagasMinimas'] || $_POST['responsavelAtividade'] == '' || $_POST['data'] == '' || $_POST['data'] < $validationDatas[0]['dataInicio'] || $_POST['data'] > $validationDatas[0]['dataFim'] || $_POST['hora'] == '' || $_POST['duracao'] == '' || $_POST['local'] == '' || $_POST['pontosPex'] == '' || $_POST['palestrante'] == '') {
                 isset($_GET['dXNlcklE']) ? AtividadeController::getPerfil('dXNlcklE') : null;
 
                 $this->view->dadosAtividades = $atualizarAtividade->listarDadosAtividade();
