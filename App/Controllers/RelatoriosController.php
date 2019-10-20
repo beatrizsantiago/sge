@@ -166,7 +166,9 @@
                 </head>
                 <body>
                     <h1>'. $dados[0]['tema'] .'</h1>
+                    <h1>'. $dados[0]['pontosPex'] .' PEX</h1>
                     <h1>'. $dados[0]['nome'] .'</h1>
+                    <h1>'. $dados[0]['matricula'] .'</h1>
                 </body>
                 </html>
             ';
@@ -183,6 +185,12 @@
         }
 
         public function imprimirRelatorio() {
+            $dadosAtividade = Container::getModel('Participante');
+            $dadosAtividade->__set('eventoID', base64_decode($_GET['idEvt']));
+            $dadosAtividade->__set('usuarioID', base64_decode($_GET['ui']));
+
+            $dadosRelatorio = $dadosAtividade->relatorioParticipacao();
+
             $dompdf = new Dompdf();
 
             $html = '
@@ -191,9 +199,71 @@
                 <head>
                     <meta charset="UTF-8">
                     <title>Relatório</title>
+                    <style>
+                        .table {
+                            width: 1400px;
+                        }
+                        .head-table {
+                            background-color: #e8e8e8;
+                            text-align: center;
+                            font-family: sans-serif;
+                            font-weight: bold;
+                        }
+
+                        .big-field {
+                            width: 60%;
+                            border-right: solid 1px #bfbfbf;
+                        }
+                        .small-field {
+                            width: 20%;
+                            border-left: solid 1px #bfbfbf;
+                        }
+
+                        h1 {
+                            text-align: center;
+                            font-family: sans-serif;
+                            font-size: 20px;
+                        }
+
+                        td {
+                            border-bottom: solid 1px #bfbfbf;
+                            padding: 10px 4px 5px 4px;
+                            font-size: 16px;
+                        }
+                        
+                    </style>
                 </head>
                 <body>
                     <h1>Relatório</h1>
+                    <table class="table" cellspacing="0px">
+                        <thead class="head-table">
+                            <th class="big-field">Atividade</th>
+                            <th class="small-field">Pontos Pex</th>
+                            <th class="small-field">Presente</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="big-field"></td>
+                                <td class="small-field"></td>
+                                <td class="small-field"></td>
+                            </tr>
+            ';
+
+                            foreach ($dadosRelatorio as $value) {
+                                for ($li = count($dadosRelatorio) - 1; $li < count($dadosRelatorio); $li++) {
+                                    $presente = ($value['presente'] == 0) ? 'Não' : 'Sim';
+                                    $html .= '
+                                    <tr>
+                                        <td class="big-field">' . $value['tipo'] . ' - ' . $value['tema'] . '</td>
+                                        <td class="small-field">' . $value['pontosPex'] . '</td>
+                                        <td class="small-field">' . $presente . '</td>
+                                    </tr>';
+                                }
+                            }
+
+            $html .= '                
+                        </tbody>
+                    </table>
                 </body>
                 </html>
             ';

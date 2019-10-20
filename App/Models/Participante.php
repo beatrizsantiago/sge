@@ -61,9 +61,9 @@
 
         public function relatorioParticipacao() {
             $query = "
-                SELECT DISTINCT a.id, a.tema, a.pontosPex, ia.presente
-                FROM atividade as a, inscricaoatividade as ia
-                WHERE a.id = ia.atividadeID AND a.eventoID = :eventoID AND ia.usuarioID = :usuarioID
+                SELECT a.id, a.tema, ta.tipo, a.pontosPex, ia.presente
+                FROM atividade as a, inscricaoatividade as ia, tipoatividade as ta
+                WHERE a.id = ia.atividadeID AND a.tipoID = ta.id AND a.eventoID = :eventoID AND ia.usuarioID = :usuarioID
             ";
 
             $stmt = $this->db->prepare($query);
@@ -93,7 +93,7 @@
 
         public function certificadoAtividade() {
             $query = "
-                SELECT a.tema, p.nome
+                SELECT a.tema, a.pontosPex, p.nome, p.matricula
                 FROM atividade as a, participante as p
                 WHERE a.id = :atividadeID AND p.usuarioID = :usuarioID
             ";
