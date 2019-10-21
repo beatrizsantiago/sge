@@ -1,5 +1,5 @@
 .lista {
-    width: 90%;
+    width: 75%;
 }
 
 .lista-container {
@@ -28,12 +28,12 @@
 }
 
 .item-medio {
-    width: 45%;
+    width: 50%;
     padding: 0px 10px;
 }
 
 .item-pequeno {
-    width: 30%;
+    width: 38%;
     padding: 0px 10px;
 }
 
@@ -43,5 +43,5 @@
 }
 
 .item-button {
-    width: 10%;
+    width: 12%;
 }

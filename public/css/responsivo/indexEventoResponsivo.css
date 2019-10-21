@@ -1,0 +1,45 @@
+@media (max-width: 380px) {
+    .card-evento {
+        width: 300px;
+        height: 280px;
+    }
+
+    .body-card-evento h1 {
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .body-card-evento div {
+        font-size: 14px;
+        line-height: 15px;
+        text-align: left;
+    }
+
+    .body-card-evento p {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 450px) {
+    .card-evento {
+        width: 380px;
+        height: 260px;
+    }
+
+    .body-card-evento h1 {
+        font-size: 18px;
+        line-height: 18px;
+    }
+
+    .body-card-evento div {
+        font-size: 15px;
+        line-height: 16px;
+        text-align: left;
+    }
+
+    .body-card-evento p {
+        font-size: 14px;
+        margin-top: 5px;
+    }
+}

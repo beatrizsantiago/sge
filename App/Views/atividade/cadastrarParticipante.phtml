@@ -92,7 +92,7 @@
                     <?php } ?>
                 </div>
                 <div class="input-medio">
-                    <label>Senha (no mínimo 6 caracteres)</label>
+                    <label>Senha <small>(no mínimo 6 caracteres)</small></label>
                     <input type="password" name="senha" class="input-radius" value="<?= $this->view->participante['senha'] ?>">
                     <?php if(isset($this->view->erroSenha) && $this->view->erroSenha != false) { ?>
                         <small class="text-error"><strong>Digite uma senha válida!</strong></small>

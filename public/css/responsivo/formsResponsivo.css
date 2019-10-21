@@ -1,0 +1,42 @@
+@media (max-width: 679px) {
+
+    label {
+        margin-top: 16px;
+    }
+
+    .form-register {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .input-quase-grande {
+        width: 99%;
+        display: inline-block;
+    }
+
+    .input-medio {
+        width: 99%;
+        display: inline-block;
+    }
+
+    .input-pequeno {
+        width: 99%;
+        display: inline-block;
+    }
+    
+    .input-extra-pequeno {
+        width: 99%;
+        display: inline-block;
+    }
+}
+
+@media (min-width: 680px) and (max-width: 830px) {
+    label {
+        margin-top: 25px;
+    }
+
+    .form-register {
+        width: 80%;
+        padding: 20px;
+    }
+}

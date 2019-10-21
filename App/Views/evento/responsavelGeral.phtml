@@ -44,24 +44,16 @@
     </section>
 
     <h1 class="title-center">Responsável Geral</h1>
-    <hr>
+    <hr style="width: 70%;">
 
     <section class="lista-container">
-        <div class="lista-header">
-            <div class="item-pequeno">Nome</div>
-            <div class="item-pequeno">E-mail</div>
-            <div class="item-pequeno">Matrícula</div>
-            <div class="item-button"></div>
-        </div>
-
         <div class="lista">
             <?php foreach($this->view->responsavel_geral as $item) {?>
                 <form action="/remover_responsavel_geral" method="post" class="item-lista">
-                    <div class="item-pequeno"><?= $item['nome'] ?></div>
+                    <div class="item-medio"><?= $item['nome'] ?></div>
                     <div class="item-pequeno"><?= $item['login'] ?></div>
-                    <div class="item-pequeno"><?= $item['matricula'] ?></div>
                     <div class="item-button">
-                        <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full">Remover</button>
+                        <button type="submit" value="<?= $item['id'] ?>" name="remover" class="btn-danger-full"><img class="img-button" src="./img/icons/cancel.png" /></button>
                     </div>
                 </form>
             <?php } ?>

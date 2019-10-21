@@ -1,0 +1,29 @@
+@media (max-width: 1000px) {
+    .lista {
+        width: 95%;
+    }
+}
+
+@media (max-width: 800px) {
+    .item-lista {
+        padding: 4px;
+    }
+}
+
+@media (max-width: 800px) {
+    .item-medio {
+        font-size: 14px;
+        padding: 0px 8px;
+    }
+    
+    .item-pequeno {
+        font-size: 14px;
+        padding: 0px 8px;
+    }
+}
+
+/* @media (min-width: 381px) and (max-width: 450px) {
+    .body-card {
+        padding: 10px;
+    }
+} */

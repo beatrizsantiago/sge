@@ -1,0 +1,11 @@
+@media (max-width: 380px) {
+    .body-card {
+        padding: 6px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 450px) {
+    .body-card {
+        padding: 10px;
+    }
+}

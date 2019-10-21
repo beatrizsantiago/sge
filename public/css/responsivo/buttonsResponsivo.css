@@ -1,0 +1,22 @@
+@media (max-width: 380px) {
+    button, .btn-link {
+        padding: 5px 8px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+
+    .img-button {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 450px) {
+    button, .btn-link {
+        padding: 5px 8px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+}

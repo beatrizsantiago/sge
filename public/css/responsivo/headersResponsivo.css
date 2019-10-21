@@ -1,0 +1,23 @@
+@media (max-width: 380px) {
+    .title-center-align {
+        margin: 0px 10px;
+        font-size: 16px;
+        line-height: 23px;
+    }
+
+    .title-center {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 450px) {
+    .title-center-align {
+        margin: 0px 20px;
+        font-size: 20px;
+        line-height: 25px;
+    }
+
+    .title-center {
+        font-size: 22px;
+    }
+}

@@ -1,0 +1,29 @@
+@media (max-width: 380px) {
+    .img-perfil {
+        width: 40px;
+        height: 40px;
+    }
+
+    .bemvindo h1 {
+        font-size: 16px;
+    }
+    
+    .apelido {
+        padding: 0px 8px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 450px) {
+    .img-perfil {
+        width: 46px;
+        height: 46px;
+    }
+    
+    .bemvindo h1 {
+        font-size: 16px;
+    }
+    
+    .apelido {
+        padding: 0px 8px;
+    }
+}
