@@ -25,15 +25,23 @@
                 <h1 class="apelido"><?= ($_SESSION['apelido'] != '') ? $_SESSION['apelido'] : $_SESSION['login'] ?></h1>
             </div>
         </div>
-        <nav class="menu">
-            <a href="/index_evento<?= $url ?>"><img src="./img/icons/eventos.png">Eventos</a>
+        <nav class="menu" role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
 
-            <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
-                <a href="/responsavel_geral"><img src="./img/icons/resp-geral.png">Responsável Geral</a>
-            <?php } ?>
+                <span></span>
+                <span></span>
+                <span></span>
+                
+                <ul id="menu">
+                    <a href="/index_evento<?= $url ?>"><img src="./img/icons/eventos.png">Eventos</a>
 
-            <div class="div-sair">
-                <a href="/sair" class="sair">Sair</a>
+                    <?php if($_SESSION['tipoUsuario'] == 'Administrador') { ?>
+                        <a href="/responsavel_geral"><img src="./img/icons/resp-geral.png">Responsável Geral</a>
+                    <?php } ?>
+
+                    <a href="/sair">Sair</a>
+                </ul>
             </div>
         </nav>
     </aside>
